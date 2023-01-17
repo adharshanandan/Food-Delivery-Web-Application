@@ -1,0 +1,16 @@
+﻿.title {
+    color:black;
+    font: 50px Lucida Sans Unicode;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+.img {
+    width: 250px;
+    height: 750px;
+}
+.padding-0 {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+

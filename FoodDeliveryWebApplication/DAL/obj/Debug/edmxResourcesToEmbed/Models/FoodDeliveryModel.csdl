@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_FoodOrderingApplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_Admin">
+    <Key>
+      <PropertyRef Name="AdmId" />
+    </Key>
+    <Property Name="AdmId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdmEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdmPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_Cart">
+    <Key>
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddedDate" Type="DateTime" Precision="0" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Cart_fk_DishId" Type="Int32" />
+    <Property Name="Cart_fk_CusId" Type="Int32" />
+    <Property Name="Cart_fk_RestId" Type="Int32" />
+    <NavigationProperty Name="tbl_Dishes" Relationship="Self.FK__tbl_Cart__Cart_f__5AEE82B9" FromRole="tbl_Cart" ToRole="tbl_Dishes" />
+    <NavigationProperty Name="tbl_Customer" Relationship="Self.FK__tbl_Cart__Cart_f__5BE2A6F2" FromRole="tbl_Cart" ToRole="tbl_Customer" />
+    <NavigationProperty Name="tbl_Restaurant" Relationship="Self.FK__tbl_Cart__Cart_f__5CD6CB2B" FromRole="tbl_Cart" ToRole="tbl_Restaurant" />
+  </EntityType>
+  <EntityType Name="tbl_Category">
+    <Key>
+      <PropertyRef Name="CatId" />
+    </Key>
+    <Property Name="CatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CatImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CatStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tbl_Dishes" Relationship="Self.FK__tbl_Dishe__Dish___3E52440B" FromRole="tbl_Category" ToRole="tbl_Dishes" />
+  </EntityType>
+  <EntityType Name="tbl_CusReview">
+    <Key>
+      <PropertyRef Name="RevId" />
+    </Key>
+    <Property Name="RevId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Rating" Type="Single" />
+    <Property Name="Rev_fk_CusId" Type="Int32" />
+    <Property Name="Rev_fk_RestId" Type="Int32" />
+    <NavigationProperty Name="tbl_Customer" Relationship="Self.FK__tbl_CusRe__Rev_f__4D94879B" FromRole="tbl_CusReview" ToRole="tbl_Customer" />
+    <NavigationProperty Name="tbl_Restaurant" Relationship="Self.FK__tbl_CusRe__Rev_f__4E88ABD4" FromRole="tbl_CusReview" ToRole="tbl_Restaurant" />
+  </EntityType>
+  <EntityType Name="tbl_Customer">
+    <Key>
+      <PropertyRef Name="CusId" />
+    </Key>
+    <Property Name="CusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CusEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CusPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CusImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CusPincode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CusStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="tbl_Cart" Relationship="Self.FK__tbl_Cart__Cart_f__5BE2A6F2" FromRole="tbl_Customer" ToRole="tbl_Cart" />
+    <NavigationProperty Name="tbl_CusReview" Relationship="Self.FK__tbl_CusRe__Rev_f__4D94879B" FromRole="tbl_Customer" ToRole="tbl_CusReview" />
+    <NavigationProperty Name="tbl_CustomerAddresses" Relationship="Self.FK__tbl_Custo__Addr___398D8EEE" FromRole="tbl_Customer" ToRole="tbl_CustomerAddresses" />
+    <NavigationProperty Name="tbl_PhoneNumbers" Relationship="Self.FK__tbl_Phone__Phn_f__36B12243" FromRole="tbl_Customer" ToRole="tbl_PhoneNumbers" />
+  </EntityType>
+  <EntityType Name="tbl_CustomerAddresses">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddresssName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DoorOrFlatNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="AddressType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_fk_CusId" Type="Int32" />
+    <NavigationProperty Name="tbl_Customer" Relationship="Self.FK__tbl_Custo__Addr___398D8EEE" FromRole="tbl_CustomerAddresses" ToRole="tbl_Customer" />
+  </EntityType>
+  <EntityType Name="tbl_DeliveryStaffs">
+    <Key>
+      <PropertyRef Name="StaffId" />
+    </Key>
+    <Property Name="StaffId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StaffName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StaffPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StaffEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StaffDob" Type="DateTime" Precision="0" />
+    <Property Name="JoinDate" Type="DateTime" Precision="0" />
+    <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VehicleNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VehicleType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DrivingLicense" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdhaarNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StaffAccStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Isfree" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_Dishes">
+    <Key>
+      <PropertyRef Name="DishId" />
+    </Key>
+    <Property Name="DishId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DishName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DishPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="DishImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DishDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="VegOrNonveg" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dish_fk_Offer" Type="Int32" />
+    <Property Name="Dish_fk_Rest" Type="Int32" Nullable="false" />
+    <Property Name="Dish_fk_Cat" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tbl_Cart" Relationship="Self.FK__tbl_Cart__Cart_f__5AEE82B9" FromRole="tbl_Dishes" ToRole="tbl_Cart" />
+    <NavigationProperty Name="tbl_Category" Relationship="Self.FK__tbl_Dishe__Dish___3E52440B" FromRole="tbl_Dishes" ToRole="tbl_Category" />
+    <NavigationProperty Name="tbl_Offers" Relationship="Self.FK__tbl_Dishe__Dish___3C69FB99" FromRole="tbl_Dishes" ToRole="tbl_Offers" />
+    <NavigationProperty Name="tbl_Restaurant" Relationship="Self.FK__tbl_Dishe__Dish___3D5E1FD2" FromRole="tbl_Dishes" ToRole="tbl_Restaurant" />
+  </EntityType>
+  <EntityType Name="tbl_Offers">
+    <Key>
+      <PropertyRef Name="OfferId" />
+    </Key>
+    <Property Name="OfferId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OfferCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OfferPercentage" Type="Int32" Nullable="false" />
+    <Property Name="OfferDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_Dishes" Relationship="Self.FK__tbl_Dishe__Dish___3C69FB99" FromRole="tbl_Offers" ToRole="tbl_Dishes" />
+  </EntityType>
+  <EntityType Name="tbl_PhoneNumbers">
+    <Key>
+      <PropertyRef Name="PhoneId" />
+    </Key>
+    <Property Name="PhoneId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PhoneNumbers" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Phn_fk_CusId" Type="Int32" />
+    <NavigationProperty Name="tbl_Customer" Relationship="Self.FK__tbl_Phone__Phn_f__36B12243" FromRole="tbl_PhoneNumbers" ToRole="tbl_Customer" />
+  </EntityType>
+  <EntityType Name="tbl_Restaurant">
+    <Key>
+      <PropertyRef Name="RestId" />
+    </Key>
+    <Property Name="RestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RestName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestPincode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestState" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="tbl_Cart" Relationship="Self.FK__tbl_Cart__Cart_f__5CD6CB2B" FromRole="tbl_Restaurant" ToRole="tbl_Cart" />
+    <NavigationProperty Name="tbl_CusReview" Relationship="Self.FK__tbl_CusRe__Rev_f__4E88ABD4" FromRole="tbl_Restaurant" ToRole="tbl_CusReview" />
+    <NavigationProperty Name="tbl_Dishes" Relationship="Self.FK__tbl_Dishe__Dish___3D5E1FD2" FromRole="tbl_Restaurant" ToRole="tbl_Dishes" />
+  </EntityType>
+  <Association Name="FK__tbl_Cart__Cart_f__5AEE82B9">
+    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="0..1" />
+    <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Dishes">
+        <PropertyRef Name="DishId" />
+      </Principal>
+      <Dependent Role="tbl_Cart">
+        <PropertyRef Name="Cart_fk_DishId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Cart__Cart_f__5BE2A6F2">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1" />
+    <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_Cart">
+        <PropertyRef Name="Cart_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Cart__Cart_f__5CD6CB2B">
+    <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="0..1" />
+    <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_Cart">
+        <PropertyRef Name="Cart_fk_RestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Dishe__Dish___3E52440B">
+    <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Category">
+        <PropertyRef Name="CatId" />
+      </Principal>
+      <Dependent Role="tbl_Dishes">
+        <PropertyRef Name="Dish_fk_Cat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_CusRe__Rev_f__4D94879B">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_CusReview" Type="Self.tbl_CusReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_CusReview">
+        <PropertyRef Name="Rev_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_CusRe__Rev_f__4E88ABD4">
+    <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_CusReview" Type="Self.tbl_CusReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_CusReview">
+        <PropertyRef Name="Rev_fk_RestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Custo__Addr___398D8EEE">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_CustomerAddresses" Type="Self.tbl_CustomerAddresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_CustomerAddresses">
+        <PropertyRef Name="Addr_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Phone__Phn_f__36B12243">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_PhoneNumbers" Type="Self.tbl_PhoneNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_PhoneNumbers">
+        <PropertyRef Name="Phn_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Dishe__Dish___3C69FB99">
+    <End Role="tbl_Offers" Type="Self.tbl_Offers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Offers">
+        <PropertyRef Name="OfferId" />
+      </Principal>
+      <Dependent Role="tbl_Dishes">
+        <PropertyRef Name="Dish_fk_Offer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Dishe__Dish___3D5E1FD2">
+    <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_Dishes">
+        <PropertyRef Name="Dish_fk_Rest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="db_FoodOrderingApplicationEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" />
+    <EntitySet Name="tbl_Cart" EntityType="Self.tbl_Cart" />
+    <EntitySet Name="tbl_Category" EntityType="Self.tbl_Category" />
+    <EntitySet Name="tbl_CusReview" EntityType="Self.tbl_CusReview" />
+    <EntitySet Name="tbl_Customer" EntityType="Self.tbl_Customer" />
+    <EntitySet Name="tbl_CustomerAddresses" EntityType="Self.tbl_CustomerAddresses" />
+    <EntitySet Name="tbl_DeliveryStaffs" EntityType="Self.tbl_DeliveryStaffs" />
+    <EntitySet Name="tbl_Dishes" EntityType="Self.tbl_Dishes" />
+    <EntitySet Name="tbl_Offers" EntityType="Self.tbl_Offers" />
+    <EntitySet Name="tbl_PhoneNumbers" EntityType="Self.tbl_PhoneNumbers" />
+    <EntitySet Name="tbl_Restaurant" EntityType="Self.tbl_Restaurant" />
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__5AEE82B9" Association="Self.FK__tbl_Cart__Cart_f__5AEE82B9">
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+      <End Role="tbl_Cart" EntitySet="tbl_Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__5BE2A6F2" Association="Self.FK__tbl_Cart__Cart_f__5BE2A6F2">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_Cart" EntitySet="tbl_Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__5CD6CB2B" Association="Self.FK__tbl_Cart__Cart_f__5CD6CB2B">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_Cart" EntitySet="tbl_Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Dishe__Dish___3E52440B" Association="Self.FK__tbl_Dishe__Dish___3E52440B">
+      <End Role="tbl_Category" EntitySet="tbl_Category" />
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_CusRe__Rev_f__4D94879B" Association="Self.FK__tbl_CusRe__Rev_f__4D94879B">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_CusReview" EntitySet="tbl_CusReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_CusRe__Rev_f__4E88ABD4" Association="Self.FK__tbl_CusRe__Rev_f__4E88ABD4">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_CusReview" EntitySet="tbl_CusReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Custo__Addr___398D8EEE" Association="Self.FK__tbl_Custo__Addr___398D8EEE">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_CustomerAddresses" EntitySet="tbl_CustomerAddresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Phone__Phn_f__36B12243" Association="Self.FK__tbl_Phone__Phn_f__36B12243">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_PhoneNumbers" EntitySet="tbl_PhoneNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Dishe__Dish___3C69FB99" Association="Self.FK__tbl_Dishe__Dish___3C69FB99">
+      <End Role="tbl_Offers" EntitySet="tbl_Offers" />
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Dishe__Dish___3D5E1FD2" Association="Self.FK__tbl_Dishe__Dish___3D5E1FD2">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+    </AssociationSet>
+    <EntitySet Name="tbl_ContactUs" EntityType="db_FoodOrderingApplicationModel.tbl_ContactUs" />
+  </EntityContainer>
+  <EntityType Name="tbl_ContactUs">
+    <Key>
+      <PropertyRef Name="ContId" />
+    </Key>
+    <Property Name="ContId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContMsg" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_FoodOrderingApplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_Admin">
+    <Key>
+      <PropertyRef Name="AdmId" />
+    </Key>
+    <Property Name="AdmId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdmEmail" Type="varchar" MaxLength="50" />
+    <Property Name="AdmPassword" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tbl_Cart">
+    <Key>
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AddedDate" Type="date" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Cart_fk_DishId" Type="int" />
+    <Property Name="Cart_fk_CusId" Type="int" />
+    <Property Name="Cart_fk_RestId" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Category">
+    <Key>
+      <PropertyRef Name="CatId" />
+    </Key>
+    <Property Name="CatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CatName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CatImage" Type="varchar(max)" Nullable="false" />
+    <Property Name="CatStatus" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_ContactUs">
+    <Key>
+      <PropertyRef Name="ContId" />
+    </Key>
+    <Property Name="ContId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ContEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ContMsg" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_CusReview">
+    <Key>
+      <PropertyRef Name="RevId" />
+    </Key>
+    <Property Name="RevId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Review" Type="varchar(max)" />
+    <Property Name="Rating" Type="real" />
+    <Property Name="Rev_fk_CusId" Type="int" />
+    <Property Name="Rev_fk_RestId" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Customer">
+    <Key>
+      <PropertyRef Name="CusId" />
+    </Key>
+    <Property Name="CusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CusName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CusEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CusPassword" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CusImage" Type="varchar(max)" />
+    <Property Name="CusPincode" Type="varchar" MaxLength="20" />
+    <Property Name="CusStatus" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbl_CustomerAddresses">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AddresssName" Type="varchar(max)" />
+    <Property Name="DoorOrFlatNo" Type="varchar" MaxLength="10" />
+    <Property Name="AddressType" Type="varchar" MaxLength="20" />
+    <Property Name="Addr_fk_CusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_DeliveryStaffs">
+    <Key>
+      <PropertyRef Name="StaffId" />
+    </Key>
+    <Property Name="StaffId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StaffName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="StaffPhone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="StaffEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StaffDob" Type="date" />
+    <Property Name="JoinDate" Type="date" />
+    <Property Name="Gender" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="VehicleNo" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="VehicleType" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="DrivingLicense" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AdhaarNo" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="StaffAccStatus" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="Isfree" Type="varchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="tbl_Dishes">
+    <Key>
+      <PropertyRef Name="DishId" />
+    </Key>
+    <Property Name="DishId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DishName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DishPrice" Type="money" Nullable="false" />
+    <Property Name="DishImage" Type="varchar(max)" Nullable="false" />
+    <Property Name="DishDesc" Type="varchar(max)" />
+    <Property Name="VegOrNonveg" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Dish_fk_Offer" Type="int" />
+    <Property Name="Dish_fk_Rest" Type="int" Nullable="false" />
+    <Property Name="Dish_fk_Cat" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tbl_FavRestaurants">
+          <Property Name="Fav_fk_CusId" Type="int" />
+          <Property Name="Fav_fk_RestId" Type="int" />
+        </EntityType>-->
+  <EntityType Name="tbl_Offers">
+    <Key>
+      <PropertyRef Name="OfferId" />
+    </Key>
+    <Property Name="OfferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OfferCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="OfferPercentage" Type="int" Nullable="false" />
+    <Property Name="OfferDescription" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_PhoneNumbers">
+    <Key>
+      <PropertyRef Name="PhoneId" />
+    </Key>
+    <Property Name="PhoneId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PhoneNumbers" Type="varchar" MaxLength="20" />
+    <Property Name="Phn_fk_CusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Restaurant">
+    <Key>
+      <PropertyRef Name="RestId" />
+    </Key>
+    <Property Name="RestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RestName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RestPhone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RestEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RestPincode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RestImage" Type="varchar(max)" Nullable="false" />
+    <Property Name="RestCountry" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RestState" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RestDistrict" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RestPassword" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RestStatus" Type="char" MaxLength="1" />
+  </EntityType>
+  <Association Name="FK__tbl_Cart__Cart_f__5AEE82B9">
+    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="0..1" />
+    <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Dishes">
+        <PropertyRef Name="DishId" />
+      </Principal>
+      <Dependent Role="tbl_Cart">
+        <PropertyRef Name="Cart_fk_DishId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Cart__Cart_f__5BE2A6F2">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1" />
+    <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_Cart">
+        <PropertyRef Name="Cart_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Cart__Cart_f__5CD6CB2B">
+    <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="0..1" />
+    <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_Cart">
+        <PropertyRef Name="Cart_fk_RestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_CusRe__Rev_f__4D94879B">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_CusReview" Type="Self.tbl_CusReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_CusReview">
+        <PropertyRef Name="Rev_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_CusRe__Rev_f__4E88ABD4">
+    <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_CusReview" Type="Self.tbl_CusReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_CusReview">
+        <PropertyRef Name="Rev_fk_RestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Custo__Addr___398D8EEE">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_CustomerAddresses" Type="Self.tbl_CustomerAddresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_CustomerAddresses">
+        <PropertyRef Name="Addr_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Dishe__Dish___3C69FB99">
+    <End Role="tbl_Offers" Type="Self.tbl_Offers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Offers">
+        <PropertyRef Name="OfferId" />
+      </Principal>
+      <Dependent Role="tbl_Dishes">
+        <PropertyRef Name="Dish_fk_Offer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Dishe__Dish___3D5E1FD2">
+    <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_Dishes">
+        <PropertyRef Name="Dish_fk_Rest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Dishe__Dish___3E52440B">
+    <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Category">
+        <PropertyRef Name="CatId" />
+      </Principal>
+      <Dependent Role="tbl_Dishes">
+        <PropertyRef Name="Dish_fk_Cat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+error 6004: The table 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__tbl_FavRe__Fav_f__44FF419A" />-->
+  <!--Errors Found During Generation:
+error 6004: The table 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__tbl_FavRe__Fav_f__45F365D3" />-->
+  <Association Name="FK__tbl_Phone__Phn_f__36B12243">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_PhoneNumbers" Type="Self.tbl_PhoneNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_PhoneNumbers">
+        <PropertyRef Name="Phn_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="db_FoodOrderingApplicationModelStoreContainer">
+    <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Cart" EntityType="Self.tbl_Cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Category" EntityType="Self.tbl_Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ContactUs" EntityType="Self.tbl_ContactUs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CusReview" EntityType="Self.tbl_CusReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Customer" EntityType="Self.tbl_Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CustomerAddresses" EntityType="Self.tbl_CustomerAddresses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_DeliveryStaffs" EntityType="Self.tbl_DeliveryStaffs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Dishes" EntityType="Self.tbl_Dishes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Offers" EntityType="Self.tbl_Offers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_PhoneNumbers" EntityType="Self.tbl_PhoneNumbers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Restaurant" EntityType="Self.tbl_Restaurant" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__5AEE82B9" Association="Self.FK__tbl_Cart__Cart_f__5AEE82B9">
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+      <End Role="tbl_Cart" EntitySet="tbl_Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__5BE2A6F2" Association="Self.FK__tbl_Cart__Cart_f__5BE2A6F2">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_Cart" EntitySet="tbl_Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__5CD6CB2B" Association="Self.FK__tbl_Cart__Cart_f__5CD6CB2B">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_Cart" EntitySet="tbl_Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_CusRe__Rev_f__4D94879B" Association="Self.FK__tbl_CusRe__Rev_f__4D94879B">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_CusReview" EntitySet="tbl_CusReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_CusRe__Rev_f__4E88ABD4" Association="Self.FK__tbl_CusRe__Rev_f__4E88ABD4">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_CusReview" EntitySet="tbl_CusReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Custo__Addr___398D8EEE" Association="Self.FK__tbl_Custo__Addr___398D8EEE">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_CustomerAddresses" EntitySet="tbl_CustomerAddresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Dishe__Dish___3C69FB99" Association="Self.FK__tbl_Dishe__Dish___3C69FB99">
+      <End Role="tbl_Offers" EntitySet="tbl_Offers" />
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Dishe__Dish___3D5E1FD2" Association="Self.FK__tbl_Dishe__Dish___3D5E1FD2">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Dishe__Dish___3E52440B" Association="Self.FK__tbl_Dishe__Dish___3E52440B">
+      <End Role="tbl_Category" EntitySet="tbl_Category" />
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Phone__Phn_f__36B12243" Association="Self.FK__tbl_Phone__Phn_f__36B12243">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_PhoneNumbers" EntitySet="tbl_PhoneNumbers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

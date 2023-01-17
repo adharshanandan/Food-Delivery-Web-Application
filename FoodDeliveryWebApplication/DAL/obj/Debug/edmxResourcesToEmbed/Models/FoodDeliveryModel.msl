@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="db_FoodOrderingApplicationModelStoreContainer" CdmEntityContainer="db_FoodOrderingApplicationEntities">
+    <EntitySetMapping Name="tbl_Admin">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Admin">
+        <MappingFragment StoreEntitySet="tbl_Admin">
+          <ScalarProperty Name="AdmId" ColumnName="AdmId" />
+          <ScalarProperty Name="AdmEmail" ColumnName="AdmEmail" />
+          <ScalarProperty Name="AdmPassword" ColumnName="AdmPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Cart">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Cart">
+        <MappingFragment StoreEntitySet="tbl_Cart">
+          <ScalarProperty Name="CartId" ColumnName="CartId" />
+          <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Cart_fk_DishId" ColumnName="Cart_fk_DishId" />
+          <ScalarProperty Name="Cart_fk_CusId" ColumnName="Cart_fk_CusId" />
+          <ScalarProperty Name="Cart_fk_RestId" ColumnName="Cart_fk_RestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Category">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Category">
+        <MappingFragment StoreEntitySet="tbl_Category">
+          <ScalarProperty Name="CatId" ColumnName="CatId" />
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+          <ScalarProperty Name="CatImage" ColumnName="CatImage" />
+          <ScalarProperty Name="CatStatus" ColumnName="CatStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_CusReview">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_CusReview">
+        <MappingFragment StoreEntitySet="tbl_CusReview">
+          <ScalarProperty Name="RevId" ColumnName="RevId" />
+          <ScalarProperty Name="Review" ColumnName="Review" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Rev_fk_CusId" ColumnName="Rev_fk_CusId" />
+          <ScalarProperty Name="Rev_fk_RestId" ColumnName="Rev_fk_RestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Customer">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Customer">
+        <MappingFragment StoreEntitySet="tbl_Customer">
+          <ScalarProperty Name="CusId" ColumnName="CusId" />
+          <ScalarProperty Name="CusName" ColumnName="CusName" />
+          <ScalarProperty Name="CusEmail" ColumnName="CusEmail" />
+          <ScalarProperty Name="CusPassword" ColumnName="CusPassword" />
+          <ScalarProperty Name="CusImage" ColumnName="CusImage" />
+          <ScalarProperty Name="CusPincode" ColumnName="CusPincode" />
+          <ScalarProperty Name="CusStatus" ColumnName="CusStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_CustomerAddresses">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_CustomerAddresses">
+        <MappingFragment StoreEntitySet="tbl_CustomerAddresses">
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+          <ScalarProperty Name="AddresssName" ColumnName="AddresssName" />
+          <ScalarProperty Name="DoorOrFlatNo" ColumnName="DoorOrFlatNo" />
+          <ScalarProperty Name="AddressType" ColumnName="AddressType" />
+          <ScalarProperty Name="Addr_fk_CusId" ColumnName="Addr_fk_CusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_DeliveryStaffs">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_DeliveryStaffs">
+        <MappingFragment StoreEntitySet="tbl_DeliveryStaffs">
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+          <ScalarProperty Name="StaffPhone" ColumnName="StaffPhone" />
+          <ScalarProperty Name="StaffEmail" ColumnName="StaffEmail" />
+          <ScalarProperty Name="StaffDob" ColumnName="StaffDob" />
+          <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="VehicleNo" ColumnName="VehicleNo" />
+          <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+          <ScalarProperty Name="DrivingLicense" ColumnName="DrivingLicense" />
+          <ScalarProperty Name="AdhaarNo" ColumnName="AdhaarNo" />
+          <ScalarProperty Name="StaffAccStatus" ColumnName="StaffAccStatus" />
+          <ScalarProperty Name="Isfree" ColumnName="Isfree" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Dishes">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Dishes">
+        <MappingFragment StoreEntitySet="tbl_Dishes">
+          <ScalarProperty Name="DishId" ColumnName="DishId" />
+          <ScalarProperty Name="DishName" ColumnName="DishName" />
+          <ScalarProperty Name="DishPrice" ColumnName="DishPrice" />
+          <ScalarProperty Name="DishImage" ColumnName="DishImage" />
+          <ScalarProperty Name="DishDesc" ColumnName="DishDesc" />
+          <ScalarProperty Name="VegOrNonveg" ColumnName="VegOrNonveg" />
+          <ScalarProperty Name="Dish_fk_Offer" ColumnName="Dish_fk_Offer" />
+          <ScalarProperty Name="Dish_fk_Rest" ColumnName="Dish_fk_Rest" />
+          <ScalarProperty Name="Dish_fk_Cat" ColumnName="Dish_fk_Cat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Offers">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Offers">
+        <MappingFragment StoreEntitySet="tbl_Offers">
+          <ScalarProperty Name="OfferId" ColumnName="OfferId" />
+          <ScalarProperty Name="OfferCode" ColumnName="OfferCode" />
+          <ScalarProperty Name="OfferPercentage" ColumnName="OfferPercentage" />
+          <ScalarProperty Name="OfferDescription" ColumnName="OfferDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_PhoneNumbers">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_PhoneNumbers">
+        <MappingFragment StoreEntitySet="tbl_PhoneNumbers">
+          <ScalarProperty Name="PhoneId" ColumnName="PhoneId" />
+          <ScalarProperty Name="PhoneNumbers" ColumnName="PhoneNumbers" />
+          <ScalarProperty Name="Phn_fk_CusId" ColumnName="Phn_fk_CusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Restaurant">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Restaurant">
+        <MappingFragment StoreEntitySet="tbl_Restaurant">
+          <ScalarProperty Name="RestId" ColumnName="RestId" />
+          <ScalarProperty Name="RestName" ColumnName="RestName" />
+          <ScalarProperty Name="RestPhone" ColumnName="RestPhone" />
+          <ScalarProperty Name="RestEmail" ColumnName="RestEmail" />
+          <ScalarProperty Name="RestPincode" ColumnName="RestPincode" />
+          <ScalarProperty Name="RestImage" ColumnName="RestImage" />
+          <ScalarProperty Name="RestCountry" ColumnName="RestCountry" />
+          <ScalarProperty Name="RestState" ColumnName="RestState" />
+          <ScalarProperty Name="RestDistrict" ColumnName="RestDistrict" />
+          <ScalarProperty Name="RestPassword" ColumnName="RestPassword" />
+          <ScalarProperty Name="RestStatus" ColumnName="RestStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ContactUs">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_ContactUs">
+        <MappingFragment StoreEntitySet="tbl_ContactUs">
+          <ScalarProperty Name="ContMsg" ColumnName="ContMsg" />
+          <ScalarProperty Name="ContEmail" ColumnName="ContEmail" />
+          <ScalarProperty Name="ContName" ColumnName="ContName" />
+          <ScalarProperty Name="ContId" ColumnName="ContId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

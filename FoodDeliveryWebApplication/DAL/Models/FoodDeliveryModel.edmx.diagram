@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4ea5b70628ce4a5d96ebcee720d0555d" Name="Diagram1">
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Admin" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Cart" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Category" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_CusReview" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Customer" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_CustomerAddresses" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_DeliveryStaffs" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Dishes" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Offers" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_PhoneNumbers" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Restaurant" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Cart__Cart_f__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Cart__Cart_f__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Cart__Cart_f__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_CusRe__Rev_f__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_CusRe__Rev_f__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Custo__Addr___398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Phone__Phn_f__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3D5E1FD2" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_ContactUs" Width="1.5" PointX="3.375" PointY="8.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
