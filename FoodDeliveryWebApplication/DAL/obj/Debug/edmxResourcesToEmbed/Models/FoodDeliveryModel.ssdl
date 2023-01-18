@@ -58,6 +58,7 @@
     <Property Name="CusImage" Type="varchar(max)" />
     <Property Name="CusPincode" Type="varchar" MaxLength="20" />
     <Property Name="CusStatus" Type="char" MaxLength="1" />
+    <Property Name="CusRole" Type="int" />
   </EntityType>
   <EntityType Name="tbl_CustomerAddresses">
     <Key>
@@ -101,12 +102,23 @@
     <Property Name="Dish_fk_Rest" Type="int" Nullable="false" />
     <Property Name="Dish_fk_Cat" Type="int" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="tbl_FavRestaurants">
-          <Property Name="Fav_fk_CusId" Type="int" />
-          <Property Name="Fav_fk_RestId" Type="int" />
-        </EntityType>-->
+  <EntityType Name="tbl_FavRestaurants">
+    <Key>
+      <PropertyRef Name="FavId" />
+    </Key>
+    <Property Name="FavId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fav_fk_CusId" Type="int" />
+    <Property Name="Fav_fk_RestId" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Login">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="50" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="20" />
+    <Property Name="UserRole" Type="int" />
+  </EntityType>
   <EntityType Name="tbl_Offers">
     <Key>
       <PropertyRef Name="OfferId" />
@@ -140,7 +152,14 @@ warning 6013: The table/view 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants'
     <Property Name="RestPassword" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="RestStatus" Type="char" MaxLength="1" />
   </EntityType>
-  <Association Name="FK__tbl_Cart__Cart_f__5AEE82B9">
+  <EntityType Name="tbl_Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RollName" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__tbl_Cart__Cart_f__66603565">
     <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="0..1" />
     <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
     <ReferentialConstraint>
@@ -152,7 +171,7 @@ warning 6013: The table/view 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants'
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbl_Cart__Cart_f__5BE2A6F2">
+  <Association Name="FK__tbl_Cart__Cart_f__6754599E">
     <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1" />
     <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
     <ReferentialConstraint>
@@ -164,7 +183,7 @@ warning 6013: The table/view 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants'
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbl_Cart__Cart_f__5CD6CB2B">
+  <Association Name="FK__tbl_Cart__Cart_f__68487DD7">
     <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="0..1" />
     <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
     <ReferentialConstraint>
@@ -218,6 +237,20 @@ warning 6013: The table/view 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants'
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__tbl_Custo__CusRo__693CA210">
+    <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="tbl_Customer">
+        <PropertyRef Name="CusRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__tbl_Dishe__Dish___3C69FB99">
     <End Role="tbl_Offers" Type="Self.tbl_Offers" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -260,12 +293,48 @@ warning 6013: The table/view 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants'
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <!--Errors Found During Generation:
-error 6004: The table 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' is referenced by a relationship, but cannot be found.
-        <Association Name="FK__tbl_FavRe__Fav_f__44FF419A" />-->
-  <!--Errors Found During Generation:
-error 6004: The table 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' is referenced by a relationship, but cannot be found.
-        <Association Name="FK__tbl_FavRe__Fav_f__45F365D3" />-->
+  <Association Name="FK__tbl_FavRe__Fav_f__6FE99F9F">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_FavRestaurants" Type="Self.tbl_FavRestaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_FavRestaurants">
+        <PropertyRef Name="Fav_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_FavRe__Fav_f__70DDC3D8">
+    <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_FavRestaurants" Type="Self.tbl_FavRestaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_FavRestaurants">
+        <PropertyRef Name="Fav_fk_RestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Login__UserR__6D0D32F4">
+    <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Login" Type="Self.tbl_Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="tbl_Login">
+        <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__tbl_Phone__Phn_f__36B12243">
     <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -290,18 +359,21 @@ error 6004: The table 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' is ref
     <EntitySet Name="tbl_CustomerAddresses" EntityType="Self.tbl_CustomerAddresses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_DeliveryStaffs" EntityType="Self.tbl_DeliveryStaffs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Dishes" EntityType="Self.tbl_Dishes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_FavRestaurants" EntityType="Self.tbl_FavRestaurants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Login" EntityType="Self.tbl_Login" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Offers" EntityType="Self.tbl_Offers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_PhoneNumbers" EntityType="Self.tbl_PhoneNumbers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Restaurant" EntityType="Self.tbl_Restaurant" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__tbl_Cart__Cart_f__5AEE82B9" Association="Self.FK__tbl_Cart__Cart_f__5AEE82B9">
+    <EntitySet Name="tbl_Role" EntityType="Self.tbl_Role" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__66603565" Association="Self.FK__tbl_Cart__Cart_f__66603565">
       <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
       <End Role="tbl_Cart" EntitySet="tbl_Cart" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbl_Cart__Cart_f__5BE2A6F2" Association="Self.FK__tbl_Cart__Cart_f__5BE2A6F2">
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__6754599E" Association="Self.FK__tbl_Cart__Cart_f__6754599E">
       <End Role="tbl_Customer" EntitySet="tbl_Customer" />
       <End Role="tbl_Cart" EntitySet="tbl_Cart" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbl_Cart__Cart_f__5CD6CB2B" Association="Self.FK__tbl_Cart__Cart_f__5CD6CB2B">
+    <AssociationSet Name="FK__tbl_Cart__Cart_f__68487DD7" Association="Self.FK__tbl_Cart__Cart_f__68487DD7">
       <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
       <End Role="tbl_Cart" EntitySet="tbl_Cart" />
     </AssociationSet>
@@ -317,6 +389,10 @@ error 6004: The table 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' is ref
       <End Role="tbl_Customer" EntitySet="tbl_Customer" />
       <End Role="tbl_CustomerAddresses" EntitySet="tbl_CustomerAddresses" />
     </AssociationSet>
+    <AssociationSet Name="FK__tbl_Custo__CusRo__693CA210" Association="Self.FK__tbl_Custo__CusRo__693CA210">
+      <End Role="tbl_Role" EntitySet="tbl_Role" />
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+    </AssociationSet>
     <AssociationSet Name="FK__tbl_Dishe__Dish___3C69FB99" Association="Self.FK__tbl_Dishe__Dish___3C69FB99">
       <End Role="tbl_Offers" EntitySet="tbl_Offers" />
       <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
@@ -328,6 +404,18 @@ error 6004: The table 'db_FoodOrderingApplication.dbo.tbl_FavRestaurants' is ref
     <AssociationSet Name="FK__tbl_Dishe__Dish___3E52440B" Association="Self.FK__tbl_Dishe__Dish___3E52440B">
       <End Role="tbl_Category" EntitySet="tbl_Category" />
       <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_FavRe__Fav_f__6FE99F9F" Association="Self.FK__tbl_FavRe__Fav_f__6FE99F9F">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_FavRestaurants" EntitySet="tbl_FavRestaurants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_FavRe__Fav_f__70DDC3D8" Association="Self.FK__tbl_FavRe__Fav_f__70DDC3D8">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_FavRestaurants" EntitySet="tbl_FavRestaurants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Login__UserR__6D0D32F4" Association="Self.FK__tbl_Login__UserR__6D0D32F4">
+      <End Role="tbl_Role" EntitySet="tbl_Role" />
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
     </AssociationSet>
     <AssociationSet Name="FK__tbl_Phone__Phn_f__36B12243" Association="Self.FK__tbl_Phone__Phn_f__36B12243">
       <End Role="tbl_Customer" EntitySet="tbl_Customer" />

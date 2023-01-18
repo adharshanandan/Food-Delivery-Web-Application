@@ -37,5 +37,8 @@ namespace DAL.Models
         public virtual DbSet<tbl_PhoneNumbers> tbl_PhoneNumbers { get; set; }
         public virtual DbSet<tbl_Restaurant> tbl_Restaurant { get; set; }
         public virtual DbSet<tbl_ContactUs> tbl_ContactUs { get; set; }
+        public virtual DbSet<tbl_Login> tbl_Login { get; set; }
+        public virtual DbSet<tbl_Role> tbl_Role { get; set; }
+        public virtual DbSet<tbl_FavRestaurants> tbl_FavRestaurants { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace DAL.Models
             this.tbl_CusReview = new HashSet<tbl_CusReview>();
             this.tbl_CustomerAddresses = new HashSet<tbl_CustomerAddresses>();
             this.tbl_PhoneNumbers = new HashSet<tbl_PhoneNumbers>();
+            this.tbl_FavRestaurants = new HashSet<tbl_FavRestaurants>();
         }
     
         public int CusId { get; set; }
@@ -30,6 +31,7 @@ namespace DAL.Models
         public string CusImage { get; set; }
         public string CusPincode { get; set; }
         public string CusStatus { get; set; }
+        public Nullable<int> CusRole { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Cart> tbl_Cart { get; set; }
@@ -39,5 +41,8 @@ namespace DAL.Models
         public virtual ICollection<tbl_CustomerAddresses> tbl_CustomerAddresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PhoneNumbers> tbl_PhoneNumbers { get; set; }
+        public virtual tbl_Role tbl_Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_FavRestaurants> tbl_FavRestaurants { get; set; }
     }
 }

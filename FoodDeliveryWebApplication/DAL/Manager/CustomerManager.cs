@@ -16,8 +16,12 @@ namespace DAL.Manager
         }
         public string InsertCustomer(tbl_Customer insObj)
         {
-            tbl_Customer isExist = db.tbl_Customer.Where(e => e.CusEmail == insObj.CusEmail).SingleOrDefault();
-            if (isExist == null)
+            tbl_Login isEmailExist = db.tbl_Login.Where(e => e.UserId == insObj.CusEmail && e.UserRole == insObj.CusRole).SingleOrDefault();
+            if (isEmailExist != null)
+            {
+                return "Exist";
+            }
+            else
             {
                 db.tbl_Customer.Add(insObj);
                 int result = db.SaveChanges();
@@ -29,10 +33,7 @@ namespace DAL.Manager
                 {
                     return "Failed";
                 }
-            }
-            else
-            {
-                return "Exist";
+
             }
 
         }

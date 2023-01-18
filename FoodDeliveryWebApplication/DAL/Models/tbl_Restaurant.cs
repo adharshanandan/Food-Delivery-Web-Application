@@ -20,6 +20,7 @@ namespace DAL.Models
             this.tbl_Cart = new HashSet<tbl_Cart>();
             this.tbl_CusReview = new HashSet<tbl_CusReview>();
             this.tbl_Dishes = new HashSet<tbl_Dishes>();
+            this.tbl_FavRestaurants = new HashSet<tbl_FavRestaurants>();
         }
     
         public int RestId { get; set; }
@@ -40,5 +41,7 @@ namespace DAL.Models
         public virtual ICollection<tbl_CusReview> tbl_CusReview { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Dishes> tbl_Dishes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_FavRestaurants> tbl_FavRestaurants { get; set; }
     }
 }

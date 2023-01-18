@@ -46,6 +46,7 @@
     <EntitySetMapping Name="tbl_Customer">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Customer">
         <MappingFragment StoreEntitySet="tbl_Customer">
+          <ScalarProperty Name="CusRole" ColumnName="CusRole" />
           <ScalarProperty Name="CusId" ColumnName="CusId" />
           <ScalarProperty Name="CusName" ColumnName="CusName" />
           <ScalarProperty Name="CusEmail" ColumnName="CusEmail" />
@@ -144,6 +145,33 @@
           <ScalarProperty Name="ContEmail" ColumnName="ContEmail" />
           <ScalarProperty Name="ContName" ColumnName="ContName" />
           <ScalarProperty Name="ContId" ColumnName="ContId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Login">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Login">
+        <MappingFragment StoreEntitySet="tbl_Login">
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Role">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Role">
+        <MappingFragment StoreEntitySet="tbl_Role">
+          <ScalarProperty Name="RollName" ColumnName="RollName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_FavRestaurants">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_FavRestaurants">
+        <MappingFragment StoreEntitySet="tbl_FavRestaurants">
+          <ScalarProperty Name="Fav_fk_RestId" ColumnName="Fav_fk_RestId" />
+          <ScalarProperty Name="Fav_fk_CusId" ColumnName="Fav_fk_CusId" />
+          <ScalarProperty Name="FavId" ColumnName="FavId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

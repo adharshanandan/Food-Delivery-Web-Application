@@ -191,9 +191,14 @@
     <Content Include="Content\js\bootstrap.esm.min.js" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\JavaScript.js" />
     <Content Include="Content\Logos\AppLogo.png" />
     <Content Include="Content\Logos\AppName.png" />
     <Content Include="Content\NavbarStyle.css" />
+    <Content Include="Content\Registration images\Customer.jpg" />
+    <Content Include="Content\Registration images\Delivery boy.jpg" />
+    <Content Include="Content\Registration images\Photographer.jpg" />
+    <Content Include="Content\Registration images\Restaurant.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -223,6 +228,7 @@
     <Content Include="Content\js\bootstrap.js.map" />
     <Content Include="Content\js\bootstrap.min.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\CreatedScripts\ButtonClear.js" />
     <Content Include="Scripts\fontawesome\all.js" />
     <Content Include="Scripts\fontawesome\all.min.js" />
     <Content Include="Scripts\fontawesome\brands.js" />
@@ -265,9 +271,11 @@
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\Customer\Create.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\RegistrationPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\CustomerProfilePictures\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "RegistrationPage";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<section style="padding-top: 10em" class="text-center bg-light">
+    <div class="container">
+
+
+        <h2 class="mt-5 text-center">Registration</h2>
+        <div class="mt-5 row">
+            <div class="col-md-3 mb-3 col-12">
+                <div class="card shadow" style="width: 18rem;">
+                    <img src="~/Content/Registration images/Customer.jpg" style="height:250px;width:auto" class="card-img-top" alt="...">
+                    <div class="card-body text-center">                    
+                        
+                        <input type="button" class="btn btn-primary" value="Customer Registration"  onclick="location.href='@Url.Action("CustomerRegistration", "Home")'" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 mb-3 col-12">
+                <div class="card shadow" style="width: 18rem;">
+                    <img src="~/Content/Registration images/Restaurant.jpg" style="height: 250px; width: auto" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                       
+                        <input type="button" class="btn btn-primary" value="Restaurant Registration" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 mb-3 col-12">
+                <div class="card shadow" style="width: 18rem;">
+                    <img src="~/Content/Registration images/Delivery boy.jpg" style="height: 250px; width: auto" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                      
+                        <input type="button" class="btn btn-primary" value="Delivery boy Registration" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 mb-3 col-12">
+                <div class="card shadow" style="width: 18rem;">
+                    <img src="~/Content/Registration images/Photographer.jpg" style="height: 250px; width: auto" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        
+                        <input type="button" class="btn btn-primary" value="Photographer Registration" />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+

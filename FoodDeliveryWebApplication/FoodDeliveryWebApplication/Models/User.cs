@@ -19,6 +19,7 @@ namespace FoodDeliveryWebApplication.Models
         public string Image { get; set; }
         [Required]
         [DisplayName("Profile picture")]
+        [ValidateFileAttribute]
         public HttpPostedFileBase ImgUrl { get; set; }
         public string Status { get; set; } = "A";
         [Required]
@@ -39,7 +40,7 @@ namespace FoodDeliveryWebApplication.Models
                 }
                 else if (!allowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
                 {
-                    ErrorMessage = "Please upload your photos of the mentioned types";
+                    ErrorMessage = "Image extension should be .jpg, .jpeg or .png";
                     return false;
                 }
                 else if (file.ContentLength > maxContentLength)

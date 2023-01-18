@@ -125,9 +125,11 @@ drop table tbl_DeliveryStaffs
 ------------------ Favorite Restaurant Table-----------
 
 create table tbl_FavRestaurants(
+FavId int primary key identity(1,1),
 Fav_fk_CusId int references tbl_Customer(CusId) on update cascade on delete cascade,
 Fav_fk_RestId int references tbl_Restaurant(RestId) on update cascade on delete cascade
 )
+drop table tbl_FavRestaurants
 
 
 -----------------Customer Review Table---------------
@@ -152,6 +154,7 @@ Cart_fk_DishId int references tbl_Dishes(DishId),
 Cart_fk_CusId int references tbl_Customer(CusId),
 Cart_fk_RestId int references tbl_Restaurant(RestId)
 )
+drop table tbl_Cart
 
 ---------------Contact us table---------------
 
@@ -162,4 +165,34 @@ ContEmail varchar(50) not null,
 ContMsg varchar(max) not null
 )
 
+----------------- Login table----------
+create table tbl_Login(
+LoginId int primary key identity(1,1),
+UserId varchar(50) unique,
+UserPassword varchar(20),
+UserRole int references tbl_Role(RoleId) on update cascade on delete cascade
+)
+drop table  tbl_Login
 
+-----------------Role table----------
+create table tbl_Role(
+RoleId int primary key identity(1,1),
+RollName varchar(20)
+)
+
+select * from tbl_Login
+select * from tbl_Customer
+alter table  tbl_customer add CusRole int references tbl_Role(RoleId) on update cascade on delete cascade
+
+
+--------------triggers----------------
+
+create trigger tr_insertcredentials on tbl_Customer for insert
+as
+begin
+declare @UserId as varchar(50),@UserPassword as varchar(30),@UserRole as int
+select @userid=(select CusEmail from inserted)
+select @UserPassword=(select CusPassword from inserted)
+select @UserRole=(select CusRole from inserted)
+insert into tbl_Login (UserId,UserPassword,UserRole) values (@userid,@UserPassword,@UserRole)
+end

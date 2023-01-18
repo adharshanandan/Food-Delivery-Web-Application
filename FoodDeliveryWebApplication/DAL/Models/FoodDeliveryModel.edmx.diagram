@@ -27,6 +27,13 @@
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3C69FB99" ManuallyRouted="false" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3D5E1FD2" ManuallyRouted="false" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_ContactUs" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Login" Width="1.5" PointX="3" PointY="17.75" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Role" Width="1.5" PointX="0.75" PointY="13.875" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Custo__CusRo__693CA210" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Login__UserR__6D0D32F4" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_FavRestaurants" Width="1.5" PointX="6" PointY="9.625" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__6FE99F9F" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__70DDC3D8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

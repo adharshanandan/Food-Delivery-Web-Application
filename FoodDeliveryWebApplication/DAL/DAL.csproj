@@ -94,6 +94,12 @@
     <Compile Include="Models\tbl_Dishes.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_FavRestaurants.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Login.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_Offers.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
@@ -101,6 +107,9 @@
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Restaurant.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Role.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

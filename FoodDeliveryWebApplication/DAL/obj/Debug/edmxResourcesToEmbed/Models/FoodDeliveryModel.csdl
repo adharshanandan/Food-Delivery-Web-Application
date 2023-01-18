@@ -59,6 +59,9 @@
     <NavigationProperty Name="tbl_CusReview" Relationship="Self.FK__tbl_CusRe__Rev_f__4D94879B" FromRole="tbl_Customer" ToRole="tbl_CusReview" />
     <NavigationProperty Name="tbl_CustomerAddresses" Relationship="Self.FK__tbl_Custo__Addr___398D8EEE" FromRole="tbl_Customer" ToRole="tbl_CustomerAddresses" />
     <NavigationProperty Name="tbl_PhoneNumbers" Relationship="Self.FK__tbl_Phone__Phn_f__36B12243" FromRole="tbl_Customer" ToRole="tbl_PhoneNumbers" />
+    <Property Name="CusRole" Type="Int32" />
+    <NavigationProperty Name="tbl_Role" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Custo__CusRo__693CA210" FromRole="tbl_Customer" ToRole="tbl_Role" />
+    <NavigationProperty Name="tbl_FavRestaurants" Relationship="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__6FE99F9F" FromRole="tbl_Customer" ToRole="tbl_FavRestaurants" />
   </EntityType>
   <EntityType Name="tbl_CustomerAddresses">
     <Key>
@@ -144,6 +147,7 @@
     <NavigationProperty Name="tbl_Cart" Relationship="Self.FK__tbl_Cart__Cart_f__5CD6CB2B" FromRole="tbl_Restaurant" ToRole="tbl_Cart" />
     <NavigationProperty Name="tbl_CusReview" Relationship="Self.FK__tbl_CusRe__Rev_f__4E88ABD4" FromRole="tbl_Restaurant" ToRole="tbl_CusReview" />
     <NavigationProperty Name="tbl_Dishes" Relationship="Self.FK__tbl_Dishe__Dish___3D5E1FD2" FromRole="tbl_Restaurant" ToRole="tbl_Dishes" />
+    <NavigationProperty Name="tbl_FavRestaurants" Relationship="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__70DDC3D8" FromRole="tbl_Restaurant" ToRole="tbl_FavRestaurants" />
   </EntityType>
   <Association Name="FK__tbl_Cart__Cart_f__5AEE82B9">
     <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="0..1" />
@@ -332,6 +336,25 @@
       <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
     </AssociationSet>
     <EntitySet Name="tbl_ContactUs" EntityType="db_FoodOrderingApplicationModel.tbl_ContactUs" />
+    <EntitySet Name="tbl_Login" EntityType="db_FoodOrderingApplicationModel.tbl_Login" />
+    <EntitySet Name="tbl_Role" EntityType="db_FoodOrderingApplicationModel.tbl_Role" />
+    <AssociationSet Name="FK__tbl_Custo__CusRo__693CA210" Association="db_FoodOrderingApplicationModel.FK__tbl_Custo__CusRo__693CA210">
+      <End Role="tbl_Role" EntitySet="tbl_Role" />
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Login__UserR__6D0D32F4" Association="db_FoodOrderingApplicationModel.FK__tbl_Login__UserR__6D0D32F4">
+      <End Role="tbl_Role" EntitySet="tbl_Role" />
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+    </AssociationSet>
+    <EntitySet Name="tbl_FavRestaurants" EntityType="db_FoodOrderingApplicationModel.tbl_FavRestaurants" />
+    <AssociationSet Name="FK__tbl_FavRe__Fav_f__6FE99F9F" Association="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__6FE99F9F">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_FavRestaurants" EntitySet="tbl_FavRestaurants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_FavRe__Fav_f__70DDC3D8" Association="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__70DDC3D8">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_FavRestaurants" EntitySet="tbl_FavRestaurants" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="tbl_ContactUs">
     <Key>
@@ -342,4 +365,89 @@
     <Property Name="ContEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ContMsg" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="tbl_Login">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserRole" Type="Int32" />
+    <NavigationProperty Name="tbl_Role" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Login__UserR__6D0D32F4" FromRole="tbl_Login" ToRole="tbl_Role" />
+  </EntityType>
+  <EntityType Name="tbl_Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RollName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_Customer" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Custo__CusRo__693CA210" FromRole="tbl_Role" ToRole="tbl_Customer" />
+    <NavigationProperty Name="tbl_Login" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Login__UserR__6D0D32F4" FromRole="tbl_Role" ToRole="tbl_Login" />
+  </EntityType>
+  <Association Name="FK__tbl_Custo__CusRo__693CA210">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Role" Role="tbl_Role" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_Customer" Role="tbl_Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="tbl_Customer">
+        <PropertyRef Name="CusRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Login__UserR__6D0D32F4">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Role" Role="tbl_Role" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_Login" Role="tbl_Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="tbl_Login">
+        <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tbl_FavRestaurants">
+    <Key>
+      <PropertyRef Name="FavId" />
+    </Key>
+    <Property Name="FavId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fav_fk_CusId" Type="Int32" />
+    <Property Name="Fav_fk_RestId" Type="Int32" />
+    <NavigationProperty Name="tbl_Customer" Relationship="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__6FE99F9F" FromRole="tbl_FavRestaurants" ToRole="tbl_Customer" />
+    <NavigationProperty Name="tbl_Restaurant" Relationship="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__70DDC3D8" FromRole="tbl_FavRestaurants" ToRole="tbl_Restaurant" />
+  </EntityType>
+  <Association Name="FK__tbl_FavRe__Fav_f__6FE99F9F">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Customer" Role="tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_FavRestaurants" Role="tbl_FavRestaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_FavRestaurants">
+        <PropertyRef Name="Fav_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_FavRe__Fav_f__70DDC3D8">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Restaurant" Role="tbl_Restaurant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_FavRestaurants" Role="tbl_FavRestaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_FavRestaurants">
+        <PropertyRef Name="Fav_fk_RestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

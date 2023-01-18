@@ -7,6 +7,7 @@ using FoodDeliveryWebApplication.Models;
 using DAL.Models;
 using System.Net;
 using DAL.Manager;
+using System.Threading.Tasks;
 
 namespace FoodDeliveryWebApplication.Controllers
 {
@@ -18,12 +19,46 @@ namespace FoodDeliveryWebApplication.Controllers
         {
             return View();
         }
+
+        //public ActionResult Home(ContactUs obj)
+        //{
+        //    if (obj == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+        //        tbl_ContactUs insObj = new tbl_ContactUs();
+        //        insObj.ContName = obj.Name;
+        //        insObj.ContEmail = obj.EmailId;
+        //        insObj.ContMsg = obj.Message;
+        //        string result = homeMngr.InsertEnquiry(insObj);
+        //        if (result == "Success")
+        //        {
+        //            ModelState.Clear();
+        //            ViewBag.message = "Submitted successfully";
+        //            return View();
+        //        }
+        //        else if (result == "Failed")
+        //        {
+        //            ViewBag.message = "Error occured!!";
+        //            return View();
+        //        }
+        //        return View();
+
+        //    }
+
+
+        //    return View();
+        //}
         [HttpPost]
-        public ActionResult Home(ContactUs obj)
+        public async Task<JsonResult> UploadData (ContactUs obj)
         {
+            string result = "";
             if (obj == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                result = "Data not found";
+                return Json(new { Result = result }, JsonRequestBehavior.AllowGet);
             }
             if (ModelState.IsValid)
             {
@@ -31,26 +66,33 @@ namespace FoodDeliveryWebApplication.Controllers
                 insObj.ContName = obj.Name;
                 insObj.ContEmail = obj.EmailId;
                 insObj.ContMsg = obj.Message;
-                string result = homeMngr.InsertEnquiry(insObj);
-                if (result == "Success")
+                string status = homeMngr.InsertEnquiry(insObj);
+                if (status == "Success")
                 {
-                    ModelState.Clear();
-                    ViewBag.message = "Submitted successfully";
-                    return View();
+                    result = "Submitted";
+                    return Json(new { Result = result }, JsonRequestBehavior.AllowGet);
+
                 }
-                else if (result == "Failed")
+                else if (status == "Failed")
                 {
-                    ViewBag.message = "Error occured!!";
-                    return View();
+                    result = "Error occured!!";
+                    return Json(new { Result = result }, JsonRequestBehavior.AllowGet);
                 }
-                return View();
+                result = "Failed";
 
             }
-            
-
-            return View();
+            return Json(new { Result = result }, JsonRequestBehavior.AllowGet);
         }
 
-       
+        public ActionResult RegistrationPage()
+        {
+            return View();
+        }
+        public ActionResult CustomerRegistration()
+        {
+            return RedirectToAction("Create", "Customer");
+        }
+
+
     }
 }

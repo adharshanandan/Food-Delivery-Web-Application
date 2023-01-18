@@ -42,10 +42,13 @@ namespace FoodDeliveryWebApplication.Controllers
         [HttpPost]
         public ActionResult Create(User obj)
         {
+          
+
             if (obj == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             if (ModelState.IsValid)
             {
                 tbl_Customer insObj = new tbl_Customer();
@@ -53,8 +56,12 @@ namespace FoodDeliveryWebApplication.Controllers
                 insObj.CusEmail = obj.EmailId;
                 insObj.CusPassword = obj.Password;
                 insObj.CusImage = obj.ImgUrl.FileName;
+                string savePath = Server.MapPath("~/Content/CustomerProfilePictures");
+                string saveThumbImagePath = savePath + @"/" + obj.ImgUrl.FileName;
+                obj.ImgUrl.SaveAs(saveThumbImagePath);
                 insObj.CusPincode = obj.Pincode;
                 insObj.CusStatus = "A";
+                insObj.CusRole = 2;
                 string result=cusMngr.InsertCustomer(insObj);
                 if (result == "Success")
                 {
@@ -66,7 +73,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 }
                 else if (result == "Exist")
                 {
-                    ViewBag.exist = "Email Already Exists";
+                    ViewBag.exist = "Email already exists. Please login !";
                     return View();
                 }
                 else
