@@ -11,7 +11,7 @@
 
 
 </head>
-<body >
+<body>
     <div class="row shadow bg-light" style="position:fixed;width:100%;z-index:1">
         <div class="col-md-6 col-8">
             <div class="row ">
@@ -45,14 +45,14 @@
                             <li class="nav-item fs-4 me-4 ">
                                 <a class="nav-link " href="#about-section">About</a>
                             </li>
-                            <li class="nav-item fs-4 ">
+                            <li class="nav-item fs-4 me-4">
                                 <a class="nav-link " href="#contact-section">Contact</a>
                             </li>
-                            <li class="nav-item fs-4 ">
-                                <input type="submit" class="btn btn-warning" value="Register"  onclick="location.href='@Url.Action("RegistrationPage", "Home")'" />
+                            <li class="nav-item fs-4 my-auto me-4 ">
+                                <input type="submit" class="btn btn-warning btn-lg" value="Register" onclick="location.href='@Url.Action("RegistrationPage", "Home")'" />
                             </li>
-                            <li class="nav-item fs-4 ">
-                                <a class="nav-link " href="#contact-section">Contact</a>
+                            <li class="nav-item fs-4 my-auto ">
+                                <input type="submit" class="btn btn-primary btn-lg" value="Login" onclick="location.href='@Url.Action("Login", "Home")'" />
                             </li>
 
                         </ul>
@@ -66,17 +66,18 @@
         </div>
     </div>
 
-    <div>
+    <div class="mb-5">
         @RenderBody()
     </div>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    <footer class="shadow text-center p-2" style="background-color: #F3F2F1 ">
+        <p>&copy; @DateTime.Now.Year - copyright@adharshanandan</p>
     </footer>
 
     @RenderSection("scripts", required: false)
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/adb09e0e68.js" crossorigin="anonymous"></script>
 
-    <script src="~/Scripts/fontawesome/fontawesome.min.js"></script>
+    @*<script src="~/Scripts/fontawesome/fontawesome.min.js"></script>*@
 </body>
 </html>

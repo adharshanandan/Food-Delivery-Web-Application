@@ -32,6 +32,7 @@ namespace DAL.Models
         public string CusPincode { get; set; }
         public string CusStatus { get; set; }
         public Nullable<int> CusRole { get; set; }
+        public string IsValid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Cart> tbl_Cart { get; set; }

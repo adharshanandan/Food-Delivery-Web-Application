@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<section style="padding-top:10em;z-index:0; width:100%">
+    <div class="container">
+        <div class="alert alert-warning text-center fs-3" id="prev">
+            <strong>Confirm your account</strong>
+            <input type="button" class="btn btn-warning btn-lg" value="Confirm" onclick="Verified()" />
+
+        </div>
+        <div class="alert alert-success my-auto text-center" id="after" style="display:none">
+            <div class="row">
+                <div class="col-md-12">
+                    <i class="fa fa-check-circle" style="font-size:78px;color:green"></i>
+                </div>
+                <div class="col-md-12 fs-3">
+                    <strong class="flex-column">Your Account is active now</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    function Verified() {
+        $.ajax({
+            type: "POST",
+            url: "/Customer/RegisterConfirm",
+            data: { 'regId': '@ViewBag.regId' },
+            success: function (msg) {
+                $("#prev").hide();
+                $("#after").show();
+                alert(msg);
+            }
+        })
+    }
+</script>
+

@@ -64,6 +64,7 @@
           <Property Name="CusPincode" Type="varchar" MaxLength="20" />
           <Property Name="CusStatus" Type="char" MaxLength="1" />
           <Property Name="CusRole" Type="int" />
+          <Property Name="IsValid" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tbl_CustomerAddresses">
           <Key>
@@ -92,6 +93,14 @@
           <Property Name="AdhaarNo" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="StaffAccStatus" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Isfree" Type="varchar" MaxLength="5" />
+          <Property Name="StaffRole" Type="int" />
+          <Property Name="IsValid" Type="varchar" MaxLength="10" />
+          <Property Name="StaffPassword" Type="varchar" MaxLength="20" />
+          <Property Name="StaffArea" Type="varchar" MaxLength="50" />
+          <Property Name="StaffState" Type="varchar" MaxLength="50" />
+          <Property Name="StaffCountry" Type="varchar" MaxLength="50" />
+          <Property Name="StaffDistrict" Type="varchar" MaxLength="50" />
+          <Property Name="staffImage" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tbl_Dishes">
           <Key>
@@ -120,9 +129,10 @@
             <PropertyRef Name="LoginId" />
           </Key>
           <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="varchar" MaxLength="50" />
-          <Property Name="UserPassword" Type="varchar" MaxLength="20" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="UserRole" Type="int" />
+          <Property Name="UserStatus" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Offers">
           <Key>
@@ -156,6 +166,10 @@
           <Property Name="RestDistrict" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RestPassword" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RestStatus" Type="char" MaxLength="1" />
+          <Property Name="RestTradeLicense" Type="varchar" MaxLength="50" />
+          <Property Name="RestRole" Type="int" />
+          <Property Name="RestArea" Type="varchar" MaxLength="50" />
+          <Property Name="IsValid" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tbl_Role">
           <Key>
@@ -164,7 +178,7 @@
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RollName" Type="varchar" MaxLength="20" />
         </EntityType>
-        <Association Name="FK__tbl_Cart__Cart_f__66603565">
+        <Association Name="FK__tbl_Cart__Cart_f__778AC167">
           <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="0..1" />
           <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
           <ReferentialConstraint>
@@ -176,7 +190,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Cart__Cart_f__6754599E">
+        <Association Name="FK__tbl_Cart__Cart_f__787EE5A0">
           <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1" />
           <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
           <ReferentialConstraint>
@@ -188,7 +202,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Cart__Cart_f__68487DD7">
+        <Association Name="FK__tbl_Cart__Cart_f__797309D9">
           <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="0..1" />
           <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
           <ReferentialConstraint>
@@ -253,6 +267,20 @@
             </Principal>
             <Dependent Role="tbl_Customer">
               <PropertyRef Name="CusRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Deliv__Staff__7B5B524B">
+          <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_DeliveryStaffs" Type="Self.tbl_DeliveryStaffs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tbl_DeliveryStaffs">
+              <PropertyRef Name="StaffRole" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -354,6 +382,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_Resta__RestR__74AE54BC">
+          <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="0..1" />
+          <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tbl_Restaurant">
+              <PropertyRef Name="RestRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="db_FoodOrderingApplicationModelStoreContainer">
           <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Cart" EntityType="Self.tbl_Cart" Schema="dbo" store:Type="Tables" />
@@ -370,15 +410,15 @@
           <EntitySet Name="tbl_PhoneNumbers" EntityType="Self.tbl_PhoneNumbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Restaurant" EntityType="Self.tbl_Restaurant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Role" EntityType="Self.tbl_Role" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__tbl_Cart__Cart_f__66603565" Association="Self.FK__tbl_Cart__Cart_f__66603565">
+          <AssociationSet Name="FK__tbl_Cart__Cart_f__778AC167" Association="Self.FK__tbl_Cart__Cart_f__778AC167">
             <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
             <End Role="tbl_Cart" EntitySet="tbl_Cart" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Cart__Cart_f__6754599E" Association="Self.FK__tbl_Cart__Cart_f__6754599E">
+          <AssociationSet Name="FK__tbl_Cart__Cart_f__787EE5A0" Association="Self.FK__tbl_Cart__Cart_f__787EE5A0">
             <End Role="tbl_Customer" EntitySet="tbl_Customer" />
             <End Role="tbl_Cart" EntitySet="tbl_Cart" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Cart__Cart_f__68487DD7" Association="Self.FK__tbl_Cart__Cart_f__68487DD7">
+          <AssociationSet Name="FK__tbl_Cart__Cart_f__797309D9" Association="Self.FK__tbl_Cart__Cart_f__797309D9">
             <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
             <End Role="tbl_Cart" EntitySet="tbl_Cart" />
           </AssociationSet>
@@ -397,6 +437,10 @@
           <AssociationSet Name="FK__tbl_Custo__CusRo__693CA210" Association="Self.FK__tbl_Custo__CusRo__693CA210">
             <End Role="tbl_Role" EntitySet="tbl_Role" />
             <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Deliv__Staff__7B5B524B" Association="Self.FK__tbl_Deliv__Staff__7B5B524B">
+            <End Role="tbl_Role" EntitySet="tbl_Role" />
+            <End Role="tbl_DeliveryStaffs" EntitySet="tbl_DeliveryStaffs" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_Dishe__Dish___3C69FB99" Association="Self.FK__tbl_Dishe__Dish___3C69FB99">
             <End Role="tbl_Offers" EntitySet="tbl_Offers" />
@@ -425,6 +469,10 @@
           <AssociationSet Name="FK__tbl_Phone__Phn_f__36B12243" Association="Self.FK__tbl_Phone__Phn_f__36B12243">
             <End Role="tbl_Customer" EntitySet="tbl_Customer" />
             <End Role="tbl_PhoneNumbers" EntitySet="tbl_PhoneNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Resta__RestR__74AE54BC" Association="Self.FK__tbl_Resta__RestR__74AE54BC">
+            <End Role="tbl_Role" EntitySet="tbl_Role" />
+            <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -493,6 +541,7 @@
           <Property Name="CusRole" Type="Int32" />
           <NavigationProperty Name="tbl_Role" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Custo__CusRo__693CA210" FromRole="tbl_Customer" ToRole="tbl_Role" />
           <NavigationProperty Name="tbl_FavRestaurants" Relationship="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__6FE99F9F" FromRole="tbl_Customer" ToRole="tbl_FavRestaurants" />
+          <Property Name="IsValid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_CustomerAddresses">
           <Key>
@@ -522,6 +571,15 @@
           <Property Name="AdhaarNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StaffAccStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Isfree" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="StaffRole" Type="Int32" />
+          <Property Name="IsValid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="StaffPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Role" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Deliv__Staff__7B5B524B" FromRole="tbl_DeliveryStaffs" ToRole="tbl_Role" />
+          <Property Name="StaffArea" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StaffState" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StaffCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StaffDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="staffImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Dishes">
           <Key>
@@ -579,6 +637,11 @@
           <NavigationProperty Name="tbl_CusReview" Relationship="Self.FK__tbl_CusRe__Rev_f__4E88ABD4" FromRole="tbl_Restaurant" ToRole="tbl_CusReview" />
           <NavigationProperty Name="tbl_Dishes" Relationship="Self.FK__tbl_Dishe__Dish___3D5E1FD2" FromRole="tbl_Restaurant" ToRole="tbl_Dishes" />
           <NavigationProperty Name="tbl_FavRestaurants" Relationship="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__70DDC3D8" FromRole="tbl_Restaurant" ToRole="tbl_FavRestaurants" />
+          <Property Name="RestTradeLicense" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RestRole" Type="Int32" />
+          <Property Name="RestArea" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Role" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Resta__RestR__74AE54BC" FromRole="tbl_Restaurant" ToRole="tbl_Role" />
+          <Property Name="IsValid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__tbl_Cart__Cart_f__5AEE82B9">
           <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="0..1" />
@@ -786,6 +849,14 @@
             <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
             <End Role="tbl_FavRestaurants" EntitySet="tbl_FavRestaurants" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_Resta__RestR__74AE54BC" Association="db_FoodOrderingApplicationModel.FK__tbl_Resta__RestR__74AE54BC">
+            <End Role="tbl_Role" EntitySet="tbl_Role" />
+            <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Deliv__Staff__7B5B524B" Association="db_FoodOrderingApplicationModel.FK__tbl_Deliv__Staff__7B5B524B">
+            <End Role="tbl_Role" EntitySet="tbl_Role" />
+            <End Role="tbl_DeliveryStaffs" EntitySet="tbl_DeliveryStaffs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tbl_ContactUs">
           <Key>
@@ -801,10 +872,11 @@
             <PropertyRef Name="LoginId" />
           </Key>
           <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserRole" Type="Int32" />
           <NavigationProperty Name="tbl_Role" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Login__UserR__6D0D32F4" FromRole="tbl_Login" ToRole="tbl_Role" />
+          <Property Name="UserStatus" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Role">
           <Key>
@@ -814,6 +886,8 @@
           <Property Name="RollName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_Customer" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Custo__CusRo__693CA210" FromRole="tbl_Role" ToRole="tbl_Customer" />
           <NavigationProperty Name="tbl_Login" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Login__UserR__6D0D32F4" FromRole="tbl_Role" ToRole="tbl_Login" />
+          <NavigationProperty Name="tbl_Restaurant" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Resta__RestR__74AE54BC" FromRole="tbl_Role" ToRole="tbl_Restaurant" />
+          <NavigationProperty Name="tbl_DeliveryStaffs" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Deliv__Staff__7B5B524B" FromRole="tbl_Role" ToRole="tbl_DeliveryStaffs" />
         </EntityType>
         <Association Name="FK__tbl_Custo__CusRo__693CA210">
           <End Type="db_FoodOrderingApplicationModel.tbl_Role" Role="tbl_Role" Multiplicity="0..1">
@@ -881,6 +955,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_Resta__RestR__74AE54BC">
+          <End Type="db_FoodOrderingApplicationModel.tbl_Role" Role="tbl_Role" Multiplicity="0..1" />
+          <End Type="db_FoodOrderingApplicationModel.tbl_Restaurant" Role="tbl_Restaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tbl_Restaurant">
+              <PropertyRef Name="RestRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Deliv__Staff__7B5B524B">
+          <End Type="db_FoodOrderingApplicationModel.tbl_Role" Role="tbl_Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="db_FoodOrderingApplicationModel.tbl_DeliveryStaffs" Role="tbl_DeliveryStaffs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tbl_DeliveryStaffs">
+              <PropertyRef Name="StaffRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -932,6 +1032,7 @@
           <EntitySetMapping Name="tbl_Customer">
             <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Customer">
               <MappingFragment StoreEntitySet="tbl_Customer">
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="CusRole" ColumnName="CusRole" />
                 <ScalarProperty Name="CusId" ColumnName="CusId" />
                 <ScalarProperty Name="CusName" ColumnName="CusName" />
@@ -957,6 +1058,14 @@
           <EntitySetMapping Name="tbl_DeliveryStaffs">
             <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_DeliveryStaffs">
               <MappingFragment StoreEntitySet="tbl_DeliveryStaffs">
+                <ScalarProperty Name="staffImage" ColumnName="staffImage" />
+                <ScalarProperty Name="StaffDistrict" ColumnName="StaffDistrict" />
+                <ScalarProperty Name="StaffCountry" ColumnName="StaffCountry" />
+                <ScalarProperty Name="StaffState" ColumnName="StaffState" />
+                <ScalarProperty Name="StaffArea" ColumnName="StaffArea" />
+                <ScalarProperty Name="StaffPassword" ColumnName="StaffPassword" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="StaffRole" ColumnName="StaffRole" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
                 <ScalarProperty Name="StaffName" ColumnName="StaffName" />
                 <ScalarProperty Name="StaffPhone" ColumnName="StaffPhone" />
@@ -1010,6 +1119,10 @@
           <EntitySetMapping Name="tbl_Restaurant">
             <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Restaurant">
               <MappingFragment StoreEntitySet="tbl_Restaurant">
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="RestArea" ColumnName="RestArea" />
+                <ScalarProperty Name="RestRole" ColumnName="RestRole" />
+                <ScalarProperty Name="RestTradeLicense" ColumnName="RestTradeLicense" />
                 <ScalarProperty Name="RestId" ColumnName="RestId" />
                 <ScalarProperty Name="RestName" ColumnName="RestName" />
                 <ScalarProperty Name="RestPhone" ColumnName="RestPhone" />
@@ -1037,6 +1150,7 @@
           <EntitySetMapping Name="tbl_Login">
             <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Login">
               <MappingFragment StoreEntitySet="tbl_Login">
+                <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
                 <ScalarProperty Name="UserRole" ColumnName="UserRole" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

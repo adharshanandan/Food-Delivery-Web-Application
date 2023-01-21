@@ -34,6 +34,8 @@
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_FavRestaurants" Width="1.5" PointX="6" PointY="9.625" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__6FE99F9F" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__70DDC3D8" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Resta__RestR__74AE54BC" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Deliv__Staff__7B5B524B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,3 +1,5 @@
+F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\bin\Debug\DAL.dll.config
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\bin\Debug\DAL.dll
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\bin\Debug\DAL.pdb
@@ -5,8 +7,6 @@ F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\bin\
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\bin\Debug\EntityFramework.SqlServer.dll
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\bin\Debug\EntityFramework.xml
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\bin\Debug\EntityFramework.SqlServer.xml
-F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\obj\Debug\DAL.csproj.CopyComplete
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\obj\Debug\DAL.dll
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\obj\Debug\DAL.pdb
-F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache

@@ -1,0 +1,179 @@
+﻿@model FoodDeliveryWebApplication.Models.Restaurant
+
+
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<section style="padding-top: 10em">
+
+    <div class="container">
+        <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5">
+            <div class="card-body ">
+                <h2 class="text-center">Restaurant Registration</h2>
+
+                @using (Html.BeginForm("Create", "Restaurant", FormMethod.Post, new { enctype = "multipart/form-data", @id = "cusForm" }))
+                {
+                    @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.RestPhone, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.RestPhone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RestPhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+             
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.ImgUrl, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(model => model.ImgUrl, new { type = "file", @class = "form-control", @id = "txtImg" })
+                        @Html.ValidationMessageFor(model => model.ImgUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.RestTradeLicense, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.RestTradeLicense, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RestTradeLicense, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.Pincode, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", @id = "txtPincode" } })
+                        @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group mb-3" id="txtLocation">
+                    @Html.LabelFor(model => model.RestArea, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.RestArea, new SelectList(" "), "--Select location--", new { @class = "form-control", @id = "ddlArea" })
+                        @Html.ValidationMessageFor(model => model.RestArea, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type="password" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row form-group text-center mb-3">
+                    <div class="mx-auto">
+                        <input type="submit" value="Register" class="btn btn-primary" />
+                        <input type="button" value="Clear" id="Clear" class="btn btn-danger" />
+                    </div>
+
+                </div>
+            </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#txtLocation").hide();
+    $("#txtPincode").change(function () {
+       
+        var inputPincode = $("#txtPincode").val();
+        var url = "/Restaurant/GetLocation"
+        $.ajax({
+            url: url,
+            data: { 'pincode': inputPincode },
+            type: "GET",
+            success: function (data) {
+                if ($("#txtPincode").valid() == true) {
+                    $("#txtLocation").show();
+                }
+                else {
+                    $("#txtLocation").hide();
+                }
+                
+                $("#ddlArea").empty();              
+                $.each(data, function (index, row) {
+                    $("#ddlArea").append("<option value='" + row.Name + "'>" + row.Name + "</option>")
+                })
+
+                },
+            error: function (data) {
+                alert("Failed to retrieve location details");
+
+            }
+        })
+    })
+    })
+    //$(document).ready(function () {
+    //    $("#txtLocation").hide();
+    
+    //})
+
+    //$(document).ready(function () {
+    //    $("#txtPincode").change(function () {
+    //        $("#txtLocation").show();
+
+    //        $.get("/Restaurant/GetLocation", {
+    //            pincode: $("#txtPincode").val()
+                
+    //        }, function (data) {
+    //            $("#ddlArea").empty();
+    //            $.each(data, function (index, row) {
+    //                $("#ddlArea").append("<option value='" + row.Name + "'>" + row.Name + "</option>")
+
+
+    //            });
+    //        }
+    //        }
+    //    })
+    //})
+</script>
+
+

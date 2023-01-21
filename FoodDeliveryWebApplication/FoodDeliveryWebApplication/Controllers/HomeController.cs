@@ -14,6 +14,7 @@ namespace FoodDeliveryWebApplication.Controllers
     public class HomeController : Controller
     {
         HomeManager homeMngr = new HomeManager();
+        CustomerManager cusMngr = new CustomerManager();
 
         public ActionResult Home()
         {
@@ -92,6 +93,48 @@ namespace FoodDeliveryWebApplication.Controllers
         {
             return RedirectToAction("Create", "Customer");
         }
+
+        public ActionResult RestaurantRegistration()
+        {
+            return RedirectToAction("Create", "Restaurant");
+        }
+        public ActionResult DeliveryGuyRegistration()
+        {
+            return RedirectToAction("Create", "DeliveryBoy");
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(Login obj)
+        {
+            tbl_Login loginObj = new tbl_Login();
+            loginObj.UserId = obj.UserEmailId;
+            loginObj.UserPassword = obj.UserPassword;
+            int roleId=homeMngr.LoginUser(loginObj);
+            if (roleId == 0)
+            {
+                ViewBag.msg = "User not found";
+                return View();
+            }
+            else if(roleId==2)
+            {
+                List<tbl_Customer> _list= cusMngr.GetUserDetails(obj.UserEmailId.ToString());
+                ViewBag.msg = _list;
+                return View();
+
+            }
+            else
+            {
+                return View();
+            }
+        }
+        
+
+
+
 
 
     }

@@ -18,6 +18,7 @@ namespace DAL.Models
         public string UserId { get; set; }
         public string UserPassword { get; set; }
         public Nullable<int> UserRole { get; set; }
+        public string UserStatus { get; set; }
     
         public virtual tbl_Role tbl_Role { get; set; }
     }

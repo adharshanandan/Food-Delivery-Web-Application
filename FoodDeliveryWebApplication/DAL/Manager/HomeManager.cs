@@ -25,5 +25,16 @@ namespace DAL.Manager
             }
 
         }
+        public int LoginUser(tbl_Login checkObj)
+        {
+            tbl_Login isExist = db.tbl_Login.Where(e => e.UserId == checkObj.UserId && e.UserPassword == checkObj.UserPassword).SingleOrDefault();
+            int roleId=0;
+            if (isExist != null)
+            {
+                roleId = Convert.ToInt32(isExist.UserRole);
+                return roleId;
+            }
+            return roleId;
+        }
     }
 }

@@ -27,5 +27,15 @@ namespace DAL.Models
         public string AdhaarNo { get; set; }
         public string StaffAccStatus { get; set; }
         public string Isfree { get; set; }
+        public Nullable<int> StaffRole { get; set; }
+        public string IsValid { get; set; }
+        public string StaffPassword { get; set; }
+        public string StaffArea { get; set; }
+        public string StaffState { get; set; }
+        public string StaffCountry { get; set; }
+        public string StaffDistrict { get; set; }
+        public string staffImage { get; set; }
+    
+        public virtual tbl_Role tbl_Role { get; set; }
     }
 }

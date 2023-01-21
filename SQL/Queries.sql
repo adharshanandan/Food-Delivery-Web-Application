@@ -45,9 +45,13 @@ RestCountry varchar(50) not null,
 RestState varchar(50) not null,
 RestDistrict varchar(50) not null,
 RestPassword varchar(50) not null,
+
 RestStatus char(1)
 )
 
+alter table tbl_Restaurant add RestTradeLicense varchar(50),RestRole int references tbl_Role(RoleId)
+alter table tbl_Restaurant add RestArea varchar(50)
+select * from tbl_Restaurant
 -----------------Customer Table-----------
 
 create table tbl_Customer(
@@ -180,19 +184,158 @@ RoleId int primary key identity(1,1),
 RollName varchar(20)
 )
 
-select * from tbl_Login
 select * from tbl_Customer
+select * from tbl_Role
 alter table  tbl_customer add CusRole int references tbl_Role(RoleId) on update cascade on delete cascade
+alter table tbl_Login drop column Id 
 
 
 --------------triggers----------------
-
-create trigger tr_insertcredentials on tbl_Customer for insert
+--------------Cutomer - Login Triggers----
+alter trigger tr_insertcredentials on tbl_Customer for insert
 as
 begin
-declare @UserId as varchar(50),@UserPassword as varchar(30),@UserRole as int
+declare @UserId as varchar(50),@UserPassword as varchar(30),@UserRole as int,@UserStatus as char(1)
 select @userid=(select CusEmail from inserted)
 select @UserPassword=(select CusPassword from inserted)
 select @UserRole=(select CusRole from inserted)
-insert into tbl_Login (UserId,UserPassword,UserRole) values (@userid,@UserPassword,@UserRole)
+select @UserStatus=(select CusStatus from inserted)
+insert into tbl_Login (UserId,UserPassword,UserRole,UserStatus) values (@userid,@UserPassword,@UserRole,@UserStatus)
 end
+
+--------------------------------------------
+create trigger tr_deletecredentials on tbl_Customer for delete
+as
+begin
+declare @UserId as varchar(50)
+select @UserId=(select CusEmail from deleted)
+delete from tbl_Login where UserId=@UserId
+end
+
+------------------------------------------------
+create trigger tr_Updatedetails on tbl_Customer for update
+as
+begin
+declare @UserPassword as varchar(20),@UserStatus as char(1),@UserId as varchar(50)
+select @UserPassword=(select CusPassword from inserted)
+select @UserStatus=(select CusStatus from inserted)
+select @UserId=(select CusEmail from inserted)
+
+
+if UPDATE(CusPassword)
+begin
+update tbl_Login set UserPassword=@UserPassword where UserId=@UserId
+end
+if UPDATE(CusStatus)
+begin
+update tbl_Login set UserStatus=@UserStatus where UserId=@UserId
+end
+end
+
+
+
+--------------Restaurant - Login Triggers----
+
+
+alter trigger tr_insertcredentialsRestaurant on tbl_Restaurant  for insert
+as
+begin
+declare @UserId as varchar(50),@UserPassword as varchar(30),@UserRole as int,@UserStatus as char(1)
+select @userid=(select RestEmail from inserted)
+select @UserPassword=(select RestPassword from inserted)
+select @UserRole=(select RestRole from inserted)
+select @UserStatus=(select RestStatus from inserted)
+insert into tbl_Login (UserId,UserPassword,UserRole,UserStatus) values (@userid,@UserPassword,@UserRole,@UserStatus)
+end
+
+---------------------------------
+
+create trigger tr_deletecredentialsRestaurant on tbl_Restaurant for delete
+as
+begin
+declare @UserId as varchar(50)
+select @UserId=(select RestEmail from deleted)
+delete from tbl_Login where UserId=@UserId
+end
+
+------------------------------------------------
+
+create trigger tr_UpdatedetailsRestaurant on tbl_Restaurant for update
+as
+begin
+declare @UserPassword as varchar(20),@UserStatus as char(1),@UserId as varchar(50)
+select @UserPassword=(select RestPassword from inserted)
+select @UserStatus=(select RestStatus from inserted)
+select @UserId=(select RestEmail from inserted)
+
+
+if UPDATE(RestPassword)
+begin
+update tbl_Login set UserPassword=@UserPassword where UserId=@UserId
+end
+if UPDATE(RestStatus)
+begin
+update tbl_Login set UserStatus=@UserStatus where UserId=@UserId
+end
+end
+
+
+
+
+--------------Delivery boy - Login Triggers----
+
+create trigger tr_insertcredentialsDelBoy on tbl_DeliveryStaffs  for insert
+as
+begin
+declare @UserId as varchar(50),@UserPassword as varchar(30),@UserRole as int,@UserStatus as char(1)
+select @userid=(select StaffEmail from inserted)
+select @UserPassword=(select StaffPassword from inserted)
+select @UserRole=(select StaffRole from inserted)
+select @UserStatus=(select StaffAccStatus from inserted)
+insert into tbl_Login (UserId,UserPassword,UserRole,UserStatus) values (@userid,@UserPassword,@UserRole,@UserStatus)
+end
+
+---------------------------------
+
+create trigger tr_deletecredentialsDelBoy on tbl_DeliveryStaffs for delete
+as
+begin
+declare @UserId as varchar(50)
+select @UserId=(select StaffEmail from deleted)
+delete from tbl_Login where UserId=@UserId
+end
+
+------------------------------------------------
+
+create trigger tr_UpdatedetailsDelBoy on tbl_DeliveryStaffs for update
+as
+begin
+declare @UserPassword as varchar(20),@UserStatus as char(1),@UserId as varchar(50)
+select @UserPassword=(select StaffPassword from inserted)
+select @UserStatus=(select StaffAccStatus from inserted)
+select @UserId=(select StaffEmail from inserted)
+
+
+if UPDATE(StaffPassword)
+begin
+update tbl_Login set UserPassword=@UserPassword where UserId=@UserId
+end
+if UPDATE(StaffAccStatus)
+begin
+update tbl_Login set UserStatus=@UserStatus where UserId=@UserId
+end
+end
+
+
+
+select * from tbl_Login
+select * from tbl_Restaurant
+delete from tbl_Customer where CusEmail='Adharsh@gmail.com'
+
+select * from tbl_DeliveryStaffs
+
+alter table tbl_DeliveryStaffs add StaffPassword varchar(20)
+alter table tbl_Restaurant add IsValid varchar(10)
+
+
+update tbl_Customer set CusStatus='D' where CusEmail='Adharsh@gmail.com'

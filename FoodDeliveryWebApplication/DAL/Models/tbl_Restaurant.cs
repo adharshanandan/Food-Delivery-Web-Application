@@ -34,6 +34,10 @@ namespace DAL.Models
         public string RestDistrict { get; set; }
         public string RestPassword { get; set; }
         public string RestStatus { get; set; }
+        public string RestTradeLicense { get; set; }
+        public Nullable<int> RestRole { get; set; }
+        public string RestArea { get; set; }
+        public string IsValid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Cart> tbl_Cart { get; set; }
@@ -43,5 +47,6 @@ namespace DAL.Models
         public virtual ICollection<tbl_Dishes> tbl_Dishes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_FavRestaurants> tbl_FavRestaurants { get; set; }
+        public virtual tbl_Role tbl_Role { get; set; }
     }
 }

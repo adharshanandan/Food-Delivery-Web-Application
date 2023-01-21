@@ -9,75 +9,93 @@
     <div class="container">
         <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5">
             <div class="card-body ">
+               
                 <h2 class="text-center">User Registration</h2>
 
-                @using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.AntiForgeryToken()
+                
 
-            <div class="form-horizontal justify-content-center">
+                <div class="form-horizontal justify-content-center">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { enctype = "multipart/form-data", @id = "cusForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "txtName" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", @id = "txtEmail" } })
+                                @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!--<div id="verifyBtn">
+            <input type="submit" value="verify" class="btn btn-primary" />-->
+                        @*@Html.ActionLink("Verify", "VerifyEmail", new { @id = "lbVerify" })*@
+
+                        <!--</div>
+        }-->
+
+                       
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.ImgUrl, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(model => model.ImgUrl, new { type = "file", @class = "form-control", @id = "txtImg" })
+                                @Html.ValidationMessageFor(model => model.ImgUrl, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.Pincode, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", @id = "txtPincode" } })
+                                @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
 
-                <div class="form-group mb-3">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "txtName" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password", @id = "txtPswd" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type = "password", @id = "txtCPswd" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-                <div class="form-group mb-3">
-                    @Html.LabelFor(model => model.ImgUrl, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.TextBoxFor(model => model.ImgUrl, new { type = "file", @class = "form-control", @id = "txtImg" })
-                        @Html.ValidationMessageFor(model => model.ImgUrl, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group mb-3">
-                    @Html.LabelFor(model => model.Pincode, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", @id = "txtPincode" } })
-                        @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group mb-3">
-                    @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", @id = "txtEmail" } })
-                        @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group mb-3">
-                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password", @id = "txtPswd" } })
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group mb-3">
-                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type = "password", @id = "txtCPswd" } })
-                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div >
-                    <p class="alert-danger">@ViewBag.exist</p>
-                </div>
+         
 
-                <div class="row form-group text-center mb-3">
-                    <div class="  mx-auto">
-                        <input type="submit" value="Register" class="btn btn-primary" />
-                        <input type="button" value="Clear" id="Clear" class="btn btn-danger" />
-                    </div>
-                  
+
+                        <div>
+                            <p class="alert-danger">@ViewBag.exist</p>
+                        </div>
+
+                        <div class="row form-group text-center mb-3">
+                            <div class="mx-auto">
+                                <input type="submit" value="Register" class="btn btn-primary"/>
+                                <input type="button" value="Clear" id="Clear" class="btn btn-danger" />
+                            </div>
+
+                        </div>
+                    }
+
+
                 </div>
-            </div>
-                }
+                        
 
                 <div class="text-center">
                     @Html.ActionLink("Already registered? Please login", "Index")
@@ -92,6 +110,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Content/js/EmailValidation.js"></script>
 <script>
     $("#Clear").click(function () {
         $("#txtName").val("");
@@ -103,5 +122,8 @@
 
 
     });
+
+  
+
 
 </script>

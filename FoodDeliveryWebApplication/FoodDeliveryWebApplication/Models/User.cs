@@ -11,18 +11,15 @@ namespace FoodDeliveryWebApplication.Models
     public class User:BaseEntity
     {
         [Required]
-        public string Name { get; set; }
-        //[Required]
-        //[RegularExpression("^[0-9]{10}$")]
-        //public string Phone { get; set; }
-        
+        public string Name { get; set; }  
         public string Image { get; set; }
         [Required]
         [DisplayName("Profile picture")]
         [ValidateFileAttribute]
         public HttpPostedFileBase ImgUrl { get; set; }
-        public string Status { get; set; } = "A";
+        public string Status { get; set; }
         [Required]
+        [RegularExpression("^[6][7-9]{1}[0-9]{4}$",ErrorMessage ="Invalid Picode")]
       
         public string Pincode { get; set; }
 

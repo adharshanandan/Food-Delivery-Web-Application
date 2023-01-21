@@ -46,6 +46,7 @@
     <EntitySetMapping Name="tbl_Customer">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Customer">
         <MappingFragment StoreEntitySet="tbl_Customer">
+          <ScalarProperty Name="IsValid" ColumnName="IsValid" />
           <ScalarProperty Name="CusRole" ColumnName="CusRole" />
           <ScalarProperty Name="CusId" ColumnName="CusId" />
           <ScalarProperty Name="CusName" ColumnName="CusName" />
@@ -71,6 +72,14 @@
     <EntitySetMapping Name="tbl_DeliveryStaffs">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_DeliveryStaffs">
         <MappingFragment StoreEntitySet="tbl_DeliveryStaffs">
+          <ScalarProperty Name="staffImage" ColumnName="staffImage" />
+          <ScalarProperty Name="StaffDistrict" ColumnName="StaffDistrict" />
+          <ScalarProperty Name="StaffCountry" ColumnName="StaffCountry" />
+          <ScalarProperty Name="StaffState" ColumnName="StaffState" />
+          <ScalarProperty Name="StaffArea" ColumnName="StaffArea" />
+          <ScalarProperty Name="StaffPassword" ColumnName="StaffPassword" />
+          <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+          <ScalarProperty Name="StaffRole" ColumnName="StaffRole" />
           <ScalarProperty Name="StaffId" ColumnName="StaffId" />
           <ScalarProperty Name="StaffName" ColumnName="StaffName" />
           <ScalarProperty Name="StaffPhone" ColumnName="StaffPhone" />
@@ -124,6 +133,10 @@
     <EntitySetMapping Name="tbl_Restaurant">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Restaurant">
         <MappingFragment StoreEntitySet="tbl_Restaurant">
+          <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+          <ScalarProperty Name="RestArea" ColumnName="RestArea" />
+          <ScalarProperty Name="RestRole" ColumnName="RestRole" />
+          <ScalarProperty Name="RestTradeLicense" ColumnName="RestTradeLicense" />
           <ScalarProperty Name="RestId" ColumnName="RestId" />
           <ScalarProperty Name="RestName" ColumnName="RestName" />
           <ScalarProperty Name="RestPhone" ColumnName="RestPhone" />
@@ -151,6 +164,7 @@
     <EntitySetMapping Name="tbl_Login">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Login">
         <MappingFragment StoreEntitySet="tbl_Login">
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
           <ScalarProperty Name="UserRole" ColumnName="UserRole" />
           <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
