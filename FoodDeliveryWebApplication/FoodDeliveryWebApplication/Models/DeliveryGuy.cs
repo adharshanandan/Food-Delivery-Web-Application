@@ -9,26 +9,26 @@ namespace FoodDeliveryWebApplication.Models
 {
     public class DeliveryGuy:User
     {
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Date of birth")]
         public string Dob { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         public string Gender { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Vehicle Number")]
         public string VehicleNo { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter a valid phone number")]
         [DisplayName("Phone Number")]
         public string PhoneNo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Vehicle Type")]
         public string VehicleType { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Driving Licence Number")]
         public string DrivingLicense { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Adhaar Id")]
         public string AdhaarNo { get; set; }
        
@@ -36,7 +36,7 @@ namespace FoodDeliveryWebApplication.Models
         public string IsFree { get; set; }
         
         public string StaffRole { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Location")]
         public string StaffArea { get; set; }
         public string StaffCountry { get; set; }

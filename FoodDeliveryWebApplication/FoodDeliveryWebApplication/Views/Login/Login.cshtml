@@ -1,0 +1,134 @@
+﻿@model FoodDeliveryWebApplication.Models.Login
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+<section style="padding-top: 10em">
+
+    <div class="container">
+        <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5 shadow ">
+            <div class="card-body mx-auto ">
+                <div class="col-md-12 text-center">
+                    <img class="img-fluid text-center mt-3" src="~/Content/LoginFormImage/usercommon.png" style="width:120px;height:auto" />
+
+                </div>
+                <h3 class="text-center mt-2">User Login</h3>
+                @if (@TempData["CusSuccess"] != null || @TempData["RestSuccess"] != null || @TempData["DelGuySuccess"] != null || @ViewBag.validCheckCus != null || @ViewBag.statusCheckCus != null || @ViewBag.validCheckRest != null || @ViewBag.statusCheckRest != null || @ViewBag.msg != null)
+                {
+                    <span id="successReg" class=" mt-2 mx-auto">
+
+                        <span class="alert text-success">
+
+                            <strong>@TempData["CusSuccess"]</strong>
+                            <strong>@TempData["RestSuccess"]</strong>
+                            <strong>@TempData["DelGuySuccess"]</strong>
+                        </span>
+                        <span class="alert text-danger">
+                            <strong>@ViewBag.validCheckCus</strong>
+                            <strong>@ViewBag.statusCheckCus</strong>
+                            <strong>@ViewBag.validCheckRest</strong>
+                            <strong>@ViewBag.statusCheckRest</strong>
+
+                            <strong class="text-center">@ViewBag.msg</strong>
+
+
+                        </span>
+
+                    </span>
+
+                }
+
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal row w-75 mx-auto">
+
+
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group mt-5 mb-3">
+
+                            <div class="col-md-12 p-3 my-auto input-group">
+
+                                <span class="input-group-addon p-2"><i class="fas fa-envelope"></i></span>
+
+                                @Html.EditorFor(model => model.UserEmailId, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+
+                            </div>
+                            <div class="col-md-12">
+                                @Html.ValidationMessageFor(model => model.UserEmailId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+
+                            <div class="col-md-12 p-3 input-group">
+                                <span class="input-group-addon p-2"><i class="fa-solid fa-lock"></i></span>
+
+                                @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password", @type = "password" } })
+
+                            </div>
+                            <div class="col-md-12">
+                                @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 text-center">
+                            @Html.ActionLink("Reset Password", "ResetPassword")
+                        </div>
+                        <div class="form-group text-center mt-3 mb-3">
+                            <div class="col-md-offset-2 col-md-12 mb-3">
+                                <input type="submit" value="Login" class="btn btn-primary" />
+                            </div>
+                            <div class="mb-3">
+                                @Html.ActionLink("Don't have an account?? Sign up", "RegistrationPage","Home")
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+                <div class="loader-wrapper">
+
+
+                    <img class="loader" src="~/Content/GifImages/ezgif.com-gif-maker.gif" />
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+  
+</section>
+<br />
+<br />
+<br />
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/CreatedScripts/NavIconHide.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $(document).ready(function () {
+        
+        window.setTimeout(function () {
+            $("#successReg").fadeOut();
+
+        }, 4000);
+    });
+
+    
+</script>
+
+
+

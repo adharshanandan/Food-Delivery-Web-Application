@@ -1,0 +1,65 @@
+﻿@model IEnumerable<FoodDeliveryWebApplication.Models.Category>
+
+@{
+    ViewBag.Title = "CategoryList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section style="padding-top:10em">
+    <div class="p-0">
+        <div>
+            <div>
+                <h2 class="text-center mb-3">Category List</h2>
+
+
+                <table class="table table-hover table-bordered">
+                    <tr class="table-dark">
+                        <th class="col px-md-5">
+                            @Html.DisplayNameFor(model => model.CatName)
+                        </th>
+                        <th class="col px-md-5">
+                            @Html.DisplayNameFor(model => model.CatImage)
+                        </th>
+                        <th class="col px-md-5">
+                            @Html.DisplayNameFor(model => model.CatStatus)
+                        </th>
+                        <th class="col px-md-5"></th>
+                        <th class="col px-md-5"></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col px-md-5">
+                                @Html.DisplayFor(modelItem => item.CatName)
+                            </td>
+                            <td class="col px-md-5">
+                                <img src="@Url.Content(item.CatImage)" width="70" height="70" />
+                            </td>
+                            <td class="col px-md-5">
+                                @Html.DisplayFor(modelItem => item.CatStatus)
+                            </td>
+                            <td class="col px-md-5">
+                                <button class="btn btn-primary shadow" onclick="location.href='@Url.Action("AddCategory", "Admin",new {id= @item.CatId })'">Edit</button>
+
+
+
+                            </td>
+                            <td class="col px-md-5">
+                                <button class="btn btn-danger shadow" onclick="location.href='@Url.Action("Delete", "Admin",new {id= @item.CatId })'">Delete</button>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div class="text-center mx-auto">
+                    <input type="submit" class="btn btn-primary btn-lg shadow" value="Add New Category" onclick="location.href='@Url.Action("AddCategory", "Admin")'" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<br />
+<br />
+

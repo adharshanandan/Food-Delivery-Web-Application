@@ -1,5 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="db_FoodOrderingApplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_Addresses">
+    <Key>
+      <PropertyRef Name="AddId" />
+    </Key>
+    <Property Name="AddId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DoorOrFlatNo" Type="varchar" MaxLength="20" />
+    <Property Name="LandMark" Type="varchar" MaxLength="50" />
+    <Property Name="AddressType" Type="int" />
+    <Property Name="PinCode" Type="varchar" MaxLength="20" />
+    <Property Name="Add_fk_CusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_AddressType">
+    <Key>
+      <PropertyRef Name="TypeId" />
+    </Key>
+    <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="varchar" MaxLength="20" />
+  </EntityType>
   <EntityType Name="tbl_Admin">
     <Key>
       <PropertyRef Name="AdmId" />
@@ -7,6 +25,7 @@
     <Property Name="AdmId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AdmEmail" Type="varchar" MaxLength="50" />
     <Property Name="AdmPassword" Type="varchar" MaxLength="20" />
+    <Property Name="AdminRole" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Cart">
     <Key>
@@ -61,16 +80,6 @@
     <Property Name="CusRole" Type="int" />
     <Property Name="IsValid" Type="varchar" MaxLength="10" />
   </EntityType>
-  <EntityType Name="tbl_CustomerAddresses">
-    <Key>
-      <PropertyRef Name="AddressId" />
-    </Key>
-    <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AddresssName" Type="varchar(max)" />
-    <Property Name="DoorOrFlatNo" Type="varchar" MaxLength="10" />
-    <Property Name="AddressType" Type="varchar" MaxLength="20" />
-    <Property Name="Addr_fk_CusId" Type="int" />
-  </EntityType>
   <EntityType Name="tbl_DeliveryStaffs">
     <Key>
       <PropertyRef Name="StaffId" />
@@ -107,7 +116,6 @@
     <Property Name="DishImage" Type="varchar(max)" Nullable="false" />
     <Property Name="DishDesc" Type="varchar(max)" />
     <Property Name="VegOrNonveg" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="Dish_fk_Offer" Type="int" />
     <Property Name="Dish_fk_Rest" Type="int" Nullable="false" />
     <Property Name="Dish_fk_Cat" Type="int" Nullable="false" />
   </EntityType>
@@ -165,6 +173,7 @@
     <Property Name="RestRole" Type="int" />
     <Property Name="RestArea" Type="varchar" MaxLength="50" />
     <Property Name="IsValid" Type="varchar" MaxLength="10" />
+    <Property Name="Rest_fk_Offer" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Role">
     <Key>
@@ -173,6 +182,46 @@
     <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RollName" Type="varchar" MaxLength="20" />
   </EntityType>
+  <Association Name="FK__tbl_Addre__Add_f__25518C17">
+    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Addresses" Type="Self.tbl_Addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_Addresses">
+        <PropertyRef Name="Add_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Addre__Addre__245D67DE">
+    <End Role="tbl_AddressType" Type="Self.tbl_AddressType" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Addresses" Type="Self.tbl_Addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_AddressType">
+        <PropertyRef Name="TypeId" />
+      </Principal>
+      <Dependent Role="tbl_Addresses">
+        <PropertyRef Name="AddressType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Admin__Admin__0C85DE4D">
+    <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="0..1" />
+    <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="tbl_Admin">
+        <PropertyRef Name="AdminRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__tbl_Cart__Cart_f__778AC167">
     <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="0..1" />
     <End Role="tbl_Cart" Type="Self.tbl_Cart" Multiplicity="*" />
@@ -237,20 +286,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbl_Custo__Addr___398D8EEE">
-    <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="tbl_CustomerAddresses" Type="Self.tbl_CustomerAddresses" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Customer">
-        <PropertyRef Name="CusId" />
-      </Principal>
-      <Dependent Role="tbl_CustomerAddresses">
-        <PropertyRef Name="Addr_fk_CusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__tbl_Custo__CusRo__693CA210">
     <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -276,20 +311,6 @@
       </Principal>
       <Dependent Role="tbl_DeliveryStaffs">
         <PropertyRef Name="StaffRole" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__tbl_Dishe__Dish___3C69FB99">
-    <End Role="tbl_Offers" Type="Self.tbl_Offers" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="tbl_Dishes" Type="Self.tbl_Dishes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Offers">
-        <PropertyRef Name="OfferId" />
-      </Principal>
-      <Dependent Role="tbl_Dishes">
-        <PropertyRef Name="Dish_fk_Offer" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -377,6 +398,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__tbl_Resta__Rest___2645B050">
+    <End Role="tbl_Offers" Type="Self.tbl_Offers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Offers">
+        <PropertyRef Name="OfferId" />
+      </Principal>
+      <Dependent Role="tbl_Restaurant">
+        <PropertyRef Name="Rest_fk_Offer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__tbl_Resta__RestR__74AE54BC">
     <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="0..1" />
     <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="*" />
@@ -390,13 +425,14 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="db_FoodOrderingApplicationModelStoreContainer">
+    <EntitySet Name="tbl_Addresses" EntityType="Self.tbl_Addresses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AddressType" EntityType="Self.tbl_AddressType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Cart" EntityType="Self.tbl_Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Category" EntityType="Self.tbl_Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ContactUs" EntityType="Self.tbl_ContactUs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_CusReview" EntityType="Self.tbl_CusReview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Customer" EntityType="Self.tbl_Customer" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tbl_CustomerAddresses" EntityType="Self.tbl_CustomerAddresses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_DeliveryStaffs" EntityType="Self.tbl_DeliveryStaffs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Dishes" EntityType="Self.tbl_Dishes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_FavRestaurants" EntityType="Self.tbl_FavRestaurants" Schema="dbo" store:Type="Tables" />
@@ -405,6 +441,18 @@
     <EntitySet Name="tbl_PhoneNumbers" EntityType="Self.tbl_PhoneNumbers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Restaurant" EntityType="Self.tbl_Restaurant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Role" EntityType="Self.tbl_Role" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbl_Addre__Add_f__25518C17" Association="Self.FK__tbl_Addre__Add_f__25518C17">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_Addresses" EntitySet="tbl_Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Addre__Addre__245D67DE" Association="Self.FK__tbl_Addre__Addre__245D67DE">
+      <End Role="tbl_AddressType" EntitySet="tbl_AddressType" />
+      <End Role="tbl_Addresses" EntitySet="tbl_Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Admin__Admin__0C85DE4D" Association="Self.FK__tbl_Admin__Admin__0C85DE4D">
+      <End Role="tbl_Role" EntitySet="tbl_Role" />
+      <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+    </AssociationSet>
     <AssociationSet Name="FK__tbl_Cart__Cart_f__778AC167" Association="Self.FK__tbl_Cart__Cart_f__778AC167">
       <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
       <End Role="tbl_Cart" EntitySet="tbl_Cart" />
@@ -425,10 +473,6 @@
       <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
       <End Role="tbl_CusReview" EntitySet="tbl_CusReview" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbl_Custo__Addr___398D8EEE" Association="Self.FK__tbl_Custo__Addr___398D8EEE">
-      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
-      <End Role="tbl_CustomerAddresses" EntitySet="tbl_CustomerAddresses" />
-    </AssociationSet>
     <AssociationSet Name="FK__tbl_Custo__CusRo__693CA210" Association="Self.FK__tbl_Custo__CusRo__693CA210">
       <End Role="tbl_Role" EntitySet="tbl_Role" />
       <End Role="tbl_Customer" EntitySet="tbl_Customer" />
@@ -436,10 +480,6 @@
     <AssociationSet Name="FK__tbl_Deliv__Staff__7B5B524B" Association="Self.FK__tbl_Deliv__Staff__7B5B524B">
       <End Role="tbl_Role" EntitySet="tbl_Role" />
       <End Role="tbl_DeliveryStaffs" EntitySet="tbl_DeliveryStaffs" />
-    </AssociationSet>
-    <AssociationSet Name="FK__tbl_Dishe__Dish___3C69FB99" Association="Self.FK__tbl_Dishe__Dish___3C69FB99">
-      <End Role="tbl_Offers" EntitySet="tbl_Offers" />
-      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
     </AssociationSet>
     <AssociationSet Name="FK__tbl_Dishe__Dish___3D5E1FD2" Association="Self.FK__tbl_Dishe__Dish___3D5E1FD2">
       <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
@@ -464,6 +504,10 @@
     <AssociationSet Name="FK__tbl_Phone__Phn_f__36B12243" Association="Self.FK__tbl_Phone__Phn_f__36B12243">
       <End Role="tbl_Customer" EntitySet="tbl_Customer" />
       <End Role="tbl_PhoneNumbers" EntitySet="tbl_PhoneNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Resta__Rest___2645B050" Association="Self.FK__tbl_Resta__Rest___2645B050">
+      <End Role="tbl_Offers" EntitySet="tbl_Offers" />
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
     </AssociationSet>
     <AssociationSet Name="FK__tbl_Resta__RestR__74AE54BC" Association="Self.FK__tbl_Resta__RestR__74AE54BC">
       <End Role="tbl_Role" EntitySet="tbl_Role" />

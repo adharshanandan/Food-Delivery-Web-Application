@@ -17,7 +17,7 @@ namespace DAL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_Offers()
         {
-            this.tbl_Dishes = new HashSet<tbl_Dishes>();
+            this.tbl_Restaurant = new HashSet<tbl_Restaurant>();
         }
     
         public int OfferId { get; set; }
@@ -26,6 +26,6 @@ namespace DAL.Models
         public string OfferDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Dishes> tbl_Dishes { get; set; }
+        public virtual ICollection<tbl_Restaurant> tbl_Restaurant { get; set; }
     }
 }

@@ -1,0 +1,202 @@
+﻿@*@model IEnumerable<FoodDeliveryWebApplication.Models.Dishes>*@
+@using FoodDeliveryWebApplication;
+@model dynamic
+
+@{
+    ViewBag.Title = "FoodItems";
+    if (Session["Customer"] == null)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+
+    }
+}
+
+<section style="padding-top: 10em; background-color: #3B3D59 " class="text-white">
+   <div class="container">
+       <div class="row">
+           <div class="col-md-4 mt-2 mb-3">
+            
+               <img src="@Url.Content(@Model.Restaurant.Image)" style="width:150px;height:150px" class="rounded-circle border border-warning border-3"/>
+
+           </div>
+           <div class="col-md-4 my-auto">
+               <h2>@Model.Restaurant.Name</h2>
+               <p><i>@Model.Restaurant.RestArea,@Model.Restaurant.RestDistrict,@Model.Restaurant.RestState</i></p>
+               @if (Session["Customer"] != null)
+               {
+                   if (@Model.Restaurant.isFavourite)
+                   {
+                       <button type="submit" id="@Model.Restaurant.Id" class="btn btn-light btnFavtd"><i class="fa-solid fa-heart" style="color:red"></i> Favourited </button>
+                   }
+                   else
+                   {
+                       <button type="submit" id="@Model.Restaurant.Id" class="btn btn-light btnFavt"><i class="fa-regular fa-heart"></i> Favourite </button>
+                   }
+
+               }
+               else
+               {
+                   <button type="submit" id="btnFav" class="btn btn-light"><i class="fa-regular fa-heart"></i> Favourite </button>
+               }
+
+
+
+
+           </div>
+           <div class="col-md-4">
+
+           </div>
+
+       </div>
+
+   </div>
+
+</section>
+
+<section >
+
+    <div class="container">
+        
+        <div class="row mt-3 mb-3">
+            @foreach (var item in Model.Dishes)
+            {
+                <div class="col-md-4" >
+                    <div class="card shadow" style="width: 18rem;border-radius:5%">
+                        <img src="@Url.Content(item.DishImage)" />
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@item.DishName</h5>
+                            <p class="card-text">@item.DishDesc</p>
+                            <p class="card-text">Rs.@item.DishPrice</p>
+                      
+                            @if (item.buttonName == "Added")
+                            {
+                                <button id="@item.DishId" class="btn btn-dark btn-block disabled"><i class="bi bi-cart-check"></i>Added</button>
+                            }
+                            @if (item.buttonName == "Add")
+                            {
+                                <button id="@item.DishId" class="btn btn-dark btn-block btnAdd"><i class="bi bi-cart-check"></i>Add to Cart</button>
+                            }
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            }
+            @Html.Hidden("RestId", @TempData["RestId"], new { @id = "hdnRestId" })
+            
+
+        </div>
+
+    </div>
+
+  
+
+</section>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/CreatedScripts/NavIconHide.js"></script>
+
+<script>
+    $(document).ready(function () {
+                $(".btnAdd").click(function () {
+                    var restId = $("#hdnRestId").val();
+                    var url = "/Cart/AddtoCart"
+                    var dishId = this.id;
+                    $.ajax({
+                        url: url,
+                        data: { 'dishId': dishId, 'RestId': restId },
+                        type: "POST",
+                        success: function (data) {
+                            
+                            if (data == "login") {
+                                alert("Please login first");
+                                
+                            } else {
+                                alert(data);
+                            }
+
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+
+                    });
+                });
+            });
+
+            $("#btnFav").click(function () {
+                alert("Please login to make this restaurant as favourite");
+            });
+
+            $(".btnFavtd").click(function () {
+                var restId = this.id;
+                var url = "/FavouriteRestaurant/UnFavourite";
+                $.ajax({
+                    url: url,
+                    data: { 'restId': restId },
+                    type: "POST",
+                    success: function (data) {
+                        if (data == "Login") {
+                            alert("Please login first!")
+                            location.href = "/Login/Login";
+
+                        } else {
+                            location.reload();
+                            alert(data);
+                            
+                        }
+                        
+
+                    },
+                    error: function (err) {
+                        alert("Error occured");
+                    }
+                })
+
+            });
+
+    $(".btnFavt").click(function () {
+        var restId = this.id;
+        var url = "/FavouriteRestaurant/Favourite";
+        $.ajax({
+            url: url,
+            data: { 'restId': restId },
+            type: "POST",
+            success: function (data) {
+                if (data == "Login") {
+                    alert("Please login first!")
+                    location.href = "/Login/Login";
+
+                } else {
+                    location.reload();
+                    alert(data);
+                    
+                }
+
+
+            },
+            error: function (err) {
+                alert("Error occured");
+            }
+        })
+
+    });
+
+
+
+    
+</script>
+
+
+
+

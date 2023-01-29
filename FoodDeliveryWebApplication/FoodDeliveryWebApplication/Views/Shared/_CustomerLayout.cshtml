@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/fontawesome.css" rel="stylesheet" />
+    <link rel="icon" href="~/Content/Logos/AppLogo.png" type="image/gif" sizes="16x16">
+    <link href="~/Content/css/CreatedCSS/PageLoader.css" rel="stylesheet" />
+    <link href="~/Content/css/CreatedCSS/hrStyle.css" rel="stylesheet" />
+    <link href="~/Content/css/CreatedCSS/SideBarNav.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="row shadow bg-light m-0" style="position:fixed;width:100%;z-index:1">
+        <div class="col-md-6 col-8">
+            <div class="row ">
+                <div class="col-md-3 col-3">
+                    <img src="~/Content/Logos/AppLogo.png" class="img-fluid ms-4" style="height:auto;width:120px" />
+                </div>
+                <div class="col-md-9 col-9 my-auto ">
+
+                    <img src="~/Content/Logos/AppName.png" class="img-fluid" style="height:80px;width:auto" />
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <div class="col-md-6 col-4 my-auto ms-auto">
+            <nav class="navbar navbar-expand-lg bg-light ">
+                <div class="container-fluid">
+
+                    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav  mb-2 mb-lg-0 ms-auto my-auto">
+                            
+                            @if (Session["CartItemsCount"].ToString() == "0")
+                            {
+                                <li class="nav-item fs-4 me-4  ">
+                                    <a class="nav-link " href="/Customer/CartItems"><img class="img-fluid rounded-circle shadow p-2" style="width: 60px; height: auto; background-color: #c1ccec; " src="~/Content/CartIcons/CartEmpty.png" /></a>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="nav-item fs-4 me-4 ">
+                                    <div class="rounded-circle bg-danger p-2" style="position: absolute; right: 135px; color: #fff; top: 1px; font-size: 12px; ">@Session["CartItemsCount"].ToString()</div>
+                                    <a class="nav-link " href="/Customer/CartItems"><img class="img-fluid  rounded-circle shadow p-2" style="width: 60px; height: auto; background-color: #c1ccec;" src="~/Content/CartIcons/CartFull.png" /></a>
+
+                                </li>
+                            }
+
+
+
+
+
+                            <li class="nav-item fs-4 my-auto ">
+
+
+                                <button type="submit" class="btn btn-danger btn-lg" value="Logout" onclick="location.href='@Url.Action("LogoutCustomer", "Logout")'">Logout</button>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="sidebar shadow">
+        <ul class="no-bullets">
+            <li class="nav-item fs-4 me-4 my-auto">
+                <a class="nav-link " href="/Customer/FoodItems">Home</a>
+            </li>
+            <li class="nav-item fs-4 me-4 my-auto ">
+                <a class="nav-link " href="/Customer/UserProfile">Profile</a>
+            </li>
+            <li class="nav-item fs-4 me-4 my-auto">
+                <a class="nav-link " href="/Customer/FavRestaurants">Favourites</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="content">
+        @if (Session["Customer"] != null)
+        {
+            @RenderBody()
+        }
+        else
+        {
+            Response.Redirect("~/Login/LogIn");
+
+        }
+
+    </div>
+    <footer class="shadow text-center p-2" style="background-color: #F3F2F1 ;bottom:0;position: fixed; width:100%;">
+        <p>&copy; @DateTime.Now.Year - copyright@adharshanandan</p>
+    </footer>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/adb09e0e68.js" crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/CreatedScripts/PageLoader.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+
+
+
+</body>
+</html>

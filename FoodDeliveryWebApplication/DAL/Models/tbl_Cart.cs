@@ -21,8 +21,8 @@ namespace DAL.Models
         public Nullable<int> Cart_fk_CusId { get; set; }
         public Nullable<int> Cart_fk_RestId { get; set; }
     
-        public virtual tbl_Dishes tbl_Dishes { get; set; }
         public virtual tbl_Customer tbl_Customer { get; set; }
         public virtual tbl_Restaurant tbl_Restaurant { get; set; }
+        public virtual tbl_Dishes tbl_Dishes { get; set; }
     }
 }

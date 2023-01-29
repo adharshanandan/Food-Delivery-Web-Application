@@ -53,9 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Manager\AddressManager.cs" />
+    <Compile Include="Manager\CartManager.cs" />
+    <Compile Include="Manager\CategoryManager.cs" />
     <Compile Include="Manager\CustomerManager.cs" />
     <Compile Include="Manager\DeliveryBoyManager.cs" />
+    <Compile Include="Manager\DishesManager.cs" />
+    <Compile Include="Manager\FavouriteRestaurantManager.cs" />
     <Compile Include="Manager\HomeManager.cs" />
+    <Compile Include="Manager\LoginManager.cs" />
     <Compile Include="Manager\RestaurantManager.cs" />
     <Compile Include="Models\FoodDeliveryModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -71,6 +77,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FoodDeliveryModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Addresses.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AddressType.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Admin.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
@@ -88,9 +100,6 @@
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Customer.cs">
-      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbl_CustomerAddresses.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_DeliveryStaffs.cs">

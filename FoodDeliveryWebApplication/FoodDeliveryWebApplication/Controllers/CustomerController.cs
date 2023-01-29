@@ -10,6 +10,7 @@ using AutoMapper;
 using System.Net;
 using System.IO;
 using System.Web.Hosting;
+using System.Dynamic;
 
 
 
@@ -19,6 +20,9 @@ namespace FoodDeliveryWebApplication.Controllers
     {
         CustomerManager cusMngr = new CustomerManager();
         EmailVerification emailVer = new EmailVerification();
+        FavouriteRestaurantManager favRestMngr = new FavouriteRestaurantManager();
+        CartManager cartMngr = new CartManager();
+        AddressManager addMngr = new AddressManager();
         // GET: Customer
         //public ActionResult Index()
         //{
@@ -66,10 +70,11 @@ namespace FoodDeliveryWebApplication.Controllers
                 
                 insObj.CusName = obj.Name;               
                 insObj.CusPassword = obj.Password;
-                insObj.CusImage = obj.ImgUrl.FileName;
+               
                 string savePath = Server.MapPath("~/Content/CustomerProfilePictures");
                 string saveThumbImagePath = savePath + @"/" + obj.ImgUrl.FileName;
                 obj.ImgUrl.SaveAs(saveThumbImagePath);
+                insObj.CusImage = "~/Content/CustomerProfilePictures/" + obj.ImgUrl.FileName;
                 insObj.CusPincode = obj.Pincode;
                 insObj.CusStatus = "A";
                 insObj.IsValid = "No";
@@ -125,6 +130,150 @@ namespace FoodDeliveryWebApplication.Controllers
             var msg = cusMngr.ActivateAccount(regId);
             return Json(msg, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult FoodItems()
+        {
+            Session["CartItemsCount"] = cartMngr.GetCartItemsCount(Session["Customer"].ToString());
+            return RedirectToAction("Restaurants", "Restaurant");
+        }
+
+        public ActionResult UserProfile()
+        {
+            dynamic combinedModel = new ExpandoObject();
+            tbl_Customer retObj = cusMngr.GetCustomerDetails(Session["Customer"].ToString());
+            User disObj = new User();
+            disObj.Id = retObj.CusId;
+            disObj.Name = retObj.CusName;
+            disObj.Pincode = retObj.CusPincode;
+            disObj.Image = retObj.CusImage;
+
+            List<tbl_Addresses> retAddList = addMngr.GetAllAddresses(Session["Customer"].ToString());
+            List<CustomerAddresses> disAddList = new List<CustomerAddresses>();
+            foreach(var item in retAddList)
+            {
+                disAddList.Add(new CustomerAddresses
+                {
+                    AddId = item.AddId,
+                    AddressTypeName=item.tbl_AddressType.TypeName,
+                    
+                    Add_fk_CusId = item.Add_fk_CusId,
+                    LandMark = item.LandMark,
+                    DoorOrFlatNo=item.DoorOrFlatNo,
+                    PinCode=item.PinCode
+                }) ;
+            }
+
+
+            List<tbl_PhoneNumbers> retPhList = cusMngr.GetAllPhoneNos(Session["Customer"].ToString());
+
+            List<PhoneNumbers> disPhList = new List<PhoneNumbers>();
+            foreach(var item in retPhList)
+            {
+                disPhList.Add(new PhoneNumbers
+                {
+                    PhoneId=item.PhoneId,
+                    PhoneNumber=item.PhoneNumbers,
+                    Phn_fk_CusId=item.Phn_fk_CusId
+
+                });
+            }
+
+            combinedModel.Customer = disObj;
+            combinedModel.Phone = disPhList;
+            combinedModel.Address = disAddList;
+            return View(combinedModel);
+        }
+        public ActionResult FavRestaurants()
+        {
+            List<tbl_Restaurant> _list = favRestMngr.GetFavListByCusId(Session["Customer"].ToString());
+            List<Restaurant> displayList = new List<Restaurant>();
+            int restCount = 0;
+            foreach(var item in _list)
+            {
+                displayList.Add(new Restaurant
+                {
+                    Name = item.RestName,
+                    RestArea = item.RestArea,
+                    RestState=item.RestState,
+                    RestDistrict=item.RestDistrict,
+                    Image=item.RestImage,
+                    Id=item.RestId
+                    
+                });
+                restCount++;
+             
+            }
+            ViewBag.count = restCount.ToString();
+
+            return View(displayList);
+        }
+        public ActionResult ManageAddress(int id)
+        {
+            return RedirectToAction("InsertAddress", "Address", new { id = id });
+        }
+
+        public ActionResult InsertNumber()
+        {
+            return RedirectToAction("AddPhoneNo", "Address");
+        }
+
+
+        public ActionResult EditProfile(int? id)
+        {
+            tbl_Customer retObj = cusMngr.GetCustomerById(Convert.ToInt32(id));
+            if (retObj == null)
+            {
+                return HttpNotFound();
+            }
+            UserEdit disObj = new UserEdit();
+            disObj.Name = retObj.CusName;
+            disObj.Pincode = retObj.CusPincode;
+            
+            return View(disObj);
+     
+        }
+        [HttpPost]
+        public ActionResult EditProfile(UserEdit obj)
+        {
+            if (obj == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+      
+            if (ModelState.IsValid)
+            {
+                tbl_Customer updObj = new tbl_Customer();
+                updObj.CusName = obj.Name;
+                string savePath = Server.MapPath("~/Content/CustomerProfilePictures");
+                string saveThumbImagePath = savePath + @"/" + obj.ImgUrl.FileName;
+                obj.ImgUrl.SaveAs(saveThumbImagePath);
+                updObj.CusImage = "~/Content/CustomerProfilePictures/" + obj.ImgUrl.FileName;
+                updObj.CusPincode = obj.Pincode;
+                updObj.CusEmail = Session["Customer"].ToString();
+                string result = cusMngr.UpdateProfile(updObj);
+                if (result == "Success")
+                {
+                    return RedirectToAction("UserProfile", "Customer");
+                }
+                else
+                {
+                    ViewBag.msg = "Failed to insert";
+                    return View();
+                }
+
+            }
+            return View();
+        }
+
+        public ActionResult CartItems()
+        {
+            return RedirectToAction("CartItemsDisplay", "Cart");
+        }
+
+
+
+
+
 
     }
 }

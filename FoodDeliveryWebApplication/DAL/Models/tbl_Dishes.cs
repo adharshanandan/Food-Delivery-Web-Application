@@ -26,14 +26,12 @@ namespace DAL.Models
         public string DishImage { get; set; }
         public string DishDesc { get; set; }
         public string VegOrNonveg { get; set; }
-        public Nullable<int> Dish_fk_Offer { get; set; }
         public int Dish_fk_Rest { get; set; }
         public int Dish_fk_Cat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Cart> tbl_Cart { get; set; }
         public virtual tbl_Category tbl_Category { get; set; }
-        public virtual tbl_Offers tbl_Offers { get; set; }
         public virtual tbl_Restaurant tbl_Restaurant { get; set; }
     }
 }

@@ -1,0 +1,98 @@
+﻿@model FoodDeliveryWebApplication.Models.Dishes
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_RestaurantLayout.cshtml";
+}
+
+<section style="padding-top: 10em">
+
+    <div class="container">
+        <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5">
+            <div class="card-body ">
+
+                <h2>Add Dish</h2>
+
+
+                @using (Html.BeginForm("Create", "Dishes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.Hidden("DishId")
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.DishName, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.DishName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DishName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.DishImgUrl, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(model => model.DishImgUrl, new { type = "file", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DishImgUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.DishDesc, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.DishDesc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DishDesc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.VegorNonveg, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.VegorNonveg, ViewBag.rbVegorNon as List<SelectListItem>, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.VegorNonveg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.DishCategoryId, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.DishCategoryId, ViewBag.ddlCategory as List<SelectListItem>, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DishCategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                
+
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.DishPrice, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.DishPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DishPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row form-group text-center mb-3">
+                    <div class="mx-auto">
+                        <input type="submit" value="Add" class="btn btn-success" />
+                        <input type="button" value="Back to list" id="Clear" class="btn btn-danger" onclick="location.href='@Url.Action("DishList", "Dishes")'" />
+                    </div>
+
+                </div>
+            </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

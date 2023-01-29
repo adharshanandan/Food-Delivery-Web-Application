@@ -9,6 +9,10 @@ AdmEmail varchar(50),
 AdmPassword varchar(20)
 )
 
+alter table tbl_Admin add AdminRole int references tbl_Role(RoleId)
+
+
+select * from tbl_Admin
 
 
 
@@ -30,7 +34,7 @@ OfferPercentage int not null,
 OfferDescription varchar(max)
 )
 
-
+select * from tbl_Offers
 
 ----------------Restaurant Table---------
 
@@ -49,7 +53,7 @@ RestPassword varchar(50) not null,
 RestStatus char(1)
 )
 
-alter table tbl_Restaurant add RestTradeLicense varchar(50),RestRole int references tbl_Role(RoleId)
+alter table tbl_Restaurant add Rest_fk_Offer int references tbl_Offers(OfferId) on update cascade on delete cascade
 alter table tbl_Restaurant add RestArea varchar(50)
 select * from tbl_Restaurant
 -----------------Customer Table-----------
@@ -101,6 +105,8 @@ Dish_fk_Offer int references tbl_Offers(OfferId) on delete cascade on update cas
 Dish_fk_Rest int references tbl_Restaurant(RestId) on delete cascade on update cascade not null ,
 Dish_fk_Cat int references tbl_Category(CatId) on delete cascade on update cascade not null
 )
+
+select * from tbl_Dishes
 
 
 
@@ -168,6 +174,27 @@ ContName varchar(50) not null,
 ContEmail varchar(50) not null,
 ContMsg varchar(max) not null
 )
+
+
+---------------Address Table-------------
+
+create table tbl_Addresses(
+AddId int primary key identity(1,1),
+DoorOrFlatNo varchar(20),
+LandMark varchar(50),
+AddressType int references tbl_AddressType(TypeId) on update cascade on delete cascade,
+PinCode varchar(20),
+Add_fk_CusId int references tbl_Customer(CusId) on update cascade on delete cascade
+)
+
+drop table tbl_Addresses
+
+--------------Address Type --------------
+create table tbl_AddressType(
+TypeId int primary key identity(1,1),
+TypeName varchar(20)
+)
+
 
 ----------------- Login table----------
 create table tbl_Login(
@@ -334,7 +361,7 @@ delete from tbl_Customer where CusEmail='Adharsh@gmail.com'
 
 select * from tbl_DeliveryStaffs
 
-alter table tbl_DeliveryStaffs add StaffPassword varchar(20)
+alter table tbl_DeliveryStaffs add staffImage varchar(max)
 alter table tbl_Restaurant add IsValid varchar(10)
 
 

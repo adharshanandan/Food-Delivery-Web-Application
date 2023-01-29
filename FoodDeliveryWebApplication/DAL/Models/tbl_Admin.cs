@@ -17,5 +17,8 @@ namespace DAL.Models
         public int AdmId { get; set; }
         public string AdmEmail { get; set; }
         public string AdmPassword { get; set; }
+        public Nullable<int> AdminRole { get; set; }
+    
+        public virtual tbl_Role tbl_Role { get; set; }
     }
 }

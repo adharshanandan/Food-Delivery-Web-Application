@@ -13,16 +13,18 @@ namespace FoodDeliveryWebApplication.Models
         public string RestCountry { get; set; }
         public string RestState { get; set; }
         public string RestDistrict { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Location")]
         public string RestArea { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Trade License")]
         public string RestTradeLicense { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Phone Number")]
         [RegularExpression("^[0-9]{10}$",ErrorMessage ="Please enter a valid phone number")]
         public string RestPhone { get; set; }
+        public bool isFavourite { get; set; }
+     
 
 
     }

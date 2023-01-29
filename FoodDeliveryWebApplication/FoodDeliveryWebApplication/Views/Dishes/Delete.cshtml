@@ -1,0 +1,30 @@
+﻿@model FoodDeliveryWebApplication.Models.Dishes
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_RestaurantLayout.cshtml";
+}
+<section style="padding-top: 10em">
+    <div class="container">
+        <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5">
+            <div class="card-body text-center ">
+                <h3 class="mb-3 ">Are you sure you want to delete this?</h3>
+                <img src="~/Content/GifImages/icons8-trash-can (1).gif" style="height:70px;width:auto" />
+                <div>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="row form-group text-center mb-3 mt-5">
+                        <div class="mx-auto">
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                            <input type="button" value="Back to list" id="Clear" class="btn btn-primary" onclick="location.href='@Url.Action("DishList", "Dishes")'" />
+
+                        </div>
+                    </div>
+                            }
+                        </div>
+                    </div>
+        </div>
+    </div>
+</section>

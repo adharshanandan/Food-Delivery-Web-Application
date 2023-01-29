@@ -1,0 +1,22 @@
+﻿
+a.rest:link {
+    color: black;
+    text-decoration: none;
+    font-size:20px;
+}
+
+a.rest:visited {
+    color: deepskyblue;
+    text-decoration: none;
+    font-size: 20px;
+}
+a.rest:hover {
+    text-decoration: underline;
+}
+
+/*a.rest:active {
+    color: yellow;
+    background-color: transparent;
+}*/
+
+

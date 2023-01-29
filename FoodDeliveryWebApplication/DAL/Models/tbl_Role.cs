@@ -21,6 +21,7 @@ namespace DAL.Models
             this.tbl_Login = new HashSet<tbl_Login>();
             this.tbl_Restaurant = new HashSet<tbl_Restaurant>();
             this.tbl_DeliveryStaffs = new HashSet<tbl_DeliveryStaffs>();
+            this.tbl_Admin = new HashSet<tbl_Admin>();
         }
     
         public int RoleId { get; set; }
@@ -34,5 +35,7 @@ namespace DAL.Models
         public virtual ICollection<tbl_Restaurant> tbl_Restaurant { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_DeliveryStaffs> tbl_DeliveryStaffs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Admin> tbl_Admin { get; set; }
     }
 }

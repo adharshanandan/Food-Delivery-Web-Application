@@ -9,11 +9,11 @@ namespace FoodDeliveryWebApplication.Models
 {
     public class Login
     {
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [EmailAddress(ErrorMessage ="Invalid Email id")]
         [DisplayName("Username")]
         public string UserEmailId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Required!!")]
         [DisplayName("Password")]
         public string UserPassword { get; set; }
     }

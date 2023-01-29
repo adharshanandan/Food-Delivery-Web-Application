@@ -4,6 +4,7 @@
     <EntitySetMapping Name="tbl_Admin">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Admin">
         <MappingFragment StoreEntitySet="tbl_Admin">
+          <ScalarProperty Name="AdminRole" ColumnName="AdminRole" />
           <ScalarProperty Name="AdmId" ColumnName="AdmId" />
           <ScalarProperty Name="AdmEmail" ColumnName="AdmEmail" />
           <ScalarProperty Name="AdmPassword" ColumnName="AdmPassword" />
@@ -58,17 +59,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_CustomerAddresses">
-      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_CustomerAddresses">
-        <MappingFragment StoreEntitySet="tbl_CustomerAddresses">
-          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
-          <ScalarProperty Name="AddresssName" ColumnName="AddresssName" />
-          <ScalarProperty Name="DoorOrFlatNo" ColumnName="DoorOrFlatNo" />
-          <ScalarProperty Name="AddressType" ColumnName="AddressType" />
-          <ScalarProperty Name="Addr_fk_CusId" ColumnName="Addr_fk_CusId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_DeliveryStaffs">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_DeliveryStaffs">
         <MappingFragment StoreEntitySet="tbl_DeliveryStaffs">
@@ -96,21 +86,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Dishes">
-      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Dishes">
-        <MappingFragment StoreEntitySet="tbl_Dishes">
-          <ScalarProperty Name="DishId" ColumnName="DishId" />
-          <ScalarProperty Name="DishName" ColumnName="DishName" />
-          <ScalarProperty Name="DishPrice" ColumnName="DishPrice" />
-          <ScalarProperty Name="DishImage" ColumnName="DishImage" />
-          <ScalarProperty Name="DishDesc" ColumnName="DishDesc" />
-          <ScalarProperty Name="VegOrNonveg" ColumnName="VegOrNonveg" />
-          <ScalarProperty Name="Dish_fk_Offer" ColumnName="Dish_fk_Offer" />
-          <ScalarProperty Name="Dish_fk_Rest" ColumnName="Dish_fk_Rest" />
-          <ScalarProperty Name="Dish_fk_Cat" ColumnName="Dish_fk_Cat" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Offers">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Offers">
         <MappingFragment StoreEntitySet="tbl_Offers">
@@ -133,6 +108,7 @@
     <EntitySetMapping Name="tbl_Restaurant">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Restaurant">
         <MappingFragment StoreEntitySet="tbl_Restaurant">
+          <ScalarProperty Name="Rest_fk_Offer" ColumnName="Rest_fk_Offer" />
           <ScalarProperty Name="IsValid" ColumnName="IsValid" />
           <ScalarProperty Name="RestArea" ColumnName="RestArea" />
           <ScalarProperty Name="RestRole" ColumnName="RestRole" />
@@ -186,6 +162,40 @@
           <ScalarProperty Name="Fav_fk_RestId" ColumnName="Fav_fk_RestId" />
           <ScalarProperty Name="Fav_fk_CusId" ColumnName="Fav_fk_CusId" />
           <ScalarProperty Name="FavId" ColumnName="FavId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Addresses">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Addresses">
+        <MappingFragment StoreEntitySet="tbl_Addresses">
+          <ScalarProperty Name="Add_fk_CusId" ColumnName="Add_fk_CusId" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="AddressType" ColumnName="AddressType" />
+          <ScalarProperty Name="LandMark" ColumnName="LandMark" />
+          <ScalarProperty Name="DoorOrFlatNo" ColumnName="DoorOrFlatNo" />
+          <ScalarProperty Name="AddId" ColumnName="AddId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_AddressType">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_AddressType">
+        <MappingFragment StoreEntitySet="tbl_AddressType">
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Dishes">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Dishes">
+        <MappingFragment StoreEntitySet="tbl_Dishes">
+          <ScalarProperty Name="Dish_fk_Cat" ColumnName="Dish_fk_Cat" />
+          <ScalarProperty Name="Dish_fk_Rest" ColumnName="Dish_fk_Rest" />
+          <ScalarProperty Name="VegOrNonveg" ColumnName="VegOrNonveg" />
+          <ScalarProperty Name="DishDesc" ColumnName="DishDesc" />
+          <ScalarProperty Name="DishImage" ColumnName="DishImage" />
+          <ScalarProperty Name="DishPrice" ColumnName="DishPrice" />
+          <ScalarProperty Name="DishName" ColumnName="DishName" />
+          <ScalarProperty Name="DishId" ColumnName="DishId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

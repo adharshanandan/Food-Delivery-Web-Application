@@ -1,0 +1,106 @@
+﻿@*@model IEnumerable<FoodDeliveryWebApplication.Models.Restaurant>*@
+
+@{
+    ViewBag.Title = "PendingRestaurantApprovals";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>PendingRestaurantApprovals</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConfirmPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pincode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestCountry)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestDistrict)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestTradeLicense)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestPhone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConfirmPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pincode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestCountry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestDistrict)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestArea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestTradeLicense)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestPhone)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>*@

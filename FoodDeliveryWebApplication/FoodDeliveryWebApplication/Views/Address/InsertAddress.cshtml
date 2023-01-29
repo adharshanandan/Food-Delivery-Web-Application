@@ -1,0 +1,104 @@
+﻿@model FoodDeliveryWebApplication.Models.CustomerAddresses
+
+@{
+    ViewBag.Title = "InsertAddress";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<section style="padding-top: 10em">
+
+    <div class="container">
+        <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5">
+            <div class="card-body ">
+                <h2 class="text-center">Restaurant Registration</h2>
+
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @Html.Hidden("AddId")
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DoorOrFlatNo, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.DoorOrFlatNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DoorOrFlatNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LandMark, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.LandMark, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LandMark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AddressType, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.AddressType, TempData["ddlAddressTypeList"] as List<SelectListItem>, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AddressType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PinCode, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.PinCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="row form-group text-center mb-3 mt-3">
+                    <div class="mx-auto">
+                        <input type="submit" value="Add" onclick="AddAddress()" class="btn btn-primary" />
+                        <input type="button" value="Cancel" id="Cancel" onclick="location.href='@Url.Action("UserProfile", "Customer")'" class="btn btn-danger" />
+                    </div>
+
+                </div>
+            </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script>
+
+
+    function AddAddress() {
+        var Address = {}
+        Address["AddId"] = $("#AddId").val();
+        Address["DoorOrFlatNo"] = $("#DoorOrFlatNo").val();
+        Address["LandMark"] = $("#LandMark").val();
+        Address["AddressType"] = $("#AddressType").val();
+        Address["PinCode"] = $("#PinCode").val();
+        $.ajax({
+            type="POST",
+            contentType: "application/json;charset=ut-f-8",
+            url: "/Address/InsertAddress/",
+            data: "{'obj':" + JSON.stringify(Address) + "'}",
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+                
+            },
+            error: function (err) {
+                alert(err);
+            }
+        })
+
+
+    }
+</script>

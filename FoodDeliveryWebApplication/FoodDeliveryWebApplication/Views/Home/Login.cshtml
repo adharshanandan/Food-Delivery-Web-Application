@@ -52,6 +52,7 @@
                                 @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
                         <div class="mb-3 text-center">
                             @Html.ActionLink("Reset Password", "ResetPassword")
                         </div>
@@ -66,24 +67,40 @@
                         </div>
                     </div>
                 }
-                <div>
-
-                    <div id="successReg" class="alert alert-success ">
+                <div id="successReg">
+                    <div class="alert text-success text-center">
 
                         <strong>@TempData["CusSuccess"]</strong>
                         <strong>@TempData["RestSuccess"]</strong>
                         <strong>@TempData["DelGuySuccess"]</strong>
+                    </div>
+                    <div class="alert text-danger text-center">
+                        <strong class="text-danger">@ViewBag.validCheckCus</strong>
+                        <strong>@ViewBag.statusCheckCus</strong>
+                        <strong>@ViewBag.validCheckRest</strong>
+                        <strong>@ViewBag.statusCheckRest</strong>
 
                     </div>
 
                 </div>
+                <div class="loader-wrapper">
+
+
+                    <img class="loader" src="~/Content/GifImages/ezgif.com-gif-maker.gif" />
+
+
+                </div>
+
+            </div>
             </div>
         </div>
         <div>
             @ViewBag.msg
         </div>
+
 </section>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/CreatedScripts/NavIconHide.js"></script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
@@ -91,7 +108,9 @@
     $(document).ready(function () {
         window.setTimeout(function () {
             $("#successReg").fadeOut();
+           
         }, 4000);
     });
 </script>
+
 

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FoodDeliveryWebApplication.Models.Restaurant>
+
+@{
+    ViewBag.Title = "Restaurants";
+    if (Session["customer"] == null)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+
+    }
+
+}
+<link href="~/Content/css/CreatedCSS/hyperlink.css" rel="stylesheet" />
+<section style="padding-top:10em" class="bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 mt-5">Restaurants</h2>
+        <div class="row mb-5">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 mb-3 text-center">
+                    <div>
+                        <div class="mb-2">
+                            <img class="rounded-circle shadow" style="width:150px;height:150px;" src="@Url.Content(item.Image)"  />
+                        </div>
+                        <div>
+                            <a class="text-center rest" href="@Url.Action("FoodItems", "Dishes", new { id = @item.Id })">@item.Name</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+        
+
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/CreatedScripts/NavIconHide.js"></script>
+
+   
+   

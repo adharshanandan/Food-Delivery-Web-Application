@@ -8,14 +8,16 @@ using FoodDeliveryWebApplication.Models;
 using System.Web.Script.Serialization;
 using DAL.Models;
 using DAL.Manager;
-
+using System.Threading.Tasks;
 
 namespace FoodDeliveryWebApplication.Controllers
 {
     public class RestaurantController : Controller
     {
-       
+        RestaurantManager restMngr = new RestaurantManager();
+        DishesManager dishMngr = new DishesManager();
 
+        // Registration Section
         // GET: Restaurant/Create
         public ActionResult Create()
         {
@@ -45,16 +47,16 @@ namespace FoodDeliveryWebApplication.Controllers
                 }
 
             }
-            RestaurantManager restMngr = new RestaurantManager();
+            
             tbl_Restaurant insObj = new tbl_Restaurant();
             insObj.RestName = obj.Name;
             insObj.RestPhone = obj.RestPhone;
             insObj.RestEmail = obj.EmailId;
             insObj.RestPincode = obj.Pincode;
-            insObj.RestImage = obj.ImgUrl.FileName;
             string savePath = Server.MapPath("~/Content/RestaurantProfilePictures");
             string saveThumbImagePath = savePath + @"/" + obj.ImgUrl.FileName;
             obj.ImgUrl.SaveAs(saveThumbImagePath);
+            insObj.RestImage = "~/Content/RestaurantProfilePictures/" + obj.ImgUrl.FileName;
             insObj.RestCountry = restObj.RestCountry;
             insObj.RestState = restObj.RestState;
             insObj.RestDistrict = restObj.RestDistrict;
@@ -64,7 +66,7 @@ namespace FoodDeliveryWebApplication.Controllers
             insObj.RestRole = 3;
             insObj.RestArea = obj.RestArea;
             insObj.IsValid = "Yes";
-            var isExistEmail = restMngr.IsExistEmail(insObj);
+            var isExistEmail = restMngr.IsExistEmail(insObj.RestEmail.ToString());
             if (isExistEmail != null)
             {
                 ModelState.AddModelError("EmailId", "Email already exists");
@@ -83,7 +85,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 if (result == "Success")
                 {
                     TempData["RestSuccess"] = "Registered successfully. Please Login";
-                    return RedirectToAction("Login","Home");
+                    return RedirectToAction("Login","Login");
                 }
                 else if (result == "Failed")
                 {
@@ -179,7 +181,78 @@ namespace FoodDeliveryWebApplication.Controllers
   
         }
 
-        // POST: Restaurant/Create
+
+
+        //Operations Section
+
+        public ActionResult AddDish()
+        {
+            if (Session["Restaurant"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Home");
+
+        }
+        public ActionResult OrderHistory()
+        {
+            return View();
+        }
+        public ActionResult PendingOrders()
+        {
+            return View();
+
+        }
+
+        public ActionResult Restaurants()
+        {
+            if (Session["Customer"] != null)
+            {
+                List<tbl_Restaurant> nearestRestList = restMngr.GetNearestRestaurantDetails(Session["Customer"].ToString());
+                List<Restaurant> disNearestRestList = new List<Restaurant>();
+                foreach(var item in nearestRestList)
+                {
+                    disNearestRestList.Add(new Restaurant
+                    {
+                        Image = item.RestImage,
+                        Name = item.RestName,
+                        Id = item.RestId
+
+
+                    });
+                }
+                return View(disNearestRestList);
+            }
+            List<tbl_Restaurant> returnList = restMngr.GetRestaurantDetails();
+            if (returnList == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            List<Restaurant> displayList = new List<Restaurant>();
+            foreach(var item in returnList)
+            {
+                displayList.Add(new Restaurant
+                {
+                    Image=item.RestImage,
+                    Name=item.RestName,
+                    Id=item.RestId
+
+                });
+            }
+
+
+            return View(displayList);
+        }
+        //[HttpPost]
+
+        //public ActionResult Restaurants(int id)
+        //{
+           
+
+        //}
+
+
+        
 
 
     }

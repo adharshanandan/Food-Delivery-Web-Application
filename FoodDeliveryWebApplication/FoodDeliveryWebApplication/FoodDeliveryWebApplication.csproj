@@ -214,22 +214,36 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\DeliveryBoyController.cs" />
+    <Compile Include="Controllers\DishesController.cs" />
+    <Compile Include="Controllers\FavouriteRestaurantController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddressType.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ContactUs.cs" />
+    <Compile Include="Models\CustomerAddresses.cs" />
     <Compile Include="Models\DeliveryGuy.cs" />
+    <Compile Include="Models\Dishes.cs" />
     <Compile Include="Models\EmailVerification.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\PhoneNumbers.cs" />
     <Compile Include="Models\PinCodeApi.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserEdit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +251,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CartIcons\CartEmpty.png" />
+    <Content Include="Content\CartIcons\CartFull.png" />
     <Content Include="Content\ContactUs image\Contactus %282%29.jpg" />
     <Content Include="Content\ContactUs image\Envelope.png" />
     <Content Include="Content\ContactUs image\Message.png" />
@@ -256,6 +272,10 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.rtl.css" />
     <Content Include="Content\css\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\CreatedCSS\hrStyle.css" />
+    <Content Include="Content\css\CreatedCSS\hyperlink.css" />
+    <Content Include="Content\css\CreatedCSS\PageLoader.css" />
+    <Content Include="Content\css\CreatedCSS\SideBarNav.css" />
     <Content Include="Content\css\fontawesome.css" />
     <Content Include="Content\css\fontawesome.min.css" />
     <Content Include="Content\css\fontstyles.css" />
@@ -266,9 +286,13 @@
     <Content Include="Content\Food delivery process images\Order1.png" />
     <Content Include="Content\Food delivery process images\Prepare.png" />
     <Content Include="Content\Food delivery process images\Travel.png" />
-    <Content Include="Content\Food images\biryani.jpg" />
     <Content Include="Content\Food images\burger.jpg" />
-    <Content Include="Content\Food images\Noodles.jpg" />
+    <Content Include="Content\Food images\DSC09803.jpg" />
+    <Content Include="Content\Food images\FEB09915.jpg" />
+    <Content Include="Content\Food images\IMG_8783.jpg" />
+    <Content Include="Content\GifImages\ezgif.com-gif-maker.gif" />
+    <Content Include="Content\GifImages\icons8-trash-can %281%29.gif" />
+    <Content Include="Content\GifImages\output-onlinegiftools.gif" />
     <Content Include="Content\js\bootstrap.bundle.js" />
     <Content Include="Content\js\bootstrap.bundle.min.js" />
     <Content Include="Content\js\bootstrap.esm.js" />
@@ -277,14 +301,20 @@
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\EmailValidation.js" />
     <Content Include="Content\js\JavaScript.js" />
+    <Content Include="Content\LoginFormImage\icons8-home-100.png" />
+    <Content Include="Content\LoginFormImage\icons8-home-96.png" />
+    <Content Include="Content\LoginFormImage\icons8-logout-rounded-down-96 %281%29.png" />
+    <Content Include="Content\LoginFormImage\icons8-logout-rounded-down-96.png" />
     <Content Include="Content\LoginFormImage\usercommon.png" />
     <Content Include="Content\Logos\AppLogo.png" />
     <Content Include="Content\Logos\AppName.png" />
+    <Content Include="Content\Logos\bg.jpeg" />
     <Content Include="Content\NavbarStyle.css" />
     <Content Include="Content\Registration images\Customer.jpg" />
     <Content Include="Content\Registration images\Delivery boy.jpg" />
     <Content Include="Content\Registration images\Photographer.jpg" />
     <Content Include="Content\Registration images\Restaurant.jpg" />
+    <Content Include="Content\RestaurantProfilePictures\AyushvegRest.jpeg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -316,6 +346,8 @@
     <Content Include="EmailTemplate\Text.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CreatedScripts\ButtonClear.js" />
+    <Content Include="Scripts\CreatedScripts\NavIconHide.js" />
+    <Content Include="Scripts\CreatedScripts\PageLoader.js" />
     <Content Include="Scripts\fontawesome\all.js" />
     <Content Include="Scripts\fontawesome\all.min.js" />
     <Content Include="Scripts\fontawesome\brands.js" />
@@ -351,8 +383,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
@@ -363,13 +393,39 @@
     <Content Include="Views\DeliveryBoy\Create.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Customer\Confirm.cshtml" />
+    <Content Include="Views\Shared\_RestaurantLayout.cshtml" />
+    <Content Include="Views\Restaurant\OrderHistory.cshtml" />
+    <Content Include="Views\Restaurant\PendingOrders.cshtml" />
+    <Content Include="Views\Customer\ViewDish.cshtml" />
+    <Content Include="Views\Dishes\DishList.cshtml" />
+    <Content Include="Views\Dishes\Create.cshtml" />
+    <Content Include="Views\Dishes\Edit.cshtml" />
+    <Content Include="Views\Dishes\Delete.cshtml" />
+    <Content Include="Views\Admin\PendingRestaurantApprovals.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\CategoryList.cshtml" />
+    <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Restaurant\Restaurants.cshtml" />
+    <Content Include="Views\Dishes\FoodItems.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\Customer\FavRestaurants.cshtml" />
+    <Content Include="Views\Customer\UserProfile.cshtml" />
+    <Content Include="Views\Address\InsertAddress.cshtml" />
+    <Content Include="Views\Address\AddPhoneNo.cshtml" />
+    <Content Include="Views\Customer\EditProfile.cshtml" />
+    <Content Include="Views\Cart\CartItemsDisplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\CategoryImages\" />
     <Folder Include="Content\CustomerProfilePictures\" />
     <Folder Include="Content\DelGuyProfilePictures\" />
-    <Folder Include="Content\RestaurantProfilePictures\" />
-    <Folder Include="Views\Admin\" />
+    <Folder Include="Content\DishesImages\" />
+    <Folder Include="Views\Category\" />
+    <Folder Include="Views\FavouriteRestaurant\" />
+    <Folder Include="Views\Logout\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

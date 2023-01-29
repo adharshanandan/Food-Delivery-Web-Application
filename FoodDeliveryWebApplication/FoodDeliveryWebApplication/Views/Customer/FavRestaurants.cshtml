@@ -1,0 +1,90 @@
+﻿@model IEnumerable<FoodDeliveryWebApplication.Models.Restaurant>
+
+@{
+    ViewBag.Title = "FavRestaurants";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+<link href="~/Content/css/CreatedCSS/hyperlink.css" rel="stylesheet" />
+<section style="padding-top:10em">
+    <div class="container">
+        <h2 class="text-center">Favourite Restaurants</h2>
+
+        @if (@ViewBag.count == "0" || @ViewBag.count == "1")
+        {
+            <h5><i>@ViewBag.count Restaurant</i></h5>
+        }
+        else
+        {
+            <h5><i>@ViewBag.count Restaurants</i></h5>
+        }
+
+        <hr />
+        <br />
+        
+        <div class="row mt-3 mb-3 w-50 mx-auto" >
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-12 card shadow mx-auto bg-light mb-3" >
+                    <div class="card-body">
+                        <div class="row my-auto">
+                            <div class="col-md-4 flex-grow-0">
+                                <img class="rounded-circle my-auto" style="width:80px;height:80px;" src="@Url.Content(item.Image)" />
+
+                            </div>
+                            <div class="col-md-4 my-auto">
+
+                                <h4><a class="text-center rest" href="@Url.Action("FoodItems", "Dishes", new { id = @item.Id })">@item.Name</a></h4>
+                                <p><i>@item.RestArea,@item.RestDistrict,@item.RestState</i></p>
+
+                            </div>
+                            <div class="col-md-4 my-auto">
+
+                                <button type="submit" id="@item.Id" class="btn btn-light btnFavtd"><i class="fa-solid fa-heart" style="color:red"></i> Favourited </button>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(".btnFavtd").click(function () {
+        var restId = this.id;
+        var url = "/FavouriteRestaurant/UnFavourite";
+        $.ajax({
+            url: url,
+            data: { 'restId': restId },
+            type: "POST",
+            success: function (data) {
+                if (data == "Login") {
+                    alert("Please login first!")
+                    location.href = "/Login/Login";
+
+
+                } else {
+                    location.reload();
+                    alert(data);
+
+                }
+
+
+            },
+            error: function (err) {
+                alert("Error occured");
+            }
+        })
+
+    });
+</script>
