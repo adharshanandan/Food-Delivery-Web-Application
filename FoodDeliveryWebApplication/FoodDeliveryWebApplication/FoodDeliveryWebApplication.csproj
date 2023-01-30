@@ -239,6 +239,7 @@
     <Compile Include="Models\Dishes.cs" />
     <Compile Include="Models\EmailVerification.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\PayAmount.cs" />
     <Compile Include="Models\PhoneNumbers.cs" />
     <Compile Include="Models\PinCodeApi.cs" />
     <Compile Include="Models\Restaurant.cs" />
@@ -251,8 +252,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CartIcons\cancel.png" />
     <Content Include="Content\CartIcons\CartEmpty.png" />
     <Content Include="Content\CartIcons\CartFull.png" />
+    <Content Include="Content\CartIcons\Sad emoji.png" />
     <Content Include="Content\ContactUs image\Contactus %282%29.jpg" />
     <Content Include="Content\ContactUs image\Envelope.png" />
     <Content Include="Content\ContactUs image\Message.png" />

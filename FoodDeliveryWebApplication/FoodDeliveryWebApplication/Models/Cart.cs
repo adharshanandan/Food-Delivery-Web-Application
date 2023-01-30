@@ -18,6 +18,9 @@ namespace FoodDeliveryWebApplication.Models
         public int Cart_fk_RestId { get; set; }
         public string RestaurantName { get; set; }
         public string Image { get; set; }
+        
+
+
 
 
     }

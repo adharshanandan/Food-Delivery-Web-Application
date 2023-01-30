@@ -41,7 +41,7 @@ namespace FoodDeliveryWebApplication.Controllers
                       
                         DishCategory=item.tbl_Category.CatName,
                         VegorNonveg=item.VegOrNonveg,
-                        DishPrice=item.DishPrice.ToString()
+                        DishPrice=item.DishPrice
 
                     });
                 }
@@ -76,7 +76,7 @@ namespace FoodDeliveryWebApplication.Controllers
                     displayObj.DishName = obj.DishName;
                     displayObj.DishDesc = obj.DishDesc;
                     displayObj.DishId = obj.DishId;
-                    displayObj.DishPrice = obj.DishPrice.ToString();
+                    displayObj.DishPrice = obj.DishPrice;
                    
                     return View(displayObj);
                     
@@ -370,14 +370,15 @@ namespace FoodDeliveryWebApplication.Controllers
                             DishName = item.DishName,
                             DishDesc = item.DishDesc,
                             DishImage = item.DishImage,
-                            DishPrice = item.DishPrice.ToString(),
-                           
+                            DishPrice = item.DishPrice,
+
+
                             DishId = item.DishId,
                             buttonName = "Added"
 
 
 
-                        });
+                        }) ;
 
                     }
                     else
@@ -387,7 +388,7 @@ namespace FoodDeliveryWebApplication.Controllers
                             DishName = item.DishName,
                             DishDesc = item.DishDesc,
                             DishImage = item.DishImage,
-                            DishPrice = item.DishPrice.ToString(),
+                            DishPrice = item.DishPrice,
                             
                             DishId = item.DishId,
                             buttonName = "Add"
@@ -413,7 +414,7 @@ namespace FoodDeliveryWebApplication.Controllers
                     DishName = item.DishName,
                     DishDesc = item.DishDesc,
                     DishImage = item.DishImage,
-                    DishPrice = item.DishPrice.ToString(),
+                    DishPrice = item.DishPrice,
                    
                     DishId=item.DishId,
                     buttonName = "Add"

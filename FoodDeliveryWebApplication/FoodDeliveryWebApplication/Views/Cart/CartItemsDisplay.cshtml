@@ -6,55 +6,253 @@
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
-<section style="padding-top:10em" class="mx-auto" >
+<section style="padding-top:10em" class="mx-auto">
     <div class="container w-50">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img src="@Url.Content(@Model.RestDetails.Image)" style="width:150px;height:150px" class="rounded-circle border border-success border-3 " />
+        @if (Session["CartItemsCount"].ToString() != "0")
+        {
+
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@Url.Content(@Model.RestDetails.Image)" style="width:150px;height:150px" class="rounded shadow img-fluid " />
+                        </div>
+                        <div class="col-md-8 my-auto p-0">
+                            <h4 class="text-left mx-0">@Model.RestDetails.RestaurantName</h4>
+                        </div>
+
                     </div>
-                    <div class="col-md-6">
-                        <h4>@Model.RestDetails.RestaurantName</h4>
+                    <hr />
+                    @foreach (var item in Model.CartItem)
+                    {
+                        <div class="row mt-3 mb-3 mx-auto">
+
+                            <div class="col-md-12 card shadow mx-auto bg-light mb-3">
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <button class="btn btn-default border-0  btnRemItem" id="@item.CartId"><img src="@Url.Content("~/Content/CartIcons/cancel.png")" style="width: 30px; height: 30px;position:absolute;right:10px; " class="img-fluid" /></button>
+                                        <div class="col-md-4 my-auto">
+                                            <img src="@Url.Content(item.DishImage)" style="width: 120px; height: 120px " class="rounded-circle img-fluid " />
+
+                                        </div>
+                                        <div class="col-md-4 my-auto">
+                                            <h4>@item.DishName <span class="fs-5"><i>(@item.VegorNonveg)</i></span></h4>
+                                            <p>@item.DishDesc</p>
+
+
+                                        </div>
+                                        <div class="col-md-4 my-auto">
+                                            <p><i>Rs. @item.DishPrice /-</i></p>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <p class="text-center"><span>Quantity : </span><span><button class="btn btn-light btn-sm shadow btnMinus" id="@item.CartId"><strong>-</strong></button></span><strong class="p-1"> @item.Quantity</strong> <span><button class="btn btn-light btn-sm shadow btnPlus" id="@item.CartId"><strong>+</strong></button></span></p>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <p class="text-secondary"><i>Added on : @item.AddedDate.ToShortDateString()</i></p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }
+                    <div class="mx-auto text-center">
+                        <button class="btn btn-block btn-danger btnClear">Clear cart</button>
+                    </div>
+                    <hr />
+                    <h4>Bill details</h4>
+                    <hr />
+                    <div>
+
+                        <table>
+                            <tr>
+
+                                <td colspan="2">
+                                    Item Total :
+                                </td>
+                                <td colspan="2">
+                                    @Model.PayAmount.TotalAmount
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    Delivery Fee :
+                                </td>
+                                <td colspan="2">
+                                    @Model.PayAmount.DelveryCharge
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    Govt Taxes & Other Charges :
+                                </td>
+                                <td colspan="2">
+                                    @Model.PayAmount.Tax
+                                </td>
+                            </tr>
+
+
+                        </table>
+                        <hr />
+                        <table class="mx-auto">
+                            <tr>
+                                <td colspan="2">
+                                    <strong class="fs-4">To Pay :  </strong>
+                                </td>
+                                <td colspan="2">
+                                    <span class="fs-4"> Rs. @Model.PayAmount.ToPay /- </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="m-5 float-end">
+                        <button class="btn btn-block btn-primary btn-lg mx-auto">Proceed to Pay</button>
                     </div>
 
                 </div>
-                <hr />
-                @foreach (var item in Model.CartItem)
-                {
-                    <div class="row mt-3 mb-3 mx-auto">
-
-                        <div class="col-md-12 card shadow mx-auto bg-light mb-3">
-                            <div class="card-body">
-                                <div class="col-md-4">
-                                    <img src="@Url.Content(item.DishImage)" style="width:80px;height:80px" class="rounded-circle border border-success border-3 " />
-
-                                </div>
-                                <div class="col-md-4">
-                                    <h5>@item.DishName</h5>
-
-                                </div>
-                                <div class="col-md-4">
-                                    <a href="#"><i class="icon-remove"></i></a>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                }
-
 
             </div>
+        }
+        else
+        {
+    <div class="mt-5 text-center">
+        <h1 class=" my-auto text-danger">oops...Cart is empty!!</h1>
+        <img src="@Url.Content("~/Content/CartIcons/Sad emoji.png")" style="width:200px;height:200px" class="img-fluid text-center my-auto" />
+    </div>
 
-        </div>
+        }
+
     </div>
 
 
 
 
 </section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(".btnPlus").click(function () {
+        var Id = this.id;
+        var url = "/Cart/QuantityPlus/"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { 'id': Id },
+            success: function (data) {
+                if (data == "Updated") {
+                    location.reload();
+                }
+                else if (data == "Error") {
+                    alert("Error occured!");
+                }
+                else if (data == "Over") {
+                    alert("Quantity can not be more than 10");
+                }
+                else if (data == "Not found") {
+                    alert("Sorry! Item not found");
+                }
+            },
+            error: function (err) {
+                alert(err);
+            }
+
+
+        });
+    })
+
+    $(".btnMinus").click(function () {
+        var Id = this.id;
+        var url = "/Cart/QuantityMinus/"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { 'id': Id },
+            success: function (data) {
+                if (data == "Updated") {
+                    location.reload();
+                }
+                else if (data == "Error") {
+                    alert("Error occured!");
+                }
+                else if (data == "Zero") {
+                    alert("Quantity can not Zero");
+                }
+                else if (data == "Not found") {
+                    alert("Sorry! Item not found");
+                }
+            },
+            error: function (err) {
+                alert(err);
+            }
+
+
+        });
+    })
+
+    $(".btnRemItem").click(function () {
+        var Id = this.id;
+        var url = "/Cart/RemoveCartItem/"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { 'id': Id },
+            success: function (data) {
+                if (data == "Deleted") {
+                    location.reload();
+                }
+                else if (data == "Error") {
+                    alert("Error occured!");
+                }
+                else if (data == "Not found") {
+                    alert("Sorry! Item not found");
+                }
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+
+
+        });
+    })
+
+    $(".btnClear").click(function () {
+
+        var url = "/Cart/ClearCart"
+        $.ajax({
+            type: "POST",
+            url: url,
+
+            success: function (data) {
+                if (data == "Cleared") {
+                    location.reload();
+                }
+                else if (data == "Error") {
+                    alert("Error occured!");
+                }
+                else if (data == "Empty") {
+                    alert("Cart is empty");
+                }
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+
+
+        });
+    })
+
+</script>
 
 
 

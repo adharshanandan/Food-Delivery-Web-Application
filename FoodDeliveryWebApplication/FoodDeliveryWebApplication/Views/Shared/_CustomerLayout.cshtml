@@ -112,7 +112,20 @@
     <script src="~/Scripts/CreatedScripts/PageLoader.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
 
-
+    @*<script>
+        $(document).ready(function () {
+            $.ajax({
+                method: "GET",
+                url: "/Customer/FoodItems",
+                success: function (data) {
+                    location.href=""
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            })
+        })
+    </script>*@
 
 </body>
 </html>

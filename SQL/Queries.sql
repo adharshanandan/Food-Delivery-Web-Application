@@ -366,3 +366,4 @@ alter table tbl_Restaurant add IsValid varchar(10)
 
 
 update tbl_Customer set CusStatus='D' where CusEmail='Adharsh@gmail.com'
+

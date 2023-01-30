@@ -28,7 +28,7 @@ namespace FoodDeliveryWebApplication.Models
         public HttpPostedFileBase DishImgUrl { get; set; }
         [Required(ErrorMessage = "Required!!")]
         [DisplayName("Price")]
-        public string DishPrice { get; set; }
+        public decimal DishPrice { get; set; }
         [DisplayName("Description")]
         public string DishDesc { get; set; } 
         [Required(ErrorMessage = "Required!!")]
