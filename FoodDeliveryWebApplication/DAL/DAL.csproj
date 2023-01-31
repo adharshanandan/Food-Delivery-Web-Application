@@ -62,6 +62,7 @@
     <Compile Include="Manager\FavouriteRestaurantManager.cs" />
     <Compile Include="Manager\HomeManager.cs" />
     <Compile Include="Manager\LoginManager.cs" />
+    <Compile Include="Manager\PaymentManager.cs" />
     <Compile Include="Manager\RestaurantManager.cs" />
     <Compile Include="Models\FoodDeliveryModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -85,6 +86,12 @@
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Admin.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_BankAccounts.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_BankNames.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Cart.cs">
@@ -117,6 +124,12 @@
     <Compile Include="Models\tbl_Offers.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_OrderDetails.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_OrderedFoodDetails.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_PhoneNumbers.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
@@ -124,6 +137,9 @@
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Role.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_UserBankAcc.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

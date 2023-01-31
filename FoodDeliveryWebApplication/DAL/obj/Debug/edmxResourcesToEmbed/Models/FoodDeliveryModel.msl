@@ -199,5 +199,67 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OrderDetails">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_OrderDetails">
+        <MappingFragment StoreEntitySet="tbl_OrderDetails">
+          <ScalarProperty Name="OrderOtp" ColumnName="OrderOtp" />
+          <ScalarProperty Name="IsOrderConfirmed" ColumnName="IsOrderConfirmed" />
+          <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="Orderdate" ColumnName="Orderdate" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="Order_fk_StaffId" ColumnName="Order_fk_StaffId" />
+          <ScalarProperty Name="Order_fk_RestId" ColumnName="Order_fk_RestId" />
+          <ScalarProperty Name="Order_fk_AddId" ColumnName="Order_fk_AddId" />
+          <ScalarProperty Name="Order_fk_CusId" ColumnName="Order_fk_CusId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OrderedFoodDetails">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_OrderedFoodDetails">
+        <MappingFragment StoreEntitySet="tbl_OrderedFoodDetails">
+          <ScalarProperty Name="DishQuantity" ColumnName="DishQuantity" />
+          <ScalarProperty Name="fk_DishId" ColumnName="fk_DishId" />
+          <ScalarProperty Name="fk_OrderId" ColumnName="fk_OrderId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_BankAccounts">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_BankAccounts">
+        <MappingFragment StoreEntitySet="tbl_BankAccounts">
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="AccBalance" ColumnName="AccBalance" />
+          <ScalarProperty Name="IfscCode" ColumnName="IfscCode" />
+          <ScalarProperty Name="AccNumber" ColumnName="AccNumber" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="fk_BankName" ColumnName="fk_BankName" />
+          <ScalarProperty Name="AccId" ColumnName="AccId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_BankNames">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_BankNames">
+        <MappingFragment StoreEntitySet="tbl_BankNames">
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="BankId" ColumnName="BankId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_UserBankAcc">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_UserBankAcc">
+        <MappingFragment StoreEntitySet="tbl_UserBankAcc">
+          <ScalarProperty Name="rder_fk_CusId" ColumnName="rder_fk_CusId" />
+          <ScalarProperty Name="UserEmailId" ColumnName="UserEmailId" />
+          <ScalarProperty Name="IfscCode" ColumnName="IfscCode" />
+          <ScalarProperty Name="AccNumber" ColumnName="AccNumber" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="User_fk_BankName" ColumnName="User_fk_BankName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

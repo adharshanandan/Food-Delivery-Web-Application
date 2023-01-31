@@ -1,5 +1,3 @@
-F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.csproj.AssemblyReference.cache
-F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.csproj.CoreCompileInputs.cache
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\bin\FoodDeliveryWebApplication.dll.config
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\bin\FoodDeliveryWebApplication.dll
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\bin\FoodDeliveryWebApplication.pdb
@@ -117,6 +115,8 @@ F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeli
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\bin\Newtonsoft.Json.xml
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\bin\Antlr3.Runtime.pdb
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.csproj.AssemblyReference.cache
+F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.csproj.CoreCompileInputs.cache
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.csproj.CopyComplete
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.dll
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.pdb

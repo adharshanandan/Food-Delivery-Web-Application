@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FoodDeliveryWebApplication.Models
 {
-    public class CustomerAddresses
+    public class CustomerAddresses:AddressType
     {
         [Key]
         [ScaffoldColumn(false)]

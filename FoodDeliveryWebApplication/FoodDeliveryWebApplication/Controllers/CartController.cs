@@ -14,6 +14,8 @@ namespace FoodDeliveryWebApplication.Controllers
     {
         CustomerManager cusMngr = new CustomerManager();
         CartManager cartMngr = new CartManager();
+        AddressManager addMngr = new AddressManager();
+        RestaurantManager restMngr = new RestaurantManager();
         // GET: Cart
         [HttpPost]
         public ActionResult AddtoCart(int? RestId,int? dishId)
@@ -69,7 +71,7 @@ namespace FoodDeliveryWebApplication.Controllers
         {
             List<tbl_Cart> retList = cartMngr.GetUserCartList(Session["Customer"].ToString());
             List<Cart> disList = new List<Cart>();
-            PayAmount payObj = new PayAmount();
+           
             dynamic combinedModel = new ExpandoObject();
             foreach (var item in retList)
             {
@@ -90,15 +92,40 @@ namespace FoodDeliveryWebApplication.Controllers
             }
             if (disList.Count!=0)
             {
+                List<tbl_Addresses> retAddList = addMngr.GetAllAddresses(Session["Customer"].ToString());
+                List<CustomerAddresses> disAddList = new List<CustomerAddresses>();
+                PayAmount payObj = new PayAmount();
+
+                foreach(var item in retAddList)
+                {
+                    disAddList.Add(new CustomerAddresses
+                    {
+                        AddId=item.AddId,
+                        DoorOrFlatNo=item.DoorOrFlatNo,
+                        LandMark=item.LandMark,
+                        TypeId=item.AddressType,
+                        TypeName=item.tbl_AddressType.TypeName,
+                        PinCode=item.PinCode
+                    });
+                }
                 payObj.TotalAmount = 0;
                 foreach (var item in disList)
                 {
                     payObj.TotalAmount = payObj.TotalAmount + (item.DishPrice * Convert.ToDecimal(item.Quantity));
 
                 }
-                payObj.ToPay = payObj.TotalAmount + payObj.Tax + payObj.DelveryCharge;
-
+                              
                 tbl_Cart retObj = cartMngr.GetCartRestDetails(Session["Customer"].ToString());
+                tbl_Restaurant offerObj = restMngr.RestaurantOfferDetails(retObj.Cart_fk_RestId);
+                payObj.offerPercentage = 0;
+                if (offerObj != null)
+                {
+                    decimal offerPercentage = Convert.ToDecimal(offerObj.tbl_Offers.OfferPercentage) / Convert.ToDecimal(100);
+                    payObj.TotalAmount = payObj.TotalAmount - (payObj.TotalAmount * Convert.ToDecimal(offerPercentage));
+                    payObj.offerPercentage = payObj.TotalAmount * Convert.ToDecimal(offerPercentage);
+                }
+                payObj.ToPay = payObj.TotalAmount + payObj.Tax + payObj.DelveryCharge-payObj.offerPercentage;
+                
                 Cart disObj = new Cart();
                 disObj.RestaurantName = retObj.tbl_Restaurant.RestName;
                 disObj.Image = retObj.tbl_Restaurant.RestImage;
@@ -106,6 +133,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 combinedModel.CartItem = disList;
                 combinedModel.RestDetails = disObj;
                 combinedModel.PayAmount = payObj;
+                combinedModel.Addresses = disAddList;
 
 
                 return View(combinedModel);
@@ -210,6 +238,66 @@ namespace FoodDeliveryWebApplication.Controllers
                 return Json("Error", JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+        [HttpPost]
+        public ActionResult PlaceOrder(OrderDetails obj)
+        {
+            if (obj == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            tbl_OrderDetails insObj = new tbl_OrderDetails();
+            List<tbl_Cart> retList = cartMngr.GetCartList(Session["Customer"].ToString());
+            string pincode = addMngr.PicodeCheckForDelivery(obj.Order_fk_AddId);            
+            tbl_Cart retObj = cartMngr.GetCartRestDetails(Session["Customer"].ToString());
+            if (pincode != retObj.tbl_Restaurant.RestPincode)
+            {
+                return Json("Delivery is not possible to this loation. Please choose a location matching the pincode of the restaurant", JsonRequestBehavior.AllowGet);
+
+            }
+            if (ModelState.IsValid)
+            {
+                
+                insObj.Order_fk_RestId = retObj.Cart_fk_RestId;
+                insObj.Order_fk_CusId = retObj.Cart_fk_CusId;
+                insObj.Orderdate = DateTime.Now;
+                insObj.IsDelivered = "N";
+                insObj.IsOrderConfirmed = "N";
+                insObj.IsPaid = "N";
+                insObj.TotalAmount = obj.TotalAmount;
+                Random RandNo = new Random();
+                insObj.OrderOtp = RandNo.Next(100001, 999999).ToString();
+
+                insObj.PaymentMode = obj.PaymentMode;
+                foreach(var item in retList)
+                {
+                    insObj.tbl_OrderedFoodDetails.Add(new tbl_OrderedFoodDetails
+                    {
+                        fk_DishId=item.Cart_fk_DishId,
+                        DishQuantity=item.Quantity,
+                        fk_OrderId=insObj.OrderId
+                    });
+                }
+                if (obj.PaymentMode == "Card")
+                {
+                    Session["OrderItem"] = insObj;
+                    return RedirectToAction("SelectBankToPay", "Payment", new { insObj.TotalAmount });
+                }
+                string result = cartMngr.InsertOrderDetails(insObj);
+                if (result == "Success")
+                {                   
+                    string clrResult=cartMngr.ClearCartItems(Session["Customer"].ToString());
+                    if (clrResult == "Success")
+                    {
+                        return Json("Sent", JsonRequestBehavior.AllowGet);
+                    }
+                    
+
+                }
+                
+            }
+            return Json("please check if the address and payment method are selected or not",JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 
 namespace DAL.Manager
@@ -61,6 +62,36 @@ namespace DAL.Manager
             string pinCode = cusMngr.GetCustomerPincode(cusEmail);
             return db.tbl_Restaurant.Where(e => e.RestPincode == pinCode).ToList();
 
+        }
+        public List<tbl_OrderDetails> GetAllPendingOrders(string restEmail)
+        {
+            return db.tbl_OrderDetails.Where(e => e.tbl_Restaurant.RestEmail == restEmail && e.IsOrderConfirmed=="N").ToList();
+        }
+
+        public string ConfirmOrderbyRest(int? id)
+        {
+            tbl_OrderDetails updObj = db.tbl_OrderDetails.Find(id);
+            updObj.IsOrderConfirmed = "Y";
+            db.Entry(updObj).State = EntityState.Modified;
+            int status = db.SaveChanges();
+            if (status > 0)
+            {
+                return "Success";
+            }
+            else
+            {
+                return "Failed";
+            }
+
+
+        }
+        public List<tbl_OrderDetails> GetOrderHistory(string restEmail)
+        {
+            return db.tbl_OrderDetails.Where(e => e.tbl_Restaurant.RestEmail == restEmail && e.IsDelivered == "Y").ToList();
+        }
+        public tbl_Restaurant RestaurantOfferDetails(int? id)
+        {
+            return db.tbl_Restaurant.Where(e => e.tbl_Offers.OfferPercentage != 0 && e.RestId == id).SingleOrDefault();
         }
 
 

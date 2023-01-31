@@ -18,6 +18,7 @@ namespace DAL.Models
         public tbl_Dishes()
         {
             this.tbl_Cart = new HashSet<tbl_Cart>();
+            this.tbl_OrderedFoodDetails = new HashSet<tbl_OrderedFoodDetails>();
         }
     
         public int DishId { get; set; }
@@ -33,5 +34,7 @@ namespace DAL.Models
         public virtual ICollection<tbl_Cart> tbl_Cart { get; set; }
         public virtual tbl_Category tbl_Category { get; set; }
         public virtual tbl_Restaurant tbl_Restaurant { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_OrderedFoodDetails> tbl_OrderedFoodDetails { get; set; }
     }
 }

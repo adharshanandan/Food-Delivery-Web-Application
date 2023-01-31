@@ -163,11 +163,11 @@
 
     $(".delPhone").click(function () {
         var id = this.id;
-        url = "/Address/DeletePhone/"
+        url = "/Address/DeletePhoneNo/"
         $.ajax({
             type: "POST",
             url: url,
-            data: { 'id': id },
+            data: { 'phId': id },
             success: function (data) {
                 alert(data);
                 location.reload();

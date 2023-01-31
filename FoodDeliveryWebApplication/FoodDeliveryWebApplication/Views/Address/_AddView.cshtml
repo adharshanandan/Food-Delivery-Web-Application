@@ -1,0 +1,84 @@
+﻿@model FoodDeliveryWebApplication.Models.CustomerAddresses
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.Hidden("AddId")
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DoorOrFlatNo, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.DoorOrFlatNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DoorOrFlatNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LandMark, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.LandMark, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LandMark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddressType, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.DropDownListFor(model => model.AddressType, TempData["ddlAddressTypeList"] as List<SelectListItem>, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddressType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PinCode, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.PinCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      
+
+        <div class="row form-group text-center mb-3 mt-3">
+            <div class="mx-auto">
+                <input type="submit" id="btnSubmit" value="Add" onclick="SaveDetails()" class="btn btn-primary" />
+                
+            </div>
+
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+
+    function SaveDetails() {
+        var DoorOrFlatNo = $("#DoorOrFlatNo").val();
+        var LandMark = $("#LandMark").val();
+        var AddressType = $("#AddressType").val();
+        var PinCode = $("#PinCode").val();
+
+        var obj = { "DoorOrFlatNo": DoorOrFlatNo, "LandMark": LandMark, "AddressType": AddressType, "PinCode": PinCode };
+        $.ajax({
+            method: "POST",
+            url: "/Address/_AddView",
+            data: { "obj": obj },
+            success: function (data) {
+                alert("Inserted successfully");
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+       
+    
+</script>

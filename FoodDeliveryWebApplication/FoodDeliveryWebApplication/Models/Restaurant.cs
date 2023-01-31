@@ -24,7 +24,8 @@ namespace FoodDeliveryWebApplication.Models
         [RegularExpression("^[0-9]{10}$",ErrorMessage ="Please enter a valid phone number")]
         public string RestPhone { get; set; }
         public bool isFavourite { get; set; }
-     
+        public string Offer { get; set; }
+
 
 
     }

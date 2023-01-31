@@ -217,6 +217,74 @@ alter table  tbl_customer add CusRole int references tbl_Role(RoleId) on update 
 alter table tbl_Login drop column Id 
 
 
+------------------OrderDetails Table------------
+
+create table tbl_OrderDetails(
+OrderId int primary  key identity(1,1),
+Order_fk_CusId int references tbl_Customer(CusId),
+Order_fk_AddId int references tbl_Addresses(AddId) ,
+Order_fk_RestId int references tbl_Restaurant(RestId) ,
+Order_fk_StaffId int references tbl_DeliveryStaffs(StaffId) on update cascade ,
+TotalAmount money,
+Orderdate date,
+PaymentMode varchar(20),
+IsPaid char(1),
+IsDelivered char(1),
+IsOrderConfirmed char(1),
+OrderOtp varchar(20)
+
+)
+
+
+------------Ordered food details table------------
+
+create table tbl_OrderedFoodDetails(
+id int primary key identity(1,1),
+fk_OrderId int  references tbl_OrderDetails(OrderId) on update cascade on delete cascade,
+fk_DishId int  references tbl_Dishes(DishId) on update cascade on delete cascade
+)
+
+alter table tbl_OrderedFoodDetails add DishQuantity int
+
+
+------------UsersBankAcc------------------------
+
+Create table tbl_UserBankAcc(
+id int  primary key identity(1,1),
+User_fk_BankName int  references tbl_BankNames(BankId) on update cascade on delete cascade,
+Branch varchar(50),
+AccNumber varchar(50) not null unique,
+IfscCode varchar(50),
+UserEmailId varchar(50),
+rder_fk_CusId int references tbl_Customer(CusId) on update cascade on delete cascade
+
+)
+
+---------------Common Bank Accounts----------------
+create table tbl_BankAccounts(
+AccId int primary key identity(1,1),
+fk_BankName int  references tbl_BankNames(BankId) on update cascade on delete cascade,
+Branch varchar(50),
+AccNumber varchar(50) not null unique,
+IfscCode varchar(50),
+AccBalance money,
+EmailId varchar(50)
+)
+
+
+
+------------Bank Names------------------
+
+create table tbl_BankNames(
+BankId int primary key identity(1,1),
+BankName varchar(50)
+)
+
+
+
+
+
+
 --------------triggers----------------
 --------------Cutomer - Login Triggers----
 alter trigger tr_insertcredentials on tbl_Customer for insert

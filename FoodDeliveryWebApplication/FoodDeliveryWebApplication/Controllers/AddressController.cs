@@ -7,6 +7,7 @@ using DAL.Manager;
 using DAL.Models;
 using FoodDeliveryWebApplication.Models;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace FoodDeliveryWebApplication.Controllers
 {
@@ -59,6 +60,7 @@ namespace FoodDeliveryWebApplication.Controllers
                     string result = addMngr.InsertAddress(editObj);
                     if (result == "Success")
                     {
+                        
                         return Json("Successfully updated", JsonRequestBehavior.AllowGet);
                     }
                     else
@@ -85,16 +87,18 @@ namespace FoodDeliveryWebApplication.Controllers
                     string result = addMngr.InsertAddress(insObj, Session["Customer"].ToString());
                     if (result == "Success")
                     {
-                        return Json("Successfully inserted", JsonRequestBehavior.AllowGet);
+                        ViewBag.msg = "Successfully inserted";
+                        return RedirectToAction("_AddView","Address");
                     }
                     else
                     {
-                        return Json("Failed to insert", JsonRequestBehavior.AllowGet);
+                        ViewBag.msg = "Failed";
+                        return RedirectToAction("_AddView", "Address");
                     }
 
                 }
-                return View();
-                
+                return RedirectToAction("_AddView", "Address");
+
             }
            
         }
@@ -194,8 +198,95 @@ namespace FoodDeliveryWebApplication.Controllers
             
         }
 
+        [HttpPost]
+        public ActionResult DeletePhoneNo(int? phId)
+        {
+
+            if (phId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            string result = addMngr.DeletePhone(phId);
+            if (result == "Success")
+            {
+                return Json("Successfully Deleted", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Failed to delete!", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public PartialViewResult _AddView()
+        {
+          
+            BindAddressType();
+            CustomerAddresses regObj = new CustomerAddresses();
+            return PartialView("_AddView", regObj);
 
 
+        }
+        [HttpPost]
+        public ActionResult _AddView(CustomerAddresses obj)
+        {
+            if (obj == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (obj.AddId > 0)
+            {
+                if (ModelState.IsValid)
+                {
+                    tbl_Addresses editObj = new tbl_Addresses();
+                    editObj.DoorOrFlatNo = obj.DoorOrFlatNo;
+                    editObj.AddId = obj.AddId; ;
+                    editObj.AddressType = obj.AddressType;
+                    editObj.PinCode = obj.PinCode;
+                    editObj.LandMark = obj.LandMark;
+                    string result = addMngr.InsertAddress(editObj);
+                    if (result == "Success")
+                    {
 
-    }
+                        return Json("Successfully updated", JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json("Failed to update", JsonRequestBehavior.AllowGet);
+                    }
+
+                }
+                BindAddressType();
+                return View();
+
+
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    tbl_Addresses insObj = new tbl_Addresses();
+                    insObj.AddId = 0;
+                    insObj.DoorOrFlatNo = obj.DoorOrFlatNo;
+                    insObj.AddressType = obj.AddressType;
+                    insObj.PinCode = obj.PinCode;
+                    insObj.LandMark = obj.LandMark;
+                    string result = addMngr.InsertAddress(insObj, Session["Customer"].ToString());
+                    if (result == "Success")
+                    {
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json("Failed", JsonRequestBehavior.AllowGet);
+                    }
+
+                }
+                return Json("Please enter all details", JsonRequestBehavior.AllowGet);
+
+            }
+
+        }
+
+     }
 }

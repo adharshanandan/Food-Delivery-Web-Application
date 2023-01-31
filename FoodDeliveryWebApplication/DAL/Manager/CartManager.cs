@@ -166,6 +166,29 @@ namespace DAL.Manager
             }
             
         }
+        public int MaxOrderId()
+        {
+            var id = db.tbl_OrderDetails.OrderByDescending(u => u.OrderId).FirstOrDefault();
+            if (id == null)
+            {
+                return 0;
+            }
+            return id.OrderId;
+        }
+
+        public string InsertOrderDetails(tbl_OrderDetails insObj)
+        {
+            db.tbl_OrderDetails.Add(insObj);
+            int status = db.SaveChanges();
+            if (status > 0)
+            {
+                return "Success";
+            }
+            else
+            {
+                return "Failed";
+            }
+        }
 
 
 

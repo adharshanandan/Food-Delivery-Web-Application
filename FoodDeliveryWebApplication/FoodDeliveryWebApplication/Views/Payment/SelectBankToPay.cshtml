@@ -1,0 +1,41 @@
+﻿@model FoodDeliveryWebApplication.Models.UserAddedBankAccounts
+
+@{
+    ViewBag.Title = "SelectBankToPay";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h3>Select Bank Account</h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.DropDownListFor(model => model.AccId, TempData["ddlUserBankList"] as List<SelectListItem>, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.AccId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AccId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+
+                <p> <button type="button" class="btn btn-primary "><i class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button> </p>
+
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script src="~/Content/js/bootstrap.bundle.min.js"></script>
+

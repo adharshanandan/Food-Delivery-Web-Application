@@ -106,16 +106,29 @@ namespace DAL.Manager
             }
         }
 
-        public List<tbl_Dishes> DishesForDisplay(string search, int id)
+        public List<tbl_Dishes> DishesForDisplay(string search, int id,string vegId,int? catId)
         {
+            StringBuilder query = new StringBuilder();
+            string prefix = "Select * from tbl_Dishes where Dish_fk_Rest="+id+"";
+            query.Append(prefix);
+            prefix = " and";
             if (search != "")
-            {
-                return db.tbl_Dishes.Where(e => e.DishName.Contains(search) || e.DishDesc.Contains(search) || e.VegOrNonveg.Contains(search) || e.tbl_Category.CatName.Contains(search) && e.tbl_Restaurant.RestId == id).ToList();
+            {                
+                query.Append(prefix +" DishName Like '"+search+"%' ");
+                
             }
-            else
+
+            if (vegId != "")
             {
-                return db.tbl_Dishes.Where(e => e.tbl_Restaurant.RestId == id).ToList();
+                query.Append(prefix + " VegOrNonveg='" + vegId + "'");
+                
             }
+            if (catId != 0)
+            {
+                query.Append(prefix + " Dish_fk_Cat='" + catId + "'");
+            }
+            return db.tbl_Dishes.SqlQuery(query.ToString()).ToList();
+          
         }
 
 

@@ -10,7 +10,7 @@ namespace FoodDeliveryWebApplication.Models
     public class AddressType
     {
         [Key]
-        public int TypeId { get; set; }
+        public int? TypeId { get; set; }
         public string TypeName { get; set; }
     }
 }

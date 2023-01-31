@@ -212,10 +212,17 @@ namespace FoodDeliveryWebApplication.Controllers
             return RedirectToAction("InsertAddress", "Address", new { id = id });
         }
 
+        
         public ActionResult InsertNumber()
         {
             return RedirectToAction("AddPhoneNo", "Address");
         }
+
+        //public ActionResult DeleteNumber(int? id)
+        //{
+        //    return RedirectToAction("DeletePhoneNo", "Address",new {phId=id });
+        //}
+
 
 
         public ActionResult EditProfile(int? id)

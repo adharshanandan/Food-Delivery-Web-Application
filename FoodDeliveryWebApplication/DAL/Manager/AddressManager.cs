@@ -120,5 +120,10 @@ namespace DAL.Manager
             }
 
         }
+        public string PicodeCheckForDelivery(int? id)
+        {
+            tbl_Addresses retObj = db.tbl_Addresses.Where(e => e.AddId == id).SingleOrDefault();
+            return retObj.PinCode;
+        }
     }
 }

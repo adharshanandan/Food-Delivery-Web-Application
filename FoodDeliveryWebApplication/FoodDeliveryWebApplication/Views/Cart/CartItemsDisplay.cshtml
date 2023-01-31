@@ -6,138 +6,244 @@
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
+
+
 <section style="padding-top:10em" class="mx-auto">
-    <div class="container w-50">
-        @if (Session["CartItemsCount"].ToString() != "0")
-        {
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <h4>Choose Address</h4>
+                        <hr />
+                        @foreach (var item in Model.Addresses)
+                        {
+                            <input type="radio" id="@item.AddId" value="@item.AddId" name="address" style="display:inline" />
 
 
-            <div class="card">
-                <div class="card-body">
+                            <div class="card" style="display:inline-block">
+                                <table class="border shadow card rounded bg-light text-black p-2">
+                                    <tr class="p-2">
+                                        <td>
+                                            Door/Flat No.
+                                        </td>
+                                        <td>
+                                            : @item.DoorOrFlatNo
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Pincode
+                                        </td>
+                                        <td>
+                                            : @item.PinCode
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Address Type
+                                        </td>
+                                        <td>
+                                            : @item.TypeName
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Landmark
+                                        </td>
+                                        <td>
+                                            : @item.LandMark
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br />
+                            <br />
+                        }
+
+
+                    </div>
+                    
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="@Url.Content(@Model.RestDetails.Image)" style="width:150px;height:150px" class="rounded shadow img-fluid " />
+                            <button class="btn btn-link mt-3" id="btnAddAddress" onclick="AddressView()" style="display:inline">Add New Address</button>
                         </div>
-                        <div class="col-md-8 my-auto p-0">
-                            <h4 class="text-left mx-0">@Model.RestDetails.RestaurantName</h4>
+                        <div class="col-md-4">
+                            <button class="btn btn-link mt-3" id="btnAddCancel" style="display:none">Cancel</button>
                         </div>
-
+                        
+                       
                     </div>
+                    <div id="addView"></div>
+                    <h4 class="mt-5">Choose Payment Method</h4>
                     <hr />
-                    @foreach (var item in Model.CartItem)
-                    {
-                        <div class="row mt-3 mb-3 mx-auto">
+                    <div class="col-md-12 ">
+                        <input type="radio" value="COD" id="cod" name="payment" /> <div class="card shadow" style="display:inline-block"><div class="card-body"><i class="fa fa-money" aria-hidden="true"></i> Cash on delivery</div></div>
+                        <br />
+                        <br />
 
-                            <div class="col-md-12 card shadow mx-auto bg-light mb-3">
-                                <div class="card-body">
-                                    <div class="row ">
-                                        <button class="btn btn-default border-0  btnRemItem" id="@item.CartId"><img src="@Url.Content("~/Content/CartIcons/cancel.png")" style="width: 30px; height: 30px;position:absolute;right:10px; " class="img-fluid" /></button>
-                                        <div class="col-md-4 my-auto">
-                                            <img src="@Url.Content(item.DishImage)" style="width: 120px; height: 120px " class="rounded-circle img-fluid " />
+                        <input type="radio" value="Card" id="cod" name="payment" /> <div class="card shadow" style="display:inline-block"><div class="card-body"><i class="fa fa-credit-card" aria-hidden="true"></i> Card</div></div>
 
-                                        </div>
-                                        <div class="col-md-4 my-auto">
-                                            <h4>@item.DishName <span class="fs-5"><i>(@item.VegorNonveg)</i></span></h4>
-                                            <p>@item.DishDesc</p>
-
-
-                                        </div>
-                                        <div class="col-md-4 my-auto">
-                                            <p><i>Rs. @item.DishPrice /-</i></p>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <p class="text-center"><span>Quantity : </span><span><button class="btn btn-light btn-sm shadow btnMinus" id="@item.CartId"><strong>-</strong></button></span><strong class="p-1"> @item.Quantity</strong> <span><button class="btn btn-light btn-sm shadow btnPlus" id="@item.CartId"><strong>+</strong></button></span></p>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <p class="text-secondary"><i>Added on : @item.AddedDate.ToShortDateString()</i></p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                    }
-                    <div class="mx-auto text-center">
-                        <button class="btn btn-block btn-danger btnClear">Clear cart</button>
-                    </div>
-                    <hr />
-                    <h4>Bill details</h4>
-                    <hr />
-                    <div>
-
-                        <table>
-                            <tr>
-
-                                <td colspan="2">
-                                    Item Total :
-                                </td>
-                                <td colspan="2">
-                                    @Model.PayAmount.TotalAmount
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    Delivery Fee :
-                                </td>
-                                <td colspan="2">
-                                    @Model.PayAmount.DelveryCharge
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    Govt Taxes & Other Charges :
-                                </td>
-                                <td colspan="2">
-                                    @Model.PayAmount.Tax
-                                </td>
-                            </tr>
-
-
-                        </table>
-                        <hr />
-                        <table class="mx-auto">
-                            <tr>
-                                <td colspan="2">
-                                    <strong class="fs-4">To Pay :  </strong>
-                                </td>
-                                <td colspan="2">
-                                    <span class="fs-4"> Rs. @Model.PayAmount.ToPay /- </span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="m-5 float-end">
-                        <button class="btn btn-block btn-primary btn-lg mx-auto">Proceed to Pay</button>
                     </div>
 
                 </div>
 
+
+
+
+
             </div>
-        }
-        else
-        {
-    <div class="mt-5 text-center">
-        <h1 class=" my-auto text-danger">oops...Cart is empty!!</h1>
-        <img src="@Url.Content("~/Content/CartIcons/Sad emoji.png")" style="width:200px;height:200px" class="img-fluid text-center my-auto" />
+            <div class="col-md-6">
+
+
+                @if (Session["CartItemsCount"].ToString() != "0")
+                {
+
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="@Url.Content(@Model.RestDetails.Image)" style="width:80px;height:80px" class="rounded shadow img-fluid " />
+                                </div>
+                                <div class="col-md-8 my-auto p-0">
+                                    <h4 class="text-left mx-0">@Model.RestDetails.RestaurantName</h4>
+                                </div>
+
+                            </div>
+                            <hr />
+                            @foreach (var item in Model.CartItem)
+                            {
+                                <div class="row mt-3 mb-3 mx-auto">
+
+                                    <div class="col-md-12 card shadow mx-auto bg-light mb-3">
+                                        <div class="card-body">
+                                            <div class="row ">
+                                                <button class="btn btn-default border-0  btnRemItem" id="@item.CartId"><img src="@Url.Content("~/Content/CartIcons/cancel.png")" style="width: 30px; height: 30px;position:absolute;right:10px; " class="img-fluid" /></button>
+                                                <div class="col-md-4 my-auto">
+                                                    <img src="@Url.Content(item.DishImage)" style="width: 120px; height: 120px " class="rounded-circle img-fluid " />
+
+                                                </div>
+                                                <div class="col-md-4 my-auto">
+                                                    <h4>@item.DishName <span class="fs-5"><i>(@item.VegorNonveg)</i></span></h4>
+                                                    <p>@item.DishDesc</p>
+
+
+                                                </div>
+                                                <div class="col-md-4 my-auto">
+                                                    <p><i>Rs. @item.DishPrice /-</i></p>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <p class="text-center"><span>Quantity : </span><span><button class="btn btn-light btn-sm shadow btnMinus" id="@item.CartId"><strong>-</strong></button></span><strong class="p-1"> @item.Quantity</strong> <span><button class="btn btn-light btn-sm shadow btnPlus" id="@item.CartId"><strong>+</strong></button></span></p>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <p class="text-secondary"><i>Added on : @item.AddedDate.ToShortDateString()</i></p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            }
+                            <div class="mx-auto text-center">
+                                <button class="btn btn-block btn-danger btnClear">Clear cart</button>
+                            </div>
+                            <hr />
+                            <h4>Bill details</h4>
+                            <hr />
+                            <div>
+
+                                <table>
+                                    <tr>
+
+                                        <td colspan="2">
+                                            Item Total 
+                                        </td>
+                                        <td colspan="2">
+                                            : @Model.PayAmount.TotalAmount
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            Discount 
+                                        </td>
+                                        <td colspan="2">
+                                            : <span>-</span>@Model.PayAmount.offerPercentage
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            Delivery Fee 
+                                        </td>
+                                        <td colspan="2">
+                                            : <span>+</span>@Model.PayAmount.DelveryCharge
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            Govt Taxes & Other Charges 
+                                        </td>
+                                        <td colspan="2">
+                                            : <span>+</span>@Model.PayAmount.Tax
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                                
+                                <hr />
+                                <table class="mx-auto">
+                                    <tr>
+                                        <td colspan="2">
+                                            <strong class="fs-4">To Pay :  </strong>
+                                        </td>
+                                        <td colspan="2">
+                                            <span class="fs-4"> Rs. @Model.PayAmount.ToPay /- </span>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                                <input type="hidden" value="@Model.PayAmount.ToPay" id="totalAmount" />
+                            </div>
+
+                            <div class="m-5 float-end">
+                                <button class="btn btn-block btn-primary btn-lg mx-auto btnProceed" >Proceed</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-5 text-center">
+                        <h1 class=" my-auto text-danger">oops...Cart is empty!!</h1>
+                        <img src="@Url.Content("~/Content/CartIcons/Sad emoji.png")" style="width:200px;height:200px" class="img-fluid text-center my-auto" />
+                    </div>
+
+                }
+
+            </div>
+
+
+        </div>
     </div>
-
-        }
-
-    </div>
-
-
 
 
 </section>
+<br />
+<br />
+<br />
+<br />
+
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script>
     $(".btnPlus").click(function () {
@@ -252,7 +358,59 @@
         });
     })
 
+    function AddressView() {
+        var divResult = $("#addView")
+        $("#btnAddCancel").fadeIn(3000);
+        var url = "/Address/_AddView";
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                divResult.html('');
+                divResult.html(data);
+
+            },
+            error: function (err) {
+                alert(err)
+            }
+
+        })
+    }
+
+    $("#btnAddCancel").click(function () {
+        $("#addView").html('');
+        $("#btnAddCancel").fadeOut("3000");
+    })
+
 </script>
+<script>
+    $(".btnProceed").click(function () {
+        var address = $('input[name="address"]:checked').val();
+        var payment = $('input[name="payment"]:checked').val();
+        var totalAmount = $("#totalAmount").val();
+        var obj = { "Order_fk_AddId": address, "TotalAmount": totalAmount, "PaymentMode": payment };
+        $.ajax({
+            method: "POST",
+            url: "/Cart/PlaceOrder/",
+            data: { "obj": obj },
+            success: function (msg) {
+                if (msg == "Sent") {
+                    alert("Order request has been sent. You will be get notified when the order is confirmed. Continue shopping");
+                    location.href = "/Customer/FoodItems";
+                }
+                else {
+                    alert(msg);
+                }
+                
+            },
+            error: function (err) {
+                location.href = "/Payment/SelectBankToPay?payAmount=" + totalAmount;
+            }
+        })
+    })
+</script>
+
+
 
 
 

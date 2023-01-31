@@ -9,6 +9,7 @@ using System.Web.Script.Serialization;
 using DAL.Models;
 using DAL.Manager;
 using System.Threading.Tasks;
+using System.Dynamic;
 
 namespace FoodDeliveryWebApplication.Controllers
 {
@@ -196,11 +197,90 @@ namespace FoodDeliveryWebApplication.Controllers
         }
         public ActionResult OrderHistory()
         {
-            return View();
+            List<tbl_OrderDetails> retList = restMngr.GetOrderHistory(Session["Restaurant"].ToString());
+            List<OrderDetails> disList = new List<OrderDetails>();
+            dynamic combinedModel = new ExpandoObject();
+            List<Cart> dishesList = new List<Cart>();
+            foreach (var item in retList)
+            {
+                disList.Add(new OrderDetails
+                {
+                    fk_OrderId = item.OrderId,
+                    TotalAmount = item.TotalAmount,
+                    CusName = item.tbl_Customer.CusName,
+                    IsOrderConfirmed = item.IsOrderConfirmed,
+                    Orderdate = item.Orderdate
+
+
+                });
+                foreach (var dish in item.tbl_OrderedFoodDetails)
+                {
+                    dishesList.Add(new Cart
+                    {
+                        DishName = dish.tbl_Dishes.DishName,
+                        Quantity = dish.DishQuantity,
+                        DishId = Convert.ToInt32(dish.fk_DishId)
+
+                    });
+                }
+            }
+            combinedModel.Order = disList;
+            combinedModel.Cart = dishesList;
+            return View(combinedModel);
+
         }
         public ActionResult PendingOrders()
         {
-            return View();
+            List<tbl_OrderDetails> retList = restMngr.GetAllPendingOrders(Session["Restaurant"].ToString());
+            List<OrderDetails> disList = new List<OrderDetails>();
+            dynamic combinedModel = new ExpandoObject();
+            List<Cart> dishesList = new List<Cart>();
+            foreach(var item in retList)
+            {
+                disList.Add(new OrderDetails
+                {
+                    fk_OrderId = item.OrderId,
+                    TotalAmount = item.TotalAmount,
+                    CusName = item.tbl_Customer.CusName,
+                    IsOrderConfirmed = item.IsOrderConfirmed,
+                    Orderdate = item.Orderdate
+
+
+                }) ;
+                foreach(var dish in item.tbl_OrderedFoodDetails)
+                {
+                    dishesList.Add(new Cart
+                    {
+                        DishName = dish.tbl_Dishes.DishName,
+                        Quantity = dish.DishQuantity,
+                        DishId=Convert.ToInt32(dish.fk_DishId)
+                        
+                    });
+                }
+            }
+            combinedModel.Order = disList;
+            combinedModel.Cart = dishesList;
+            return View(combinedModel);
+            
+        }
+
+        [HttpPost]
+        public ActionResult ConfirmOrder(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            string result = restMngr.ConfirmOrderbyRest(id);
+            if (result == "Success")
+            {
+                return Json("Confirmed", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }           
 
         }
 

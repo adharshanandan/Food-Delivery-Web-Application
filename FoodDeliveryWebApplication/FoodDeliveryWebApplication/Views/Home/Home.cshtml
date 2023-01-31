@@ -10,13 +10,13 @@
 
 
             <div class="col-md-6 col-12 my-auto">
-                <h2 class="text-white" style="text-shadow: 2px 2px black;">
+                <h2 id="txtCap" class="text-white" style="text-shadow: 2px 2px black;display:none">
                     Too much tired to cook?
                 </h2>
                 
                 <div>
 
-                    <button class="btn btn-outline-light btn-lg shadow" onclick="location.href='@Url.Action("Restaurants", "Restaurant")'">Explore here</button>
+                    <button class="btn btn-outline-light btn-lg shadow btnExplore" style="display:none;" onclick="location.href='@Url.Action("Restaurants", "Restaurant")'">Explore here</button>
                 </div>
 
             </div>
@@ -186,7 +186,14 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script src="~/Content/js/JavaScript.js"></script>
-
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#txtCap").fadeIn(3000, function () {
+            $(".btnExplore").fadeIn(3000);
+        })
+    })
+</script>
 
 
 

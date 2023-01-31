@@ -12,24 +12,21 @@ namespace DAL.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_Addresses
+    public partial class tbl_BankNames
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbl_Addresses()
+        public tbl_BankNames()
         {
-            this.tbl_OrderDetails = new HashSet<tbl_OrderDetails>();
+            this.tbl_BankAccounts = new HashSet<tbl_BankAccounts>();
+            this.tbl_UserBankAcc = new HashSet<tbl_UserBankAcc>();
         }
     
-        public int AddId { get; set; }
-        public string DoorOrFlatNo { get; set; }
-        public string LandMark { get; set; }
-        public Nullable<int> AddressType { get; set; }
-        public string PinCode { get; set; }
-        public Nullable<int> Add_fk_CusId { get; set; }
+        public int BankId { get; set; }
+        public string BankName { get; set; }
     
-        public virtual tbl_Customer tbl_Customer { get; set; }
-        public virtual tbl_AddressType tbl_AddressType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_OrderDetails> tbl_OrderDetails { get; set; }
+        public virtual ICollection<tbl_BankAccounts> tbl_BankAccounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_UserBankAcc> tbl_UserBankAcc { get; set; }
     }
 }

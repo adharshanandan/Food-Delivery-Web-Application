@@ -21,7 +21,7 @@ namespace FoodDeliveryWebApplication.Controllers
         RestaurantManager restMngr = new RestaurantManager();
         CartManager cartMngr = new CartManager();
 
-        // GET: Dishes
+        // To display in restaurant accounts
         public ActionResult DishList(string search)
         {
             
@@ -53,6 +53,8 @@ namespace FoodDeliveryWebApplication.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
+
+        // Method to add a dish
         public ActionResult Create(int id=0)
         {
             if (Session["Restaurant"] != null)
@@ -163,7 +165,7 @@ namespace FoodDeliveryWebApplication.Controllers
         }
 
 
-
+        //Method to delete a dish
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -240,50 +242,6 @@ namespace FoodDeliveryWebApplication.Controllers
 
         }
 
-        //Method to bind Offers to drop down list
-        //public void BindOffers(int id = 0)
-        //{
-        //    List<SelectListItem> ddl_OffersList = new List<SelectListItem>();
-        //    List<tbl_Offers> _returnList = dishMngr.GetOffersList();
-        //    if (id > 0)
-        //    {
-        //        tbl_Category returnObj = dishMngr.GetOffersById(id);
-        //        foreach (var obj in _returnList)
-        //        {
-        //            ddl_OffersList.Add(new SelectListItem
-        //            {
-        //                Selected = (obj.OfferId == id ? true : false),
-        //                Text = obj.OfferDescription,
-        //                Value = obj.OfferId.ToString()
-
-        //            });
-        //        }
-
-
-        //    }
-        //    else
-        //    {
-        //        ddl_OffersList.Add(new SelectListItem
-        //        {
-        //            Selected = true,
-        //            Text = "-- Select Offer --",
-        //            Value = ""
-        //        });
-        //        foreach (var obj in _returnList)
-        //        {
-        //            ddl_OffersList.Add(new SelectListItem
-        //            {
-        //                Selected = false,
-        //                Text = obj.OfferDescription,
-        //                Value = obj.OfferId.ToString()
-
-        //            });
-        //        }
-        //    }
-        //    ViewBag.ddlOffers = ddl_OffersList;
-
-
-        //}
 
         public void BindVegorNonVeg(string text="")
         {
@@ -312,7 +270,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 _listType.Add(new SelectListItem
                 {
                     Selected = true,
-                    Text = "-- Select --",
+                    Text = "-- Select Veg or Non-Veg --",
                     Value = ""
 
                 });
@@ -337,9 +295,12 @@ namespace FoodDeliveryWebApplication.Controllers
             ViewBag.rbVegorNon = _listType;
         }
 
-        public ActionResult FoodItems(int id, string search = "")
+
+        //Method to display food items to buy
+        public ActionResult FoodItems(int id, string search = "",string vegOrNonVeg="",int? catId=0)
         {
-            List<tbl_Dishes> returnList = dishMngr.DishesForDisplay(search, id);
+            
+            List<tbl_Dishes> returnList = dishMngr.DishesForDisplay(search, id, vegOrNonVeg, catId);
             List<Dishes> displayList = new List<Dishes>();
             tbl_Restaurant returnRestObj = restMngr.RestaurantDetailsById(id);
             Restaurant displayRestObj = new Restaurant();
@@ -349,7 +310,10 @@ namespace FoodDeliveryWebApplication.Controllers
             displayRestObj.RestState = returnRestObj.RestState;
             displayRestObj.Image = returnRestObj.RestImage;
             displayRestObj.Id = returnRestObj.RestId;
-            
+            displayRestObj.Offer = returnRestObj.tbl_Offers.OfferDescription;
+            BindVegorNonVeg();
+            BindCategory();
+
             //created a dynamic model to return restaurant and dishes model to view
             dynamic combinedModel = new ExpandoObject();
             
@@ -406,7 +370,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 return View(combinedModel);
             }
             
-            //Enter as guest view model
+            //to view dishes as a guest user
             foreach (var item in returnList)
             {
                 displayList.Add(new Dishes

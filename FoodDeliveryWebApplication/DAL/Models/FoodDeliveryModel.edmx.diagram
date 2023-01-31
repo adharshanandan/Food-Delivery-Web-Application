@@ -39,6 +39,20 @@
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Cart__Cart_f__778AC167" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3E52440B" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3D5E1FD2" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_OrderDetails" Width="1.5" PointX="10" PointY="6.875" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_OrderedFoodDetails" Width="1.5" PointX="12.25" PointY="5" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2DE6D218" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2CF2ADDF" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2FCF1A8A" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Di__339FAB6E" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Or__32AB8735" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2EDAF651" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_BankAccounts" Width="1.5" PointX="12.625" PointY="1" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_BankNames" Width="1.5" PointX="10.375" PointY="1.375" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_BankA__fk_Ba__395884C4" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_UserBankAcc" Width="1.5" PointX="12.625" PointY="8" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__User___3D2915A8" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___3E1D39E1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -14,6 +14,12 @@ namespace DAL.Models
     
     public partial class tbl_DeliveryStaffs
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbl_DeliveryStaffs()
+        {
+            this.tbl_OrderDetails = new HashSet<tbl_OrderDetails>();
+        }
+    
         public int StaffId { get; set; }
         public string StaffName { get; set; }
         public string StaffPhone { get; set; }
@@ -37,5 +43,7 @@ namespace DAL.Models
         public string staffImage { get; set; }
     
         public virtual tbl_Role tbl_Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_OrderDetails> tbl_OrderDetails { get; set; }
     }
 }

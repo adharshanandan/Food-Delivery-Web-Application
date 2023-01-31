@@ -225,11 +225,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddressType.cs" />
+    <Compile Include="Models\BankAccounts.cs" />
+    <Compile Include="Models\BankIdModel.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
@@ -239,11 +242,14 @@
     <Compile Include="Models\Dishes.cs" />
     <Compile Include="Models\EmailVerification.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\OrderDetails.cs" />
+    <Compile Include="Models\OrderedFoodItems.cs" />
     <Compile Include="Models\PayAmount.cs" />
     <Compile Include="Models\PhoneNumbers.cs" />
     <Compile Include="Models\PinCodeApi.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAddedBankAccounts.cs" />
     <Compile Include="Models\UserEdit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -394,7 +400,6 @@
     <Content Include="Views\Home\RegistrationPage.cshtml" />
     <Content Include="Views\Restaurant\Create.cshtml" />
     <Content Include="Views\DeliveryBoy\Create.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Customer\Confirm.cshtml" />
     <Content Include="Views\Shared\_RestaurantLayout.cshtml" />
     <Content Include="Views\Restaurant\OrderHistory.cshtml" />
@@ -419,6 +424,10 @@
     <Content Include="Views\Address\AddPhoneNo.cshtml" />
     <Content Include="Views\Customer\EditProfile.cshtml" />
     <Content Include="Views\Cart\CartItemsDisplay.cshtml" />
+    <Content Include="Views\Shared\_AddressInsert.cshtml" />
+    <Content Include="Views\Address\_AddView.cshtml" />
+    <Content Include="Views\Payment\OnlinePay.cshtml" />
+    <Content Include="Views\Payment\SelectBankToPay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

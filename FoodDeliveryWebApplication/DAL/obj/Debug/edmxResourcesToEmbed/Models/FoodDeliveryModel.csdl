@@ -65,6 +65,8 @@
     <NavigationProperty Name="tbl_FavRestaurants" Relationship="db_FoodOrderingApplicationModel.FK__tbl_FavRe__Fav_f__6FE99F9F" FromRole="tbl_Customer" ToRole="tbl_FavRestaurants" />
     <Property Name="IsValid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tbl_Addresses" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Addre__Add_f__25518C17" FromRole="tbl_Customer" ToRole="tbl_Addresses" />
+    <NavigationProperty Name="tbl_OrderDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2CF2ADDF" FromRole="tbl_Customer" ToRole="tbl_OrderDetails" />
+    <NavigationProperty Name="tbl_UserBankAcc" Relationship="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___3E1D39E1" FromRole="tbl_Customer" ToRole="tbl_UserBankAcc" />
   </EntityType>
   <EntityType Name="tbl_DeliveryStaffs">
     <Key>
@@ -92,6 +94,7 @@
     <Property Name="StaffCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="StaffDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="staffImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_OrderDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2FCF1A8A" FromRole="tbl_DeliveryStaffs" ToRole="tbl_OrderDetails" />
   </EntityType>
   <EntityType Name="tbl_Offers">
     <Key>
@@ -138,6 +141,7 @@
     <Property Name="Rest_fk_Offer" Type="Int32" />
     <NavigationProperty Name="tbl_Offers" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Resta__Rest___2645B050" FromRole="tbl_Restaurant" ToRole="tbl_Offers" />
     <NavigationProperty Name="tbl_Dishes" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3D5E1FD2" FromRole="tbl_Restaurant" ToRole="tbl_Dishes" />
+    <NavigationProperty Name="tbl_OrderDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2EDAF651" FromRole="tbl_Restaurant" ToRole="tbl_OrderDetails" />
   </EntityType>
   <Association Name="FK__tbl_Cart__Cart_f__5BE2A6F2">
     <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1" />
@@ -294,6 +298,47 @@
       <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
       <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
     </AssociationSet>
+    <EntitySet Name="tbl_OrderDetails" EntityType="db_FoodOrderingApplicationModel.tbl_OrderDetails" />
+    <EntitySet Name="tbl_OrderedFoodDetails" EntityType="db_FoodOrderingApplicationModel.tbl_OrderedFoodDetails" />
+    <AssociationSet Name="FK__tbl_Order__Order__2DE6D218" Association="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2DE6D218">
+      <End Role="tbl_Addresses" EntitySet="tbl_Addresses" />
+      <End Role="tbl_OrderDetails" EntitySet="tbl_OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Order__Order__2CF2ADDF" Association="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2CF2ADDF">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_OrderDetails" EntitySet="tbl_OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Order__Order__2FCF1A8A" Association="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2FCF1A8A">
+      <End Role="tbl_DeliveryStaffs" EntitySet="tbl_DeliveryStaffs" />
+      <End Role="tbl_OrderDetails" EntitySet="tbl_OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Order__fk_Di__339FAB6E" Association="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Di__339FAB6E">
+      <End Role="tbl_Dishes" EntitySet="tbl_Dishes" />
+      <End Role="tbl_OrderedFoodDetails" EntitySet="tbl_OrderedFoodDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Order__fk_Or__32AB8735" Association="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Or__32AB8735">
+      <End Role="tbl_OrderDetails" EntitySet="tbl_OrderDetails" />
+      <End Role="tbl_OrderedFoodDetails" EntitySet="tbl_OrderedFoodDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Order__Order__2EDAF651" Association="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2EDAF651">
+      <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+      <End Role="tbl_OrderDetails" EntitySet="tbl_OrderDetails" />
+    </AssociationSet>
+    <EntitySet Name="tbl_BankAccounts" EntityType="db_FoodOrderingApplicationModel.tbl_BankAccounts" />
+    <EntitySet Name="tbl_BankNames" EntityType="db_FoodOrderingApplicationModel.tbl_BankNames" />
+    <AssociationSet Name="FK__tbl_BankA__fk_Ba__395884C4" Association="db_FoodOrderingApplicationModel.FK__tbl_BankA__fk_Ba__395884C4">
+      <End Role="tbl_BankNames" EntitySet="tbl_BankNames" />
+      <End Role="tbl_BankAccounts" EntitySet="tbl_BankAccounts" />
+    </AssociationSet>
+    <EntitySet Name="tbl_UserBankAcc" EntityType="db_FoodOrderingApplicationModel.tbl_UserBankAcc" />
+    <AssociationSet Name="FK__tbl_UserB__User___3D2915A8" Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__User___3D2915A8">
+      <End Role="tbl_BankNames" EntitySet="tbl_BankNames" />
+      <End Role="tbl_UserBankAcc" EntitySet="tbl_UserBankAcc" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_UserB__rder___3E1D39E1" Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___3E1D39E1">
+      <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+      <End Role="tbl_UserBankAcc" EntitySet="tbl_UserBankAcc" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="tbl_ContactUs">
     <Key>
@@ -443,6 +488,7 @@
     <Property Name="Add_fk_CusId" Type="Int32" />
     <NavigationProperty Name="tbl_Customer" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Addre__Add_f__25518C17" FromRole="tbl_Addresses" ToRole="tbl_Customer" />
     <NavigationProperty Name="tbl_AddressType" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Addre__Addre__245D67DE" FromRole="tbl_Addresses" ToRole="tbl_AddressType" />
+    <NavigationProperty Name="tbl_OrderDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2DE6D218" FromRole="tbl_Addresses" ToRole="tbl_OrderDetails" />
   </EntityType>
   <EntityType Name="tbl_AddressType">
     <Key>
@@ -509,6 +555,7 @@
     <NavigationProperty Name="tbl_Cart" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Cart__Cart_f__778AC167" FromRole="tbl_Dishes" ToRole="tbl_Cart" />
     <NavigationProperty Name="tbl_Category" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3E52440B" FromRole="tbl_Dishes" ToRole="tbl_Category" />
     <NavigationProperty Name="tbl_Restaurant" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3D5E1FD2" FromRole="tbl_Dishes" ToRole="tbl_Restaurant" />
+    <NavigationProperty Name="tbl_OrderedFoodDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Di__339FAB6E" FromRole="tbl_Dishes" ToRole="tbl_OrderedFoodDetails" />
   </EntityType>
   <Association Name="FK__tbl_Cart__Cart_f__778AC167">
     <End Type="db_FoodOrderingApplicationModel.tbl_Dishes" Role="tbl_Dishes" Multiplicity="0..1" />
@@ -547,6 +594,193 @@
       </Principal>
       <Dependent Role="tbl_Dishes">
         <PropertyRef Name="Dish_fk_Rest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tbl_OrderDetails">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Order_fk_CusId" Type="Int32" />
+    <Property Name="Order_fk_AddId" Type="Int32" />
+    <Property Name="Order_fk_RestId" Type="Int32" />
+    <Property Name="Order_fk_StaffId" Type="Int32" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Orderdate" Type="DateTime" Precision="0" />
+    <Property Name="PaymentMode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsPaid" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="IsDelivered" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="IsOrderConfirmed" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="OrderOtp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_Addresses" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2DE6D218" FromRole="tbl_OrderDetails" ToRole="tbl_Addresses" />
+    <NavigationProperty Name="tbl_Customer" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2CF2ADDF" FromRole="tbl_OrderDetails" ToRole="tbl_Customer" />
+    <NavigationProperty Name="tbl_DeliveryStaffs" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2FCF1A8A" FromRole="tbl_OrderDetails" ToRole="tbl_DeliveryStaffs" />
+    <NavigationProperty Name="tbl_OrderedFoodDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Or__32AB8735" FromRole="tbl_OrderDetails" ToRole="tbl_OrderedFoodDetails" />
+    <NavigationProperty Name="tbl_Restaurant" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2EDAF651" FromRole="tbl_OrderDetails" ToRole="tbl_Restaurant" />
+  </EntityType>
+  <EntityType Name="tbl_OrderedFoodDetails">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fk_OrderId" Type="Int32" />
+    <Property Name="fk_DishId" Type="Int32" />
+    <Property Name="DishQuantity" Type="Int32" />
+    <NavigationProperty Name="tbl_Dishes" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Di__339FAB6E" FromRole="tbl_OrderedFoodDetails" ToRole="tbl_Dishes" />
+    <NavigationProperty Name="tbl_OrderDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Or__32AB8735" FromRole="tbl_OrderedFoodDetails" ToRole="tbl_OrderDetails" />
+  </EntityType>
+  <Association Name="FK__tbl_Order__Order__2DE6D218">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Addresses" Role="tbl_Addresses" Multiplicity="0..1" />
+    <End Type="db_FoodOrderingApplicationModel.tbl_OrderDetails" Role="tbl_OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Addresses">
+        <PropertyRef Name="AddId" />
+      </Principal>
+      <Dependent Role="tbl_OrderDetails">
+        <PropertyRef Name="Order_fk_AddId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Order__Order__2CF2ADDF">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Customer" Role="tbl_Customer" Multiplicity="0..1" />
+    <End Type="db_FoodOrderingApplicationModel.tbl_OrderDetails" Role="tbl_OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_OrderDetails">
+        <PropertyRef Name="Order_fk_CusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Order__Order__2FCF1A8A">
+    <End Type="db_FoodOrderingApplicationModel.tbl_DeliveryStaffs" Role="tbl_DeliveryStaffs" Multiplicity="0..1" />
+    <End Type="db_FoodOrderingApplicationModel.tbl_OrderDetails" Role="tbl_OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_DeliveryStaffs">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="tbl_OrderDetails">
+        <PropertyRef Name="Order_fk_StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Order__fk_Di__339FAB6E">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Dishes" Role="tbl_Dishes" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_OrderedFoodDetails" Role="tbl_OrderedFoodDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Dishes">
+        <PropertyRef Name="DishId" />
+      </Principal>
+      <Dependent Role="tbl_OrderedFoodDetails">
+        <PropertyRef Name="fk_DishId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Order__fk_Or__32AB8735">
+    <End Type="db_FoodOrderingApplicationModel.tbl_OrderDetails" Role="tbl_OrderDetails" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_OrderedFoodDetails" Role="tbl_OrderedFoodDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_OrderDetails">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="tbl_OrderedFoodDetails">
+        <PropertyRef Name="fk_OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Order__Order__2EDAF651">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Restaurant" Role="tbl_Restaurant" Multiplicity="0..1" />
+    <End Type="db_FoodOrderingApplicationModel.tbl_OrderDetails" Role="tbl_OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Restaurant">
+        <PropertyRef Name="RestId" />
+      </Principal>
+      <Dependent Role="tbl_OrderDetails">
+        <PropertyRef Name="Order_fk_RestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tbl_BankAccounts">
+    <Key>
+      <PropertyRef Name="AccId" />
+    </Key>
+    <Property Name="AccId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fk_BankName" Type="Int32" />
+    <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IfscCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccBalance" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_BankNames" Relationship="db_FoodOrderingApplicationModel.FK__tbl_BankA__fk_Ba__395884C4" FromRole="tbl_BankAccounts" ToRole="tbl_BankNames" />
+  </EntityType>
+  <EntityType Name="tbl_BankNames">
+    <Key>
+      <PropertyRef Name="BankId" />
+    </Key>
+    <Property Name="BankId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_BankAccounts" Relationship="db_FoodOrderingApplicationModel.FK__tbl_BankA__fk_Ba__395884C4" FromRole="tbl_BankNames" ToRole="tbl_BankAccounts" />
+    <NavigationProperty Name="tbl_UserBankAcc" Relationship="db_FoodOrderingApplicationModel.FK__tbl_UserB__User___3D2915A8" FromRole="tbl_BankNames" ToRole="tbl_UserBankAcc" />
+  </EntityType>
+  <Association Name="FK__tbl_BankA__fk_Ba__395884C4">
+    <End Type="db_FoodOrderingApplicationModel.tbl_BankNames" Role="tbl_BankNames" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_BankAccounts" Role="tbl_BankAccounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_BankNames">
+        <PropertyRef Name="BankId" />
+      </Principal>
+      <Dependent Role="tbl_BankAccounts">
+        <PropertyRef Name="fk_BankName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tbl_UserBankAcc">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_fk_BankName" Type="Int32" />
+    <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IfscCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserEmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rder_fk_CusId" Type="Int32" />
+    <NavigationProperty Name="tbl_BankNames" Relationship="db_FoodOrderingApplicationModel.FK__tbl_UserB__User___3D2915A8" FromRole="tbl_UserBankAcc" ToRole="tbl_BankNames" />
+    <NavigationProperty Name="tbl_Customer" Relationship="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___3E1D39E1" FromRole="tbl_UserBankAcc" ToRole="tbl_Customer" />
+  </EntityType>
+  <Association Name="FK__tbl_UserB__User___3D2915A8">
+    <End Type="db_FoodOrderingApplicationModel.tbl_BankNames" Role="tbl_BankNames" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_UserBankAcc" Role="tbl_UserBankAcc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_BankNames">
+        <PropertyRef Name="BankId" />
+      </Principal>
+      <Dependent Role="tbl_UserBankAcc">
+        <PropertyRef Name="User_fk_BankName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_UserB__rder___3E1D39E1">
+    <End Type="db_FoodOrderingApplicationModel.tbl_Customer" Role="tbl_Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="db_FoodOrderingApplicationModel.tbl_UserBankAcc" Role="tbl_UserBankAcc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Customer">
+        <PropertyRef Name="CusId" />
+      </Principal>
+      <Dependent Role="tbl_UserBankAcc">
+        <PropertyRef Name="rder_fk_CusId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

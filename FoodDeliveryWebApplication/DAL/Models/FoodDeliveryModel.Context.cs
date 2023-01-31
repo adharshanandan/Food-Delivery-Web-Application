@@ -41,5 +41,10 @@ namespace DAL.Models
         public virtual DbSet<tbl_Addresses> tbl_Addresses { get; set; }
         public virtual DbSet<tbl_AddressType> tbl_AddressType { get; set; }
         public virtual DbSet<tbl_Dishes> tbl_Dishes { get; set; }
+        public virtual DbSet<tbl_OrderDetails> tbl_OrderDetails { get; set; }
+        public virtual DbSet<tbl_OrderedFoodDetails> tbl_OrderedFoodDetails { get; set; }
+        public virtual DbSet<tbl_BankAccounts> tbl_BankAccounts { get; set; }
+        public virtual DbSet<tbl_BankNames> tbl_BankNames { get; set; }
+        public virtual DbSet<tbl_UserBankAcc> tbl_UserBankAcc { get; set; }
     }
 }
