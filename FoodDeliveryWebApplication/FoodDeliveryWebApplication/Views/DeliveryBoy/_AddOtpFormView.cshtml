@@ -1,0 +1,67 @@
+﻿@model FoodDeliveryWebApplication.Models.OrderDetails
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Enter otp here</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OrderOtp, htmlAttributes: new { @class = "control-label col-md-12" })
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.OrderOtp, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OrderOtp, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    
+    </div>
+    }
+<div class="row form-group text-center mb-3 mt-3">
+    <div class="mx-auto">
+
+        <button class="btn btn-primary btnSubmit" type="button">Submit</button>
+        <input type="hidden" value="@Model.id" id="hdnOrderId" />
+
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(".btnSubmit").click(function () {
+        var otp = $("#OrderOtp").val();
+        var orderId = $("#hdnOrderId").val();
+        var obj = { "OrderOtp": otp, "id": orderId };
+        $.ajax({
+            method: "POST",
+            url: "/DeliveryBoy/_AddOtpFormView",
+            data: { "obj": obj },
+            success: function (result) {
+                if (result == "Success") {
+                    alert("Delivery successfull");
+                    location.href = "/DeliveryBoy/DeliveredOrders";
+                }
+                
+                alert(result);
+            },
+            error: function (err) {
+                alert(err);
+            }
+        })
+
+    })
+  
+   
+
+
+</script>
+

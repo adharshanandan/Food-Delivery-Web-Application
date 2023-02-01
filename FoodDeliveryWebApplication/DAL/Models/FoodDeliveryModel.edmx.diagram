@@ -53,6 +53,9 @@
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_UserBankAcc" Width="1.5" PointX="12.625" PointY="8" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__User___3D2915A8" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___3E1D39E1" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_ReviewAndRating" Width="1.5" PointX="9.375" PointY="12.875" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__503BEA1C" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__51300E55" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

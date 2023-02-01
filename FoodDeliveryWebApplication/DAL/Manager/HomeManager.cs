@@ -25,6 +25,11 @@ namespace DAL.Manager
             }
 
         }
-       
+        public List<tbl_ContactUs> GetAllContactUsList()
+        {
+            return db.tbl_ContactUs.ToList();
+        }
+
+
     }
 }

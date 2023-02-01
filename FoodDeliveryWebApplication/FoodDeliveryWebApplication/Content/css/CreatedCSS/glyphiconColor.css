@@ -1,0 +1,17 @@
+﻿.starFilled {
+    background-image: url('../../Icons/star-filled.png');
+    background-size: 40px 40px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.starEmpty {
+    background-image: url('../../Icons/star-empty.png');  
+    background-size: 40px 40px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-block;
+    cursor: pointer;
+}

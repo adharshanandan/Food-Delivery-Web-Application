@@ -311,6 +311,7 @@ namespace FoodDeliveryWebApplication.Controllers
             displayRestObj.Image = returnRestObj.RestImage;
             displayRestObj.Id = returnRestObj.RestId;
             displayRestObj.Offer = returnRestObj.tbl_Offers.OfferDescription;
+
             BindVegorNonVeg();
             BindCategory();
 

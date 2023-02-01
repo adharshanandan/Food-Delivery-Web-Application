@@ -49,9 +49,13 @@
 
            </div>
            <div class="col-md-4 my-auto p-0">
-               <div class="border rounded text-warning text-center border-2 border-warning p-2">
-                   <h5 class="my-auto"><i>@Model.Restaurant.Offer on all orders</i></h5>
-               </div>
+               @if (Model.Restaurant.Offer != "None")
+               {
+                   <div class="border rounded text-warning text-center border-2 border-warning p-2">
+                       <h5 class="my-auto"><i>@Model.Restaurant.Offer on all orders</i></h5>
+                   </div>
+               }
+
 
            </div>
 

@@ -13,6 +13,9 @@ namespace FoodDeliveryWebApplication.Controllers
     public class AdminController : Controller
     {
         CategoryManager catMngr = new CategoryManager();
+        RestaurantManager restMngr = new RestaurantManager();
+        DeliveryBoyManager delMngr = new DeliveryBoyManager();
+        HomeManager homeMngr = new HomeManager();
         // GET: Admin
         public ActionResult CategoryList()
         {
@@ -161,6 +164,115 @@ namespace FoodDeliveryWebApplication.Controllers
 
 
         }
+        public List<Restaurant> GetRestAppList()
+        {
+            List<tbl_Restaurant> retList = restMngr.GetNotApprovedRest();
+            List<Restaurant> disList = new List<Restaurant>();
+
+            foreach (var item in retList)
+            {
+                disList.Add(new Restaurant
+                {
+                    Id = item.RestId,
+                    Name = item.RestName,
+                    EmailId = item.RestEmail,
+                    RestPhone = item.RestPhone,
+                    RestTradeLicense = item.RestTradeLicense,
+                    RestArea = item.RestArea,
+                    RestState = item.RestState
+
+
+                });
+            }
+            return disList;
+        }
+        public ActionResult ApprovalPendingRest(int? id)
+        {
+          
+            
+            if (id == null)
+            {
+                return View(GetRestAppList());
+            }
+            
+            else
+            {
+                int result = restMngr.ApproveRestaurant(id);
+                if (result > 0)
+                {
+                    ViewBag.msg = "Approved";
+                    return View(GetRestAppList());
+                }
+                else
+                {
+                    ViewBag.msg = "Approval failed";
+                    return View(GetRestAppList());
+                }
+            }
+            
+        }
+
+
+        public List<DeliveryGuy> GetDelBoyAppList()
+        {
+            List<tbl_DeliveryStaffs> retList = delMngr.GetDelBoysListToApprove();
+            List<DeliveryGuy> disList = new List<DeliveryGuy>();
+            foreach (var item in retList)
+            {
+                disList.Add(new DeliveryGuy
+                {
+                    Id = item.StaffId,
+                    Name = item.StaffName,
+                    EmailId = item.StaffEmail,
+                    PhoneNo = item.StaffPhone,
+                    DrivingLicense = item.DrivingLicense,
+                    AdhaarNo = item.AdhaarNo,
+                    StaffArea = item.StaffArea,
+                    StaffState = item.StaffState
+
+                });
+            }
+            return disList;
+        }
+
+
+ 
+        public ActionResult ApprovalPendingDelBoys(int? id)
+        {
+            if (id == null)
+            {
+                return View(GetDelBoyAppList());
+            }
+            int result = delMngr.ApproveDelboys(id);
+            if (result > 0)
+            {
+                ViewBag.msg = "Approved";
+                return View(GetDelBoyAppList());
+            }
+            else
+            {
+                ViewBag.msg = "Approval failed";
+                return View(GetDelBoyAppList());
+            }
+        }
+
+
+        public ActionResult DisplayContactUsList()
+        {
+            List<tbl_ContactUs> retList = homeMngr.GetAllContactUsList();
+            List<ContactUs> disList = new List<ContactUs>();
+            foreach(var item in retList)
+            {
+                disList.Add(new ContactUs
+                {
+                    Name=item.ContName,
+                    EmailId=item.ContEmail,
+                    Message=item.ContMsg
+                });
+            }
+            return View(disList);
+        }
+
 
 
 

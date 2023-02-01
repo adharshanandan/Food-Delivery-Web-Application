@@ -11,6 +11,7 @@ namespace FoodDeliveryWebApplication.Models
     public class Restaurant:User
     {
         public string RestCountry { get; set; }
+        [DisplayName("State")]
         public string RestState { get; set; }
         public string RestDistrict { get; set; }
         [Required(ErrorMessage = "Required!!")]

@@ -227,6 +227,7 @@
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
+    <Compile Include="Controllers\ReviewNRatingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -248,6 +249,7 @@
     <Compile Include="Models\PhoneNumbers.cs" />
     <Compile Include="Models\PinCodeApi.cs" />
     <Compile Include="Models\Restaurant.cs" />
+    <Compile Include="Models\ReviewRating.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserAddedBankAccounts.cs" />
     <Compile Include="Models\UserEdit.cs" />
@@ -281,6 +283,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.rtl.css" />
     <Content Include="Content\css\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\CreatedCSS\glyphiconColor.css" />
     <Content Include="Content\css\CreatedCSS\hrStyle.css" />
     <Content Include="Content\css\CreatedCSS\hyperlink.css" />
     <Content Include="Content\css\CreatedCSS\PageLoader.css" />
@@ -302,6 +305,9 @@
     <Content Include="Content\GifImages\ezgif.com-gif-maker.gif" />
     <Content Include="Content\GifImages\icons8-trash-can %281%29.gif" />
     <Content Include="Content\GifImages\output-onlinegiftools.gif" />
+    <Content Include="Content\Icons\star-empty.png" />
+    <Content Include="Content\Icons\star-filled.png" />
+    <Content Include="Content\Icons\success.png" />
     <Content Include="Content\js\bootstrap.bundle.js" />
     <Content Include="Content\js\bootstrap.bundle.min.js" />
     <Content Include="Content\js\bootstrap.esm.js" />
@@ -392,8 +398,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\Customer\Create.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
@@ -404,12 +408,10 @@
     <Content Include="Views\Shared\_RestaurantLayout.cshtml" />
     <Content Include="Views\Restaurant\OrderHistory.cshtml" />
     <Content Include="Views\Restaurant\PendingOrders.cshtml" />
-    <Content Include="Views\Customer\ViewDish.cshtml" />
     <Content Include="Views\Dishes\DishList.cshtml" />
     <Content Include="Views\Dishes\Create.cshtml" />
     <Content Include="Views\Dishes\Edit.cshtml" />
     <Content Include="Views\Dishes\Delete.cshtml" />
-    <Content Include="Views\Admin\PendingRestaurantApprovals.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\CategoryList.cshtml" />
     <Content Include="Views\Admin\AddCategory.cshtml" />
@@ -428,6 +430,17 @@
     <Content Include="Views\Address\_AddView.cshtml" />
     <Content Include="Views\Payment\OnlinePay.cshtml" />
     <Content Include="Views\Payment\SelectBankToPay.cshtml" />
+    <Content Include="Views\DeliveryBoy\PendingOrderRequests.cshtml" />
+    <Content Include="Views\Shared\_DeliveryStaffLayoutPage.cshtml" />
+    <Content Include="Views\DeliveryBoy\AcceptedOrders.cshtml" />
+    <Content Include="Views\DeliveryBoy\DeliveredOrders.cshtml" />
+    <Content Include="Views\DeliveryBoy\_AddOtpFormView.cshtml" />
+    <Content Include="Views\Admin\ApprovalPendingRest.cshtml" />
+    <Content Include="Views\Admin\ApprovalPendingDelBoys.cshtml" />
+    <Content Include="Views\Admin\DisplayContactUsList.cshtml" />
+    <Content Include="Views\Customer\OrdersHistory.cshtml" />
+    <Content Include="Views\Customer\ActiveOrders.cshtml" />
+    <Content Include="Views\ReviewNRating\PostAReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

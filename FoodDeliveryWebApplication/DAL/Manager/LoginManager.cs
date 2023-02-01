@@ -21,5 +21,21 @@ namespace DAL.Manager
             }
             return roleId;
         }
+        public tbl_DeliveryStaffs GetStaffDetailsByEmail(string emailId)
+        {
+            return db.tbl_DeliveryStaffs.Where(e => e.StaffEmail == emailId && e.IsValid == "Yes" && e.StaffAccStatus == "A").SingleOrDefault();
+        }
+
+        public tbl_Restaurant GetRestDetailsByEmail(string emailId)
+        {
+            return db.tbl_Restaurant.Where(e => e.RestEmail == emailId).SingleOrDefault();
+        }
+        public tbl_Customer GetCustomerDetailsByEmail(string emailId)
+        {
+
+            return db.tbl_Customer.Where(x => x.CusEmail == emailId).FirstOrDefault();
+
+        }
+
     }
 }

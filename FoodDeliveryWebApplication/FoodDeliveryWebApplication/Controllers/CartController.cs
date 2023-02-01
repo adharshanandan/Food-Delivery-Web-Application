@@ -261,6 +261,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 
                 insObj.Order_fk_RestId = retObj.Cart_fk_RestId;
                 insObj.Order_fk_CusId = retObj.Cart_fk_CusId;
+                insObj.Order_fk_AddId = obj.Order_fk_AddId;
                 insObj.Orderdate = DateTime.Now;
                 insObj.IsDelivered = "N";
                 insObj.IsOrderConfirmed = "N";

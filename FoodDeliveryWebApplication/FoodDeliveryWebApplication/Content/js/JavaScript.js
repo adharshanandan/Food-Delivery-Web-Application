@@ -6,19 +6,14 @@
     Enquiry["Message"] = $("#txtMsg").val();
 
     $.ajax({
-        url: "Home/UploadData",
-        contentType: "application/json;charset=ut-f-8",
+        url: "Home/UploadData",  
         method: "POST",
-        data: JSON.stringify(Enquiry),
+        data: { "obj": Enquiry },
         success: function (data) {
-            alert("success");
-            //var fd = new FormData();
-            //var xhr = new XMLHttpRequest();
-            ///*xhr.open(url);*/
-            //xhr.send(fd);
-
+            alert(data);
+            aler("Success");
         },
-        error: function (data) {
+        error: function (err) {
             alert("Failed to submit inquiry !");
 
         }

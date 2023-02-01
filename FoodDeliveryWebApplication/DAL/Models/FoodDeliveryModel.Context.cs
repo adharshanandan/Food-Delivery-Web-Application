@@ -46,5 +46,6 @@ namespace DAL.Models
         public virtual DbSet<tbl_BankAccounts> tbl_BankAccounts { get; set; }
         public virtual DbSet<tbl_BankNames> tbl_BankNames { get; set; }
         public virtual DbSet<tbl_UserBankAcc> tbl_UserBankAcc { get; set; }
+        public virtual DbSet<tbl_ReviewAndRating> tbl_ReviewAndRating { get; set; }
     }
 }

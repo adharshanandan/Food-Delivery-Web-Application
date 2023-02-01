@@ -23,6 +23,7 @@ namespace FoodDeliveryWebApplication.Controllers
         FavouriteRestaurantManager favRestMngr = new FavouriteRestaurantManager();
         CartManager cartMngr = new CartManager();
         AddressManager addMngr = new AddressManager();
+        DishesManager dishMngr = new DishesManager();
         // GET: Customer
         //public ActionResult Index()
         //{
@@ -277,7 +278,89 @@ namespace FoodDeliveryWebApplication.Controllers
             return RedirectToAction("CartItemsDisplay", "Cart");
         }
 
-   
+        public ActionResult OrdersHistory()
+        {
+            dynamic combinedModel = new ExpandoObject();
+            List<tbl_OrderDetails> retList = cusMngr.GetAllOrdersHistoryByUserEmail(Session["Customer"].ToString());
+            List<OrderDetails> orderList = new List<OrderDetails>();
+            List<Dishes> dishList = new List<Dishes>();
+            foreach(var item in retList)
+            {
+                orderList.Add(new OrderDetails
+                {
+                    id = item.OrderId,
+                    RestName = item.tbl_Restaurant.RestName,
+                    Image=item.tbl_Restaurant.RestImage,
+                    Order_fk_RestId=item.Order_fk_RestId,
+                    TotalAmount = item.TotalAmount,
+                    Orderdate=item.Orderdate,
+                    PaymentMode=item.PaymentMode,
+                    IsDelivered=item.IsDelivered
+
+
+                }) ;
+
+                foreach(var dish in item.tbl_OrderedFoodDetails)
+                {
+                    tbl_Dishes obj = dishMngr.GetDishById(Convert.ToInt32(dish.fk_DishId));
+                    dishList.Add(new Dishes
+                    {
+                        DishImage=obj.DishImage,
+                        DishDesc=obj.DishDesc,
+                        DishName=obj.DishName,
+                        DishPrice=obj.DishPrice
+
+                    });
+                }
+            }
+            combinedModel.Dishes = dishList;
+            combinedModel.Orders = orderList;
+            return View(combinedModel);
+        }
+
+        public ActionResult ActiveOrders()
+        {
+            dynamic combinedModel = new ExpandoObject();
+            List<tbl_OrderDetails> retList = cusMngr.GetAllActiveOrdersByUserEmail(Session["Customer"].ToString());
+            List<OrderDetails> orderList = new List<OrderDetails>();
+            List<Dishes> dishList = new List<Dishes>();
+            foreach (var item in retList)
+            {
+                orderList.Add(new OrderDetails
+                {
+                    id = item.OrderId,
+                    RestName = item.tbl_Restaurant.RestName,
+                    Image = item.tbl_Restaurant.RestImage,
+                    Order_fk_RestId = item.Order_fk_RestId,
+                    TotalAmount = item.TotalAmount,
+                    Orderdate = item.Orderdate,
+                    PaymentMode = item.PaymentMode,
+                    IsDelivered = item.IsDelivered,
+                    OrderOtp = item.OrderOtp
+
+
+                }) ;
+
+                foreach (var dish in item.tbl_OrderedFoodDetails)
+                {
+                    tbl_Dishes obj = dishMngr.GetDishById(Convert.ToInt32(dish.fk_DishId));
+                    dishList.Add(new Dishes
+                    {
+                        DishImage = obj.DishImage,
+                        DishDesc = obj.DishDesc,
+                        DishName = obj.DishName,
+                        DishPrice = obj.DishPrice
+
+                    });
+                }
+            }
+            combinedModel.Dishes = dishList;
+            combinedModel.Orders = orderList;
+            return View(combinedModel);
+        }
+
+
+
 
 
 

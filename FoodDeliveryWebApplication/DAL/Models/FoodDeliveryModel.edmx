@@ -225,6 +225,16 @@
           <Property Name="IsValid" Type="varchar" MaxLength="10" />
           <Property Name="Rest_fk_Offer" Type="int" />
         </EntityType>
+        <EntityType Name="tbl_ReviewAndRating">
+          <Key>
+            <PropertyRef Name="RevId" />
+          </Key>
+          <Property Name="RevId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReviewContent" Type="varchar(max)" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Rev_fk_CusId" Type="int" />
+          <Property Name="Rev_fk_RestId" Type="int" />
+        </EntityType>
         <EntityType Name="tbl_Role">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -576,6 +586,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_Revie__Rev_f__503BEA1C">
+          <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_ReviewAndRating" Type="Self.tbl_ReviewAndRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Customer">
+              <PropertyRef Name="CusId" />
+            </Principal>
+            <Dependent Role="tbl_ReviewAndRating">
+              <PropertyRef Name="Rev_fk_CusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Revie__Rev_f__51300E55">
+          <End Role="tbl_Restaurant" Type="Self.tbl_Restaurant" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_ReviewAndRating" Type="Self.tbl_ReviewAndRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Restaurant">
+              <PropertyRef Name="RestId" />
+            </Principal>
+            <Dependent Role="tbl_ReviewAndRating">
+              <PropertyRef Name="Rev_fk_RestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_UserB__rder___3E1D39E1">
           <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -624,6 +662,7 @@
           <EntitySet Name="tbl_OrderedFoodDetails" EntityType="Self.tbl_OrderedFoodDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_PhoneNumbers" EntityType="Self.tbl_PhoneNumbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Restaurant" EntityType="Self.tbl_Restaurant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ReviewAndRating" EntityType="Self.tbl_ReviewAndRating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Role" EntityType="Self.tbl_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_UserBankAcc" EntityType="Self.tbl_UserBankAcc" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__tbl_Addre__Add_f__25518C17" Association="Self.FK__tbl_Addre__Add_f__25518C17">
@@ -726,6 +765,14 @@
             <End Role="tbl_Role" EntitySet="tbl_Role" />
             <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_Revie__Rev_f__503BEA1C" Association="Self.FK__tbl_Revie__Rev_f__503BEA1C">
+            <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+            <End Role="tbl_ReviewAndRating" EntitySet="tbl_ReviewAndRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Revie__Rev_f__51300E55" Association="Self.FK__tbl_Revie__Rev_f__51300E55">
+            <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+            <End Role="tbl_ReviewAndRating" EntitySet="tbl_ReviewAndRating" />
+          </AssociationSet>
           <AssociationSet Name="FK__tbl_UserB__rder___3E1D39E1" Association="Self.FK__tbl_UserB__rder___3E1D39E1">
             <End Role="tbl_Customer" EntitySet="tbl_Customer" />
             <End Role="tbl_UserBankAcc" EntitySet="tbl_UserBankAcc" />
@@ -806,6 +853,7 @@
           <NavigationProperty Name="tbl_Addresses" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Addre__Add_f__25518C17" FromRole="tbl_Customer" ToRole="tbl_Addresses" />
           <NavigationProperty Name="tbl_OrderDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2CF2ADDF" FromRole="tbl_Customer" ToRole="tbl_OrderDetails" />
           <NavigationProperty Name="tbl_UserBankAcc" Relationship="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___3E1D39E1" FromRole="tbl_Customer" ToRole="tbl_UserBankAcc" />
+          <NavigationProperty Name="tbl_ReviewAndRating" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__503BEA1C" FromRole="tbl_Customer" ToRole="tbl_ReviewAndRating" />
         </EntityType>
         <EntityType Name="tbl_DeliveryStaffs">
           <Key>
@@ -881,6 +929,7 @@
           <NavigationProperty Name="tbl_Offers" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Resta__Rest___2645B050" FromRole="tbl_Restaurant" ToRole="tbl_Offers" />
           <NavigationProperty Name="tbl_Dishes" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Dishe__Dish___3D5E1FD2" FromRole="tbl_Restaurant" ToRole="tbl_Dishes" />
           <NavigationProperty Name="tbl_OrderDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2EDAF651" FromRole="tbl_Restaurant" ToRole="tbl_OrderDetails" />
+          <NavigationProperty Name="tbl_ReviewAndRating" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__51300E55" FromRole="tbl_Restaurant" ToRole="tbl_ReviewAndRating" />
         </EntityType>
         <Association Name="FK__tbl_Cart__Cart_f__5BE2A6F2">
           <End Role="tbl_Customer" Type="Self.tbl_Customer" Multiplicity="0..1" />
@@ -1077,6 +1126,15 @@
           <AssociationSet Name="FK__tbl_UserB__rder___3E1D39E1" Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___3E1D39E1">
             <End Role="tbl_Customer" EntitySet="tbl_Customer" />
             <End Role="tbl_UserBankAcc" EntitySet="tbl_UserBankAcc" />
+          </AssociationSet>
+          <EntitySet Name="tbl_ReviewAndRating" EntityType="db_FoodOrderingApplicationModel.tbl_ReviewAndRating" />
+          <AssociationSet Name="FK__tbl_Revie__Rev_f__503BEA1C" Association="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__503BEA1C">
+            <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+            <End Role="tbl_ReviewAndRating" EntitySet="tbl_ReviewAndRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Revie__Rev_f__51300E55" Association="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__51300E55">
+            <End Role="tbl_Restaurant" EntitySet="tbl_Restaurant" />
+            <End Role="tbl_ReviewAndRating" EntitySet="tbl_ReviewAndRating" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tbl_ContactUs">
@@ -1523,6 +1581,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_ReviewAndRating">
+          <Key>
+            <PropertyRef Name="RevId" />
+          </Key>
+          <Property Name="RevId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="Rev_fk_CusId" Type="Int32" />
+          <Property Name="Rev_fk_RestId" Type="Int32" />
+          <NavigationProperty Name="tbl_Customer" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__503BEA1C" FromRole="tbl_ReviewAndRating" ToRole="tbl_Customer" />
+          <NavigationProperty Name="tbl_Restaurant" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__51300E55" FromRole="tbl_ReviewAndRating" ToRole="tbl_Restaurant" />
+        </EntityType>
+        <Association Name="FK__tbl_Revie__Rev_f__503BEA1C">
+          <End Type="db_FoodOrderingApplicationModel.tbl_Customer" Role="tbl_Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="db_FoodOrderingApplicationModel.tbl_ReviewAndRating" Role="tbl_ReviewAndRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Customer">
+              <PropertyRef Name="CusId" />
+            </Principal>
+            <Dependent Role="tbl_ReviewAndRating">
+              <PropertyRef Name="Rev_fk_CusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Revie__Rev_f__51300E55">
+          <End Type="db_FoodOrderingApplicationModel.tbl_Restaurant" Role="tbl_Restaurant" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="db_FoodOrderingApplicationModel.tbl_ReviewAndRating" Role="tbl_ReviewAndRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Restaurant">
+              <PropertyRef Name="RestId" />
+            </Principal>
+            <Dependent Role="tbl_ReviewAndRating">
+              <PropertyRef Name="Rev_fk_RestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1786,6 +1884,17 @@
                 <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="User_fk_BankName" ColumnName="User_fk_BankName" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ReviewAndRating">
+            <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_ReviewAndRating">
+              <MappingFragment StoreEntitySet="tbl_ReviewAndRating">
+                <ScalarProperty Name="Rev_fk_RestId" ColumnName="Rev_fk_RestId" />
+                <ScalarProperty Name="Rev_fk_CusId" ColumnName="Rev_fk_CusId" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ReviewContent" ColumnName="ReviewContent" />
+                <ScalarProperty Name="RevId" ColumnName="RevId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

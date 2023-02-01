@@ -64,6 +64,7 @@
     <Compile Include="Manager\LoginManager.cs" />
     <Compile Include="Manager\PaymentManager.cs" />
     <Compile Include="Manager\RestaurantManager.cs" />
+    <Compile Include="Manager\ReviewManager.cs" />
     <Compile Include="Models\FoodDeliveryModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -134,6 +135,9 @@
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Restaurant.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ReviewAndRating.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Role.cs">

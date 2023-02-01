@@ -41,13 +41,13 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav  mb-2 mb-lg-0 ms-auto">
-                            
+
                             <li class="nav-item fs-4 my-auto ">
 
 
                                 <button type="submit" class="btn btn-danger btn-lg" value="Logout" onclick="location.href='@Url.Action("LogoutAdmin", "Logout")'">
 
-                                    Logout 
+                                    Logout
 
                                 </button>
                             </li>
@@ -81,13 +81,16 @@
                     Pending Approvals
                 </a>
                 <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Restaurants</a></li>
-                    <li><a class="dropdown-item" href="#">Delivery boys</a></li>
+                    <li><a class="dropdown-item" href="/Admin/ApprovalPendingRest">Restaurants</a></li>
+                    <li><a class="dropdown-item" href="/Admin/ApprovalPendingDelBoys">Delivery boys</a></li>
 
                 </ul>
             </li>
+            <li>
+                <a class="nav-link " href="/Admin/DisplayContactUsList">Contact Us List</a>
+            </li>
         </ul>
-           
+
     </div>
 
     <div class="content">

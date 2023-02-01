@@ -1,0 +1,71 @@
+﻿@using FoodDeliveryWebApplication;
+@model dynamic
+
+@{
+    ViewBag.Title = "OrdersHistory";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<section style="padding-top:10em">
+    <div class="container">
+
+        @foreach (var item in Model.Orders)
+        {
+            <div class="card w-75 p-0 mx-auto">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2 ">
+                            <img src="@Url.Content(item.Image)" style="width:80px;height:80px" class="rounded shadow text-center img-fluid " />
+                            
+                        </div>
+                        <div class="col-md-8 my-auto text-left me-auto">
+                            <a href="/Dishes/FoodItems?id=@item.Order_fk_RestId"><h4 class=" my-auto ms-auto">@item.RestName</h4></a>
+                        </div>
+
+                    </div>
+                    <hr />
+                    @foreach (var dish in Model.Dishes)
+                    {
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                                <img src="@Url.Content(dish.DishImage)" style="width:60px;height:60px" class="rounded-circle img-fluid " />
+
+                            </div>
+                            <div class="col-md-4">
+                                <h5>@dish.DishName</h5>
+                                <p>@dish.DishDesc</p>
+                                
+                            </div>
+                            <div class="col-md-4">
+                                Rs. @dish.DishPrice
+                            </div>
+
+                        </div>
+                        <hr />
+
+                    }
+                    <div class="row ">
+                        <div class="col-md-4">
+                            <p class="text-secondary"><i>Purchased on : @item.Orderdate.ToShortDateString()</i></p>
+                        </div>
+                        <div class="col-md-4">
+                            
+                            <h5>Paid : Rs. @item.TotalAmount /-</h5>
+
+                        </div>
+                        <div>
+                            <a href="/ReviewNRating/PostAReview?id=@item.Order_fk_RestId">Post a review</a>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <hr />
+
+        }
+
+    </div>
+</section>

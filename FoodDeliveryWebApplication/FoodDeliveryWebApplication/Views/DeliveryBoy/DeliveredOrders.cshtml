@@ -1,0 +1,129 @@
+﻿@using FoodDeliveryWebApplication;
+@model dynamic
+
+@{
+    ViewBag.Title = "DeliveredOrders";
+    Layout = "~/Views/Shared/_DeliveryStaffLayoutPage.cshtml";
+}
+
+
+<section style="padding-top:10em">
+    <div class="container">
+
+
+        <h2 class="mt-5">Delivered Orders</h2>
+        <hr />
+
+
+        <table class="table table-hover mt-3 ">
+            <tr class="table-secondary">
+                <th>
+                    Order Id
+                </th>
+                <th>
+                    Ordered Items
+                </th>
+
+                <th>
+                    Restaurant Name
+                </th>
+
+
+                <th>
+                    Bill Amount
+                </th>
+                <th>
+                    Order Date
+                </th>
+
+                <th>
+                    is Delivered
+                </th>
+
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Order)
+            {
+                <tr>
+                    <td>
+                        @item.fk_OrderId
+                    </td>
+                    <td>
+                        <table border="1">
+                            <tr class="border border-1 border-dark bg-light">
+                                <td class="p-2 border border-1 border-dark">
+                                    Dish id
+                                </td>
+                                <td class="p-2 border border-1 border-dark">
+                                    Dish Name
+                                </td>
+                                <td class="p-2 border border-1 border-dark">
+                                    Quantity(Nos)
+                                </td>
+                            </tr>
+                            @foreach (var dish in Model.Cart)
+                            {
+                                <tr>
+                                    <td class="text-center border border-1 border-dark">
+                                        @dish.DishId
+                                    </td>
+                                    <td class="text-center border border-1 border-dark">
+                                        @dish.DishName
+                                    </td>
+                                    <td class="text-center border border-1 border-dark">
+                                        @dish.Quantity
+                                    </td>
+                                </tr>
+
+                            }
+                        </table>
+
+                    </td>
+
+                    <td>
+                        @item.RestName
+                    </td>
+
+
+                    <td>
+                        <span>Rs.</span>@item.TotalAmount<span>/-</span>
+                    </td>
+                    <td>
+                        @item.Orderdate.ToShortDateString()
+                    </td>
+
+                    <td>
+                        @item.IsDelivered
+                    </td>
+
+                    <td>                        
+                        <img style="width:50px;height:50px" src="~/Content/Icons/success.png" />
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(".btnAccept").click(function () {
+        var id = $("#hdnOrderId").val();
+        $.ajax({
+            method: "POST",
+            url: "/DeliveryBoy/AcceptOrder/",
+            data: { "id": id },
+            success: function (data) {
+                alert(data)
+            },
+            error: function (err) {
+                alert(err)
+            }
+        });
+
+    })
+</script>
+

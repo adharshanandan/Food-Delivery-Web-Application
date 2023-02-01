@@ -66,7 +66,8 @@ namespace FoodDeliveryWebApplication.Controllers
             insObj.RestTradeLicense = obj.RestTradeLicense;
             insObj.RestRole = 3;
             insObj.RestArea = obj.RestArea;
-            insObj.IsValid = "Yes";
+            insObj.IsValid = "No";
+            insObj.Rest_fk_Offer = 5;
             var isExistEmail = restMngr.IsExistEmail(insObj.RestEmail.ToString());
             if (isExistEmail != null)
             {

@@ -280,6 +280,15 @@ BankId int primary key identity(1,1),
 BankName varchar(50)
 )
 
+create table tbl_ReviewAndRating(
+RevId int primary key identity(1,1),
+ReviewContent varchar(max),
+Rating int,
+Rev_fk_CusId int references tbl_Customer(CusId) on update cascade on delete cascade,
+Rev_fk_RestId int references tbl_Restaurant(RestId) on update cascade on delete cascade
+
+)
+
 
 
 
@@ -423,7 +432,7 @@ end
 
 
 
-select * from tbl_Login
+select * from tbl_OrderDetails
 select * from tbl_Restaurant
 delete from tbl_Customer where CusEmail='Adharsh@gmail.com'
 
@@ -435,3 +444,28 @@ alter table tbl_Restaurant add IsValid varchar(10)
 
 update tbl_Customer set CusStatus='D' where CusEmail='Adharsh@gmail.com'
 
+
+--------------Stored procedure to accept order--------------------
+
+create proc sp_AcceptOrder(@staffemail as varchar(50),
+@orderId as int)
+as
+begin
+begin transaction
+declare @result as varchar(20)
+declare @staffId as int
+set @staffId= (select staffId from tbl_DeliveryStaffs where staffEmail=@staffemail)
+update tbl_OrderDetails set Order_fk_StaffId=@staffId where OrderId=@orderId
+update tbl_DeliveryStaffs set Isfree='No' where StaffId=@staffId
+if(@@ERROR>0)
+begin
+set @result='failed'
+rollback transaction
+end
+else
+begin
+set @result='success'
+end
+select @result
+commit transaction
+end

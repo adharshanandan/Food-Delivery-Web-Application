@@ -15,6 +15,7 @@ namespace FoodDeliveryWebApplication.Controllers
         RestaurantManager restMngr = new RestaurantManager();
         DeliveryBoyManager delMngr = new DeliveryBoyManager();
         LoginManager loginMngr = new LoginManager();
+
         public ActionResult Login()
         {
             return View();
@@ -37,7 +38,7 @@ namespace FoodDeliveryWebApplication.Controllers
             else if (roleId == 2)
             {
                 Session["Customer"] = obj.UserEmailId;
-                tbl_Customer cusObj = cusMngr.GetCustomerDetailsByEmailId(obj.UserEmailId.ToString());
+                tbl_Customer cusObj = loginMngr.GetCustomerDetailsByEmail(obj.UserEmailId.ToString());
                 if (cusObj.IsValid != "Yes")
                 {
                     ViewBag.validCheckCus = "Email is not verfied";
@@ -55,10 +56,10 @@ namespace FoodDeliveryWebApplication.Controllers
             else if (roleId == 3)
             {
                 Session["Restaurant"] = obj.UserEmailId;
-                tbl_Restaurant restObj = restMngr.IsExistEmail(obj.UserEmailId);
+                tbl_Restaurant restObj = loginMngr.GetRestDetailsByEmail(obj.UserEmailId);
                 if (restObj.IsValid != "Yes")
                 {
-                    ViewBag.validCheckRest = "Email is not verfied";
+                    ViewBag.validCheckRest = "Account is not approved by admin. Please wait..";
                     return View();
                 }
                 if (restObj.RestStatus != "A")
@@ -71,18 +72,18 @@ namespace FoodDeliveryWebApplication.Controllers
             else if (roleId == 4)
             {
                 Session["DeliveryBoy"] = obj.UserEmailId;
-                tbl_Restaurant restObj = restMngr.IsExistEmail(obj.UserEmailId);
-                if (restObj.IsValid != "Yes")
+                tbl_DeliveryStaffs staffObj = loginMngr.GetStaffDetailsByEmail(obj.UserEmailId);
+                if (staffObj.IsValid != "Yes")
                 {
-                    ViewBag.validCheckRest = "Email is not verfied";
+                    ViewBag.validCheckRest = "Account is not approved by admin. Please wait..";
                     return View();
                 }
-                if (restObj.RestStatus != "A")
+                if (staffObj.StaffAccStatus != "A")
                 {
                     ViewBag.statusCheckRest = "Account not found";
                     return View();
                 }
-                return RedirectToAction("DishList", "Dishes");
+                return RedirectToAction("PendingOrderRequests", "DeliveryBoy");
             }
             else
             {

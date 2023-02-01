@@ -94,6 +94,19 @@ namespace DAL.Manager
             return db.tbl_Restaurant.Where(e => e.tbl_Offers.OfferPercentage != 0 && e.RestId == id).SingleOrDefault();
         }
 
+        public List<tbl_Restaurant> GetNotApprovedRest()
+        {
+            return db.tbl_Restaurant.Where(e => e.IsValid == "No").ToList();
+        }
+
+        public int ApproveRestaurant(int? id)
+        {
+            tbl_Restaurant updObj = db.tbl_Restaurant.Where(e => e.RestId == id).SingleOrDefault();
+            updObj.IsValid = "Yes";
+            db.Entry(updObj).State = EntityState.Modified;
+            return db.SaveChanges();
+        }
+
 
 
 

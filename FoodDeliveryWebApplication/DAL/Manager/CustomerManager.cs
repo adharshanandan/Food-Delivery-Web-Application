@@ -107,6 +107,15 @@ namespace DAL.Manager
 
 
         }
+        public List<tbl_OrderDetails> GetAllOrdersHistoryByUserEmail(string emailId)
+        {
+            return db.tbl_OrderDetails.Where(e => e.tbl_Customer.CusEmail == emailId && e.IsDelivered == "Y").ToList();
+        }
+
+        public List<tbl_OrderDetails> GetAllActiveOrdersByUserEmail(string emailId)
+        {
+            return db.tbl_OrderDetails.Where(e => e.tbl_Customer.CusEmail == emailId && e.IsDelivered == "N").ToList();
+        }
 
 
 

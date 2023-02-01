@@ -12,6 +12,7 @@ namespace FoodDeliveryWebApplication.Models
         
         [DisplayName("Customer Name")]
         public string CusName { get; set; }
+        public string RestName { get; set; }
         public Nullable<int> Order_fk_CusId { get; set; }
         [Required]
         public Nullable<int> Order_fk_AddId { get; set; }
@@ -24,6 +25,7 @@ namespace FoodDeliveryWebApplication.Models
         public Nullable<System.DateTime> Orderdate { get; set; }
         [Required]
         public string PaymentMode { get; set; }
+        public string Image { get; set; }
         public string IsPaid { get; set; }
         public string IsDelivered { get; set; }
         [DisplayName("Order Confirmation")]

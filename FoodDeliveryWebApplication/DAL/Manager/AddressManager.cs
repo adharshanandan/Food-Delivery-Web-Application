@@ -125,5 +125,14 @@ namespace DAL.Manager
             tbl_Addresses retObj = db.tbl_Addresses.Where(e => e.AddId == id).SingleOrDefault();
             return retObj.PinCode;
         }
+
+        public List<tbl_Addresses> GetAddressListById(int? id)
+        {
+            return db.tbl_Addresses.Where(e => e.AddId == id).ToList();
+        }
+        public List<tbl_PhoneNumbers> GetPhoneNumberByCusId(int? id)
+        {
+            return db.tbl_PhoneNumbers.Where(e => e.Phn_fk_CusId == id).ToList();
+        }
     }
 }

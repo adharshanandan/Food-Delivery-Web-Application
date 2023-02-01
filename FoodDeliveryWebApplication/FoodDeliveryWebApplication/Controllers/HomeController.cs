@@ -21,45 +21,15 @@ namespace FoodDeliveryWebApplication.Controllers
             return View();
         }
 
-        //public ActionResult Home(ContactUs obj)
-        //{
-        //    if (obj == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    if (ModelState.IsValid)
-        //    {
-        //        tbl_ContactUs insObj = new tbl_ContactUs();
-        //        insObj.ContName = obj.Name;
-        //        insObj.ContEmail = obj.EmailId;
-        //        insObj.ContMsg = obj.Message;
-        //        string result = homeMngr.InsertEnquiry(insObj);
-        //        if (result == "Success")
-        //        {
-        //            ModelState.Clear();
-        //            ViewBag.message = "Submitted successfully";
-        //            return View();
-        //        }
-        //        else if (result == "Failed")
-        //        {
-        //            ViewBag.message = "Error occured!!";
-        //            return View();
-        //        }
-        //        return View();
-
-        //    }
-
-
-        //    return View();
-        //}
+       
         [HttpPost]
-        public async Task<JsonResult> UploadData (ContactUs obj)
+        public ActionResult UploadData (ContactUs obj)
         {
             string result = "";
             if (obj == null)
             {
                 result = "Data not found";
-                return Json(new { Result = result }, JsonRequestBehavior.AllowGet);
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             if (ModelState.IsValid)
             {
@@ -70,19 +40,19 @@ namespace FoodDeliveryWebApplication.Controllers
                 string status = homeMngr.InsertEnquiry(insObj);
                 if (status == "Success")
                 {
-                    result = "Submitted";
-                    return Json(new { Result = result }, JsonRequestBehavior.AllowGet);
+                    
+                    return Json("Submitted", JsonRequestBehavior.AllowGet);
 
                 }
                 else if (status == "Failed")
                 {
-                    result = "Error occured!!";
-                    return Json(new { Result = result }, JsonRequestBehavior.AllowGet);
+                
+                    return Json("Error occured!!", JsonRequestBehavior.AllowGet);
                 }
                 result = "Failed";
 
             }
-            return Json(new { Result = result }, JsonRequestBehavior.AllowGet);
+            return Json("Please fill all the fields!!", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult RegistrationPage()
