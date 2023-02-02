@@ -20,5 +20,9 @@ namespace FoodDeliveryWebApplication.Models
         public Nullable<int> Rev_fk_RestId { get; set; }
         public string RestName { get; set; }
         public string RestImage { get; set; }
+        public DateTime PostedDate { get; set; }
+        public int RatingAverage { get; set; }
+        public int ReviewCount { get; set; }
+        public string CusName { get; set; }
     }
 }

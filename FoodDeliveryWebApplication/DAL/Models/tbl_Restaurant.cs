@@ -18,11 +18,11 @@ namespace DAL.Models
         public tbl_Restaurant()
         {
             this.tbl_Cart = new HashSet<tbl_Cart>();
-            this.tbl_CusReview = new HashSet<tbl_CusReview>();
             this.tbl_FavRestaurants = new HashSet<tbl_FavRestaurants>();
             this.tbl_Dishes = new HashSet<tbl_Dishes>();
             this.tbl_OrderDetails = new HashSet<tbl_OrderDetails>();
             this.tbl_ReviewAndRating = new HashSet<tbl_ReviewAndRating>();
+            this.tbl_ResBankAcc = new HashSet<tbl_ResBankAcc>();
         }
     
         public int RestId { get; set; }
@@ -45,8 +45,6 @@ namespace DAL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Cart> tbl_Cart { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_CusReview> tbl_CusReview { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_FavRestaurants> tbl_FavRestaurants { get; set; }
         public virtual tbl_Role tbl_Role { get; set; }
         public virtual tbl_Offers tbl_Offers { get; set; }
@@ -56,5 +54,7 @@ namespace DAL.Models
         public virtual ICollection<tbl_OrderDetails> tbl_OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_ReviewAndRating> tbl_ReviewAndRating { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_ResBankAcc> tbl_ResBankAcc { get; set; }
     }
 }

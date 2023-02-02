@@ -19,7 +19,6 @@ namespace DAL.Models
         public string Branch { get; set; }
         public string AccNumber { get; set; }
         public string IfscCode { get; set; }
-        public string UserEmailId { get; set; }
         public Nullable<int> rder_fk_CusId { get; set; }
     
         public virtual tbl_BankNames tbl_BankNames { get; set; }

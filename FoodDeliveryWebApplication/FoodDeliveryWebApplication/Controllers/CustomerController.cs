@@ -24,26 +24,7 @@ namespace FoodDeliveryWebApplication.Controllers
         CartManager cartMngr = new CartManager();
         AddressManager addMngr = new AddressManager();
         DishesManager dishMngr = new DishesManager();
-        // GET: Customer
-        //public ActionResult Index()
-        //{
-            
-        //    List<User> userList = new List<User>();
-        //    var returnList = cusMngr.GetUserDetails();
-        //    foreach(var item in returnList)
-        //    {
-        //        userList.Add(new User
-        //        {
-        //            Id=item.CusId,
-        //            Name=item.CusName,
-        //            EmailId=item.CusEmail
-
-
-        //        });
-        //    }
-        //    return View(userList);
-            
-        //}
+      
         public ViewResult Create()
         {
             return View();

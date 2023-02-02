@@ -260,6 +260,20 @@ rder_fk_CusId int references tbl_Customer(CusId) on update cascade on delete cas
 
 )
 
+alter table tbl_UserBankAcc add UserRole int references tbl_Role(RoleId) 
+
+
+------------UsersBankAcc------------------------
+
+Create table tbl_ResBankAcc(
+id int  primary key identity(1,1),
+Rest_fk_BankName int  references tbl_BankNames(BankId) on update cascade on delete cascade,
+Branch varchar(50),
+AccNumber varchar(50) not null unique,
+IfscCode varchar(50),
+bank_fk_RestId int references tbl_Restaurant(RestId) on update cascade on delete cascade
+
+)
 ---------------Common Bank Accounts----------------
 create table tbl_BankAccounts(
 AccId int primary key identity(1,1),
@@ -268,10 +282,11 @@ Branch varchar(50),
 AccNumber varchar(50) not null unique,
 IfscCode varchar(50),
 AccBalance money,
+PinNumber varchar(20),
 EmailId varchar(50)
 )
 
-
+drop table tbl_BankAccounts
 
 ------------Bank Names------------------
 
@@ -288,6 +303,8 @@ Rev_fk_CusId int references tbl_Customer(CusId) on update cascade on delete casc
 Rev_fk_RestId int references tbl_Restaurant(RestId) on update cascade on delete cascade
 
 )
+
+alter table tbl_ReviewAndRating add PostedDate date
 
 
 
@@ -457,6 +474,30 @@ declare @staffId as int
 set @staffId= (select staffId from tbl_DeliveryStaffs where staffEmail=@staffemail)
 update tbl_OrderDetails set Order_fk_StaffId=@staffId where OrderId=@orderId
 update tbl_DeliveryStaffs set Isfree='No' where StaffId=@staffId
+if(@@ERROR>0)
+begin
+set @result='failed'
+rollback transaction
+end
+else
+begin
+set @result='success'
+end
+select @result
+commit transaction
+end
+
+
+
+--------------------Payment stored procedure--------------------
+
+create proc sp_Payment(@CusAccNum as varchar(20),@RestAccNum as varchar(20),@amount as money)
+as 
+begin
+begin transaction
+declare @result as varchar(20)
+update tbl_BankAccounts set AccBalance=AccBalance-@amount where AccNumber=@CusAccNum
+update tbl_BankAccounts set AccBalance=AccBalance+@amount where AccNumber=@RestAccNum
 if(@@ERROR>0)
 begin
 set @result='failed'

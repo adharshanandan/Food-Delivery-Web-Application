@@ -21,6 +21,7 @@ namespace DAL.Models
         public string IfscCode { get; set; }
         public Nullable<decimal> AccBalance { get; set; }
         public string EmailId { get; set; }
+        public string PinNumber { get; set; }
     
         public virtual tbl_BankNames tbl_BankNames { get; set; }
     }

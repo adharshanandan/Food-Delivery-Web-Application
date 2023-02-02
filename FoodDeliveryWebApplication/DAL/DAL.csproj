@@ -104,9 +104,6 @@
     <Compile Include="Models\tbl_ContactUs.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_CusReview.cs">
-      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tbl_Customer.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
@@ -132,6 +129,9 @@
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_PhoneNumbers.cs">
+      <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ResBankAcc.cs">
       <DependentUpon>FoodDeliveryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Restaurant.cs">

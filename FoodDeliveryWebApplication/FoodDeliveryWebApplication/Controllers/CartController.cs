@@ -249,17 +249,25 @@ namespace FoodDeliveryWebApplication.Controllers
             }
             tbl_OrderDetails insObj = new tbl_OrderDetails();
             List<tbl_Cart> retList = cartMngr.GetCartList(Session["Customer"].ToString());
-            string pincode = addMngr.PicodeCheckForDelivery(obj.Order_fk_AddId);            
+            string pincode;
             tbl_Cart retObj = cartMngr.GetCartRestDetails(Session["Customer"].ToString());
-            if (pincode != retObj.tbl_Restaurant.RestPincode)
-            {
-                return Json("Delivery is not possible to this loation. Please choose a location matching the pincode of the restaurant", JsonRequestBehavior.AllowGet);
-
-            }
+           
+                       
+                     
             if (ModelState.IsValid)
             {
-                
+                if (obj.Order_fk_AddId != null)
+                {
+                    pincode = addMngr.PicodeCheckForDelivery(obj.Order_fk_AddId);
+                    if (pincode != retObj.tbl_Restaurant.RestPincode)
+                    {
+                        return Json("Delivery is not possible to this loation. Please choose a location matching the pincode of the restaurant", JsonRequestBehavior.AllowGet);
+
+                    }
+                }
+
                 insObj.Order_fk_RestId = retObj.Cart_fk_RestId;
+                
                 insObj.Order_fk_CusId = retObj.Cart_fk_CusId;
                 insObj.Order_fk_AddId = obj.Order_fk_AddId;
                 insObj.Orderdate = DateTime.Now;
@@ -283,7 +291,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 if (obj.PaymentMode == "Card")
                 {
                     Session["OrderItem"] = insObj;
-                    return RedirectToAction("SelectBankToPay", "Payment", new { insObj.TotalAmount });
+                    return RedirectToAction("SelectBankToPay", "Payment", new {id= 3 });
                 }
                 string result = cartMngr.InsertOrderDetails(insObj);
                 if (result == "Success")

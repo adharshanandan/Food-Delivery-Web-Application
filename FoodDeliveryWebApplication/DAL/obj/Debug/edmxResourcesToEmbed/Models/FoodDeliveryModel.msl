@@ -33,17 +33,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_CusReview">
-      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_CusReview">
-        <MappingFragment StoreEntitySet="tbl_CusReview">
-          <ScalarProperty Name="RevId" ColumnName="RevId" />
-          <ScalarProperty Name="Review" ColumnName="Review" />
-          <ScalarProperty Name="Rating" ColumnName="Rating" />
-          <ScalarProperty Name="Rev_fk_CusId" ColumnName="Rev_fk_CusId" />
-          <ScalarProperty Name="Rev_fk_RestId" ColumnName="Rev_fk_RestId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Customer">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_Customer">
         <MappingFragment StoreEntitySet="tbl_Customer">
@@ -230,6 +219,7 @@
     <EntitySetMapping Name="tbl_BankAccounts">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_BankAccounts">
         <MappingFragment StoreEntitySet="tbl_BankAccounts">
+          <ScalarProperty Name="PinNumber" ColumnName="PinNumber" />
           <ScalarProperty Name="EmailId" ColumnName="EmailId" />
           <ScalarProperty Name="AccBalance" ColumnName="AccBalance" />
           <ScalarProperty Name="IfscCode" ColumnName="IfscCode" />
@@ -248,27 +238,39 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_UserBankAcc">
-      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_UserBankAcc">
-        <MappingFragment StoreEntitySet="tbl_UserBankAcc">
-          <ScalarProperty Name="rder_fk_CusId" ColumnName="rder_fk_CusId" />
-          <ScalarProperty Name="UserEmailId" ColumnName="UserEmailId" />
-          <ScalarProperty Name="IfscCode" ColumnName="IfscCode" />
-          <ScalarProperty Name="AccNumber" ColumnName="AccNumber" />
-          <ScalarProperty Name="Branch" ColumnName="Branch" />
-          <ScalarProperty Name="User_fk_BankName" ColumnName="User_fk_BankName" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_ReviewAndRating">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_ReviewAndRating">
         <MappingFragment StoreEntitySet="tbl_ReviewAndRating">
+          <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
           <ScalarProperty Name="Rev_fk_RestId" ColumnName="Rev_fk_RestId" />
           <ScalarProperty Name="Rev_fk_CusId" ColumnName="Rev_fk_CusId" />
           <ScalarProperty Name="Rating" ColumnName="Rating" />
           <ScalarProperty Name="ReviewContent" ColumnName="ReviewContent" />
           <ScalarProperty Name="RevId" ColumnName="RevId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ResBankAcc">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_ResBankAcc">
+        <MappingFragment StoreEntitySet="tbl_ResBankAcc">
+          <ScalarProperty Name="bank_fk_RestId" ColumnName="bank_fk_RestId" />
+          <ScalarProperty Name="IfscCode" ColumnName="IfscCode" />
+          <ScalarProperty Name="AccNumber" ColumnName="AccNumber" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="Rest_fk_BankName" ColumnName="Rest_fk_BankName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_UserBankAcc">
+      <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_UserBankAcc">
+        <MappingFragment StoreEntitySet="tbl_UserBankAcc">
+          <ScalarProperty Name="rder_fk_CusId" ColumnName="rder_fk_CusId" />
+          <ScalarProperty Name="IfscCode" ColumnName="IfscCode" />
+          <ScalarProperty Name="AccNumber" ColumnName="AccNumber" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="User_fk_BankName" ColumnName="User_fk_BankName" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

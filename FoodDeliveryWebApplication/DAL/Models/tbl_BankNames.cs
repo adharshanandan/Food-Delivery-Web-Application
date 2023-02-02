@@ -18,6 +18,7 @@ namespace DAL.Models
         public tbl_BankNames()
         {
             this.tbl_BankAccounts = new HashSet<tbl_BankAccounts>();
+            this.tbl_ResBankAcc = new HashSet<tbl_ResBankAcc>();
             this.tbl_UserBankAcc = new HashSet<tbl_UserBankAcc>();
         }
     
@@ -26,6 +27,8 @@ namespace DAL.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_BankAccounts> tbl_BankAccounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_ResBankAcc> tbl_ResBankAcc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_UserBankAcc> tbl_UserBankAcc { get; set; }
     }

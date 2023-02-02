@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Admin" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Cart" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Category" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_CusReview" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Customer" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_DeliveryStaffs" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Offers" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
@@ -16,8 +15,6 @@
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Restaurant" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Cart__Cart_f__5BE2A6F2" ManuallyRouted="false" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Cart__Cart_f__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_CusRe__Rev_f__4D94879B" ManuallyRouted="false" />
-        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_CusRe__Rev_f__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Phone__Phn_f__36B12243" ManuallyRouted="false" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_ContactUs" Width="1.5" PointX="3.375" PointY="8.75" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_Login" Width="1.5" PointX="3" PointY="17.75" />
@@ -50,12 +47,15 @@
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_BankAccounts" Width="1.5" PointX="12.625" PointY="1" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_BankNames" Width="1.5" PointX="10.375" PointY="1.375" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_BankA__fk_Ba__395884C4" />
-        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_UserBankAcc" Width="1.5" PointX="12.625" PointY="8" />
-        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__User___3D2915A8" />
-        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___3E1D39E1" />
         <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_ReviewAndRating" Width="1.5" PointX="9.375" PointY="12.875" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__503BEA1C" />
         <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_Revie__Rev_f__51300E55" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_ResBankAcc" Width="1.5" PointX="15" PointY="4.5" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_ResBa__Rest___65370702" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_ResBa__bank___662B2B3B" />
+        <EntityTypeShape EntityType="db_FoodOrderingApplicationModel.tbl_UserBankAcc" Width="1.5" PointX="12.625" PointY="8" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__User___5D95E53A" />
+        <AssociationConnector Association="db_FoodOrderingApplicationModel.FK__tbl_UserB__rder___5E8A0973" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

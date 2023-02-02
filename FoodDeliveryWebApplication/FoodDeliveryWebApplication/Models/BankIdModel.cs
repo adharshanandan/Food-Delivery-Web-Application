@@ -8,5 +8,7 @@ namespace FoodDeliveryWebApplication.Models
     public class BankIdModel
     {
         public int BankId { get; set; }
+        public string BankName { get; set; }
+
     }
 }

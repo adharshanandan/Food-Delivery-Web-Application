@@ -7,22 +7,23 @@
 <link href="~/Content/css/CreatedCSS/glyphiconColor.css" rel="stylesheet" />
 <section style="padding-top:10em">
     <div class="container">
-        <div class="row mt-5">
+        <div class="row mt-5 bg-light">
             <div class="col-md-6">
-                <h3>Ratings & Reviews</h3>
+                <h2>Ratings & Reviews</h2>
             </div>
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-6 my-auto">
-                        <h3>@Model.RestName</h3>
+                        <h4>@Model.RestName</h4>
                     </div>
                     <div class="col-md-6">
                         <img src="@Url.Content(Model.RestImage)" style="width:100px;height:100px" class="rounded-circle shadow text-center img-fluid " />
                     </div>
+                    <input type="hidden" value="@Model.Rev_fk_RestId" id="hdnRestId" />
                 </div>
-               
-                
-                
+
+
+
             </div>
 
         </div>
@@ -33,38 +34,37 @@
         {
             @Html.AntiForgeryToken()
 
-    <div class="form-horizontal mt-5 align-content-center mx-auto">
+            <div class="form-horizontal mt-5 align-content-center mx-auto">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReviewContent, htmlAttributes: new { @class = "control-label col-md-12" })
-            <div class="col-md-12">
-                @Html.TextAreaFor(model => model.ReviewContent, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReviewContent, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <textarea rows="6" cols="50" id="txtComment"></textarea>
+                </div>
+
+                
+                <div class="mt-3" onmouseout="RateSelected()">
+                    <span id="span1" onmouseover="RateOver(1)" onmouseout="RateOut(1)" onclick="RateClick(1)" class="starEmpty"></span>
+                    <span id="span2" onmouseover="RateOver(2)" onmouseout="RateOut(2)" onclick="RateClick(2)" class="starEmpty"></span>
+                    <span id="span3" onmouseover="RateOver(3)" onmouseout="RateOut(3)" onclick="RateClick(3)" class="starEmpty"></span>
+                    <span id="span4" onmouseover="RateOver(4)" onmouseout="RateOut(4)" onclick="RateClick(4)" class="starEmpty"></span>
+                    <span id="span5" onmouseover="RateOver(5)" onmouseout="RateOut(5)" onclick="RateClick(5)" class="starEmpty"></span>
+                </div>
+                <input type="hidden" id="hdnRating" value="0" />
+
+                <div class="form-group mt-3">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" value="Post comment" class="btn btn-primary btn-block btnSubmit" />
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <textarea rows="6" cols="50" id="txtComment"></textarea>
-        <div class="mt-3">
-            <span id="span1" onmouseover="RateOver(1)" onmouseout="RateOut(1)" class="starEmpty"></span>
-            <span id="span2" onmouseover="RateOver(2)" onmouseout="RateOut(2)" class="starEmpty"></span>
-            <span id="span3" onmouseover="RateOver(3)" onmouseout="RateOut(3)" class="starEmpty"></span>
-            <span id="span4" onmouseover="RateOver(4)" onmouseout="RateOut(4)" class="starEmpty"></span>
-            <span id="span5" onmouseover="RateOver(5)" onmouseout="RateOut(5)" class="starEmpty"></span>
-        </div>
-
-        <div class="form-group mt-3">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Post" class="btn btn-primary btn-block" />
-            </div>
-        </div>
-    </div>
         }
     </div>
-    </section>
+</section>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script>
     function RateOver(rating) {
         for (var i = 1; i <= rating; i++) {
@@ -76,4 +76,53 @@
             $("#span" + i).attr('class', 'starEmpty');
         }
     }
+    function RateClick(rating) {
+        for (var i = 1; i <= rating; ++i) {
+            $("#hdnRating").val(rating);
+            $("#span" + i).attr('class', 'starFilled');
+        }
+        for (var i = rating + 1; i <= 5; ++i) {
+            $("#span" + i).attr('class', 'starEmpty');
+        }
+    }
+    function RateSelected() {
+        var rating = $("#hdnRating").val();
+        for (var i = 1; i <= rating; i++) {
+            $("#span" + i).attr('class', 'starFilled');
+
+        }
+    }
+
+
+    $(".btnSubmit").click(function(){
+        var rating = $("#hdnRating").val();
+        var comment = $("#txtComment").val();
+        var restId = $("#hdnRestId").val();
+        if (rating == "0" || comment == "") {
+            if (rating == "0") {
+                alert("Please select rating!!");
+            }
+            else if (comment == "") {
+                alert("Please write comment!!");
+
+            }
+        }
+        else {
+            var obj = { "Rating": rating, "ReviewContent": comment, "Rev_fk_RestId": restId };
+            $.ajax({
+                method: "POST",
+                url: "/ReviewNRating/PostAReview/",
+                data: { "obj": obj },
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function (err) {
+                    alert(err);
+                }
+
+            })
+        }
+
+    })
 </script>

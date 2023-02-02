@@ -18,13 +18,12 @@ namespace DAL.Models
         public tbl_Customer()
         {
             this.tbl_Cart = new HashSet<tbl_Cart>();
-            this.tbl_CusReview = new HashSet<tbl_CusReview>();
             this.tbl_PhoneNumbers = new HashSet<tbl_PhoneNumbers>();
             this.tbl_FavRestaurants = new HashSet<tbl_FavRestaurants>();
             this.tbl_Addresses = new HashSet<tbl_Addresses>();
             this.tbl_OrderDetails = new HashSet<tbl_OrderDetails>();
-            this.tbl_UserBankAcc = new HashSet<tbl_UserBankAcc>();
             this.tbl_ReviewAndRating = new HashSet<tbl_ReviewAndRating>();
+            this.tbl_UserBankAcc = new HashSet<tbl_UserBankAcc>();
         }
     
         public int CusId { get; set; }
@@ -40,8 +39,6 @@ namespace DAL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Cart> tbl_Cart { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_CusReview> tbl_CusReview { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PhoneNumbers> tbl_PhoneNumbers { get; set; }
         public virtual tbl_Role tbl_Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -51,8 +48,8 @@ namespace DAL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_OrderDetails> tbl_OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_UserBankAcc> tbl_UserBankAcc { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_ReviewAndRating> tbl_ReviewAndRating { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_UserBankAcc> tbl_UserBankAcc { get; set; }
     }
 }

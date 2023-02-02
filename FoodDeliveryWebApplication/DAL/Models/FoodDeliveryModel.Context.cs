@@ -28,7 +28,6 @@ namespace DAL.Models
         public virtual DbSet<tbl_Admin> tbl_Admin { get; set; }
         public virtual DbSet<tbl_Cart> tbl_Cart { get; set; }
         public virtual DbSet<tbl_Category> tbl_Category { get; set; }
-        public virtual DbSet<tbl_CusReview> tbl_CusReview { get; set; }
         public virtual DbSet<tbl_Customer> tbl_Customer { get; set; }
         public virtual DbSet<tbl_DeliveryStaffs> tbl_DeliveryStaffs { get; set; }
         public virtual DbSet<tbl_Offers> tbl_Offers { get; set; }
@@ -45,7 +44,8 @@ namespace DAL.Models
         public virtual DbSet<tbl_OrderedFoodDetails> tbl_OrderedFoodDetails { get; set; }
         public virtual DbSet<tbl_BankAccounts> tbl_BankAccounts { get; set; }
         public virtual DbSet<tbl_BankNames> tbl_BankNames { get; set; }
-        public virtual DbSet<tbl_UserBankAcc> tbl_UserBankAcc { get; set; }
         public virtual DbSet<tbl_ReviewAndRating> tbl_ReviewAndRating { get; set; }
+        public virtual DbSet<tbl_ResBankAcc> tbl_ResBankAcc { get; set; }
+        public virtual DbSet<tbl_UserBankAcc> tbl_UserBankAcc { get; set; }
     }
 }

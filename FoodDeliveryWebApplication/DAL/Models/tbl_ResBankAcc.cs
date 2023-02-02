@@ -12,15 +12,16 @@ namespace DAL.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_CusReview
+    public partial class tbl_ResBankAcc
     {
-        public int RevId { get; set; }
-        public string Review { get; set; }
-        public Nullable<float> Rating { get; set; }
-        public Nullable<int> Rev_fk_CusId { get; set; }
-        public Nullable<int> Rev_fk_RestId { get; set; }
+        public int id { get; set; }
+        public Nullable<int> Rest_fk_BankName { get; set; }
+        public string Branch { get; set; }
+        public string AccNumber { get; set; }
+        public string IfscCode { get; set; }
+        public Nullable<int> bank_fk_RestId { get; set; }
     
-        public virtual tbl_Customer tbl_Customer { get; set; }
+        public virtual tbl_BankNames tbl_BankNames { get; set; }
         public virtual tbl_Restaurant tbl_Restaurant { get; set; }
     }
 }

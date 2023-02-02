@@ -1,0 +1,77 @@
+﻿@using FoodDeliveryWebApplication;
+@model dynamic
+
+@{
+    ViewBag.Title = "DisplayReviews";
+    if (Session["Customer"] == null)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+
+    }
+}
+<link href="~/Content/css/CreatedCSS/starRatingDisplay.css" rel="stylesheet" />
+<h2>DisplayReviews</h2>
+
+<section style="padding-top:10em">
+    <div class="container">
+        <div class="row mt-5 bg-light">
+            <div class="col-md-6">
+                <h2>Ratings & Reviews</h2>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6 my-auto">
+                        <h4>@Model.Restaurant.Name</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@Url.Content(Model.Restaurant.Image)" style="width:100px;height:100px" class="rounded-circle shadow text-center img-fluid " />
+                    </div>
+                   
+                </div>
+
+            </div>
+            <div class="mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        @foreach (var item in Model.Review)
+                        {
+                      
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Review by : @item.CusName
+
+                                </div>
+                                <div class="col-md-6 text-secondary">
+                                    Posted on : @item.PostedDate.ToShortDateString()
+                                </div>
+
+                            </div>
+                            <hr />
+                            for (int i = 0; i < item.Rating; ++i)
+                            {
+                            <span class="starFilled"></span>
+
+                            }
+                            for (int i = item.Rating; i < 5; ++i)
+                            {
+                            <span class="starEmpty"></span>
+                            }
+
+                            <p>@item.ReviewContent</p>
+                            <hr class="mt-5" />
+                       
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+        </section>
+

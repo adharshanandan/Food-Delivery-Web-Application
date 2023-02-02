@@ -20,6 +20,7 @@ namespace FoodDeliveryWebApplication.Controllers
         DishesManager dishMngr = new DishesManager();
         RestaurantManager restMngr = new RestaurantManager();
         CartManager cartMngr = new CartManager();
+        ReviewManager revMngr = new ReviewManager();
 
         // To display in restaurant accounts
         public ActionResult DishList(string search)
@@ -311,6 +312,20 @@ namespace FoodDeliveryWebApplication.Controllers
             displayRestObj.Image = returnRestObj.RestImage;
             displayRestObj.Id = returnRestObj.RestId;
             displayRestObj.Offer = returnRestObj.tbl_Offers.OfferDescription;
+            List<tbl_ReviewAndRating> reviewList = revMngr.GetReviewListByRestId(returnRestObj.RestId);
+            ReviewRating revObj = new ReviewRating();
+            revObj.ReviewCount = 0;
+            revObj.RatingAverage = 0;
+            foreach(var rev in reviewList)
+            {
+                revObj.ReviewCount++;
+                revObj.RatingAverage = revObj.RatingAverage + Convert.ToInt32(rev.Rating);
+            }
+            if (revObj.ReviewCount != 0)
+            {
+                revObj.RatingAverage = (int)revObj.RatingAverage / (int)revObj.ReviewCount;
+            }
+            
 
             BindVegorNonVeg();
             BindCategory();
@@ -368,6 +383,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 TempData["RestId"] = id;
                 combinedModel.Restaurant = displayRestObj;
                 combinedModel.Dishes = displayList;
+                combinedModel.Review = revObj;
                 return View(combinedModel);
             }
             
@@ -391,6 +407,7 @@ namespace FoodDeliveryWebApplication.Controllers
             TempData["RestId"] = id;
             combinedModel.Restaurant = displayRestObj;
             combinedModel.Dishes = displayList;
+            combinedModel.Review = revObj;
             return View(combinedModel);
         }
         
