@@ -172,6 +172,8 @@
     <Property Name="IsDelivered" Type="char" MaxLength="1" />
     <Property Name="IsOrderConfirmed" Type="char" MaxLength="1" />
     <Property Name="OrderOtp" Type="varchar" MaxLength="20" />
+    <Property Name="IsPicked" Type="char" MaxLength="1" />
+    <Property Name="IsCancelled" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="tbl_OrderedFoodDetails">
     <Key>

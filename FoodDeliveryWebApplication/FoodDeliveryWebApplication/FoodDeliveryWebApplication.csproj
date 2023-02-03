@@ -285,6 +285,7 @@
     <Content Include="Content\css\CreatedCSS\glyphiconColor.css" />
     <Content Include="Content\css\CreatedCSS\hrStyle.css" />
     <Content Include="Content\css\CreatedCSS\hyperlink.css" />
+    <Content Include="Content\css\CreatedCSS\OrderStatusIcons.css" />
     <Content Include="Content\css\CreatedCSS\PageLoader.css" />
     <Content Include="Content\css\CreatedCSS\SideBarNav.css" />
     <Content Include="Content\css\CreatedCSS\starRatingDisplay.css" />
@@ -302,9 +303,12 @@
     <Content Include="Content\Food images\DSC09803.jpg" />
     <Content Include="Content\Food images\FEB09915.jpg" />
     <Content Include="Content\Food images\IMG_8783.jpg" />
+    <Content Include="Content\GifImages\ezgif-2-a9f60b374a.gif" />
     <Content Include="Content\GifImages\ezgif.com-gif-maker.gif" />
     <Content Include="Content\GifImages\icons8-trash-can %281%29.gif" />
     <Content Include="Content\GifImages\output-onlinegiftools.gif" />
+    <Content Include="Content\Icons\orderstatusicon-green.png" />
+    <Content Include="Content\Icons\orderstatusicon-grey.png" />
     <Content Include="Content\Icons\star-empty.png" />
     <Content Include="Content\Icons\star-filled.png" />
     <Content Include="Content\Icons\success.png" />

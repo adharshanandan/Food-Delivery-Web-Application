@@ -25,7 +25,7 @@
                     <div class="form-group mt-5">
 
                         <div class="col-md-12">
-                            @Html.DropDownListFor(model => model.AccId, TempData["ddlUserBankList"] as List<SelectListItem>, new { htmlAttributes = new { @class = "form-control"} })
+                            @Html.DropDownListFor(model => model.AccId, TempData["ddlUserBankList"] as List<SelectListItem>, new { htmlAttributes = new { @class = "form-control",@id="AccId"} })
                             @Html.ValidationMessageFor(model => model.AccId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -86,8 +86,10 @@
                 success: function (result) {
                     if (result == "Success") {
                         alert("Transaction succesfull");
-                        location.href = "/Customer/ActiveOrders";
+                        alert("Order has been placed");
+                        location.href = "/Cart/InsertOrderDetailsofPaidCus";
                     }
+                  
                     else {
                         alert(result);
                     }
@@ -98,6 +100,6 @@
                 }
             })
         }
-    }
+    })
 </script>
 

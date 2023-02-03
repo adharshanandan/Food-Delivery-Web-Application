@@ -117,6 +117,16 @@ namespace DAL.Manager
             return db.tbl_OrderDetails.Where(e => e.tbl_Customer.CusEmail == emailId && e.IsDelivered == "N").ToList();
         }
 
+        public int InsOrderDetailsPaidCus(tbl_OrderDetails insObj)
+        {
+            if (insObj != null)
+            {
+                db.tbl_OrderDetails.Add(insObj);
+                return db.SaveChanges();
+            }
+            return 0;
+        }
+
 
 
     }

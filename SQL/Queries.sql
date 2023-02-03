@@ -491,7 +491,11 @@ end
 
 --------------------Payment stored procedure--------------------
 
-create proc sp_Payment(@CusAccNum as varchar(20),@RestAccNum as varchar(20),@amount as money)
+alter proc sp_Payment(
+@CusAccNum as varchar(20),
+@RestAccNum as varchar(20),
+@amount as money
+)
 as 
 begin
 begin transaction

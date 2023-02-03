@@ -32,6 +32,8 @@ namespace DAL.Models
         public string IsDelivered { get; set; }
         public string IsOrderConfirmed { get; set; }
         public string OrderOtp { get; set; }
+        public string IsPicked { get; set; }
+        public string IsCancelled { get; set; }
     
         public virtual tbl_Addresses tbl_Addresses { get; set; }
         public virtual tbl_Customer tbl_Customer { get; set; }

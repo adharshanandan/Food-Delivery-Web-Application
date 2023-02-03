@@ -588,6 +588,8 @@
     <NavigationProperty Name="tbl_DeliveryStaffs" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2FCF1A8A" FromRole="tbl_OrderDetails" ToRole="tbl_DeliveryStaffs" />
     <NavigationProperty Name="tbl_OrderedFoodDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Or__32AB8735" FromRole="tbl_OrderDetails" ToRole="tbl_OrderedFoodDetails" />
     <NavigationProperty Name="tbl_Restaurant" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2EDAF651" FromRole="tbl_OrderDetails" ToRole="tbl_Restaurant" />
+    <Property Name="IsPicked" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="IsCancelled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="tbl_OrderedFoodDetails">
     <Key>

@@ -274,6 +274,8 @@ namespace FoodDeliveryWebApplication.Controllers
                 insObj.IsDelivered = "N";
                 insObj.IsOrderConfirmed = "N";
                 insObj.IsPaid = "N";
+                insObj.IsPicked = "N";
+                insObj.IsCancelled = "N";
                 insObj.TotalAmount = obj.TotalAmount;
                 Random RandNo = new Random();
                 insObj.OrderOtp = RandNo.Next(100001, 999999).ToString();
@@ -291,22 +293,37 @@ namespace FoodDeliveryWebApplication.Controllers
                 if (obj.PaymentMode == "Card")
                 {
                     Session["OrderItem"] = insObj;
-                    return RedirectToAction("SelectBankToPay", "Payment", new {id= 3 });
+                    return Json("Card", JsonRequestBehavior.AllowGet);
                 }
-                string result = cartMngr.InsertOrderDetails(insObj);
-                if (result == "Success")
-                {                   
-                    string clrResult=cartMngr.ClearCartItems(Session["Customer"].ToString());
-                    if (clrResult == "Success")
-                    {
-                        return Json("Sent", JsonRequestBehavior.AllowGet);
-                    }
-                    
-
-                }
+               
                 
             }
             return Json("please check if the address and payment method are selected or not",JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult InsertOrderDetailsofPaidCus()
+        {
+            try
+            {
+                tbl_OrderDetails insObj = (tbl_OrderDetails)Session["OrderItem"];
+                insObj.IsPaid = "Y";
+                string result = cartMngr.InsertOrderDetails(insObj,Session["Customer"].ToString());
+                if (result == "Success")
+                {
+                    Session["CartItemsCount"] = cartMngr.GetCartItemsCount(Session["Customer"].ToString());
+                    return RedirectToAction("ActiveOrders", "Customer");
+                 
+                }
+                ViewBag.OrderInsFailMsg = "Failed to place order. If your money has debited from your bank account, within 3 working days it will be returned to your account";
+                return RedirectToAction("ActiveOrders", "Customer");
+
+            }
+            catch
+            {
+                throw;
+            }
+        
         }
     }
 }

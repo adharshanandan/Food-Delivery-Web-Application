@@ -2,7 +2,16 @@
 
 @{
     ViewBag.Title = "DeleteBankAcc";
-    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    if (Session["Customer"] == null)
+    {
+        Layout = "~/Views/Shared/_RestaurantLayout.cshtml";
+
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+
+    }
 }
 
 <section style="padding-top: 10em">

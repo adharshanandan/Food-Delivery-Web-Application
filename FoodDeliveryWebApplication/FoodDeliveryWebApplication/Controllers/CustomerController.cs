@@ -304,24 +304,10 @@ namespace FoodDeliveryWebApplication.Controllers
             dynamic combinedModel = new ExpandoObject();
             List<tbl_OrderDetails> retList = cusMngr.GetAllActiveOrdersByUserEmail(Session["Customer"].ToString());
             List<OrderDetails> orderList = new List<OrderDetails>();
-            List<Dishes> dishList = new List<Dishes>();
+            
             foreach (var item in retList)
             {
-                orderList.Add(new OrderDetails
-                {
-                    id = item.OrderId,
-                    RestName = item.tbl_Restaurant.RestName,
-                    Image = item.tbl_Restaurant.RestImage,
-                    Order_fk_RestId = item.Order_fk_RestId,
-                    TotalAmount = item.TotalAmount,
-                    Orderdate = item.Orderdate,
-                    PaymentMode = item.PaymentMode,
-                    IsDelivered = item.IsDelivered,
-                    OrderOtp = item.OrderOtp
-
-
-                }) ;
-
+                List<Dishes> dishList = new List<Dishes>();
                 foreach (var dish in item.tbl_OrderedFoodDetails)
                 {
                     tbl_Dishes obj = dishMngr.GetDishById(Convert.ToInt32(dish.fk_DishId));
@@ -333,12 +319,39 @@ namespace FoodDeliveryWebApplication.Controllers
                         DishPrice = obj.DishPrice
 
                     });
+
                 }
+                orderList.Add(new OrderDetails
+                {
+                    id = item.OrderId,
+                    RestName = item.tbl_Restaurant.RestName,
+                    Image = item.tbl_Restaurant.RestImage,
+                    Order_fk_RestId = item.Order_fk_RestId,
+                    TotalAmount = item.TotalAmount,
+                    Orderdate = item.Orderdate,
+                    PaymentMode = item.PaymentMode,
+                    IsDelivered = item.IsDelivered,
+                    OrderOtp = item.OrderOtp,
+                    IsOrderConfirmed = item.IsOrderConfirmed,
+                    IsPaid = item.IsPaid,
+                    IsCancelled = item.IsCancelled,
+                    IsPicked = item.IsPicked,
+                    FoodDetails=dishList
+                    
+                    
+
+
+                }) ;
+
+               
             }
-            combinedModel.Dishes = dishList;
+            
             combinedModel.Orders = orderList;
             return View(combinedModel);
         }
+
+
+        
 
 
 

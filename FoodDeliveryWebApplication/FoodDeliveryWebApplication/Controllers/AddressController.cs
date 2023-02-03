@@ -87,17 +87,17 @@ namespace FoodDeliveryWebApplication.Controllers
                     string result = addMngr.InsertAddress(insObj, Session["Customer"].ToString());
                     if (result == "Success")
                     {
-                        ViewBag.msg = "Successfully inserted";
-                        return RedirectToAction("_AddView","Address");
+
+                        return Json("Successfully inserted",JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        ViewBag.msg = "Failed";
-                        return RedirectToAction("_AddView", "Address");
+                        
+                        return Json("Failed to insert",JsonRequestBehavior.AllowGet);
                     }
 
                 }
-                return RedirectToAction("_AddView", "Address");
+                return Json("Form validation failed", JsonRequestBehavior.AllowGet);
 
             }
            

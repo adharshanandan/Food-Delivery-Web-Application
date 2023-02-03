@@ -10,94 +10,98 @@
 
 <section style="padding-top:10em" class="mx-auto">
     <div class="container ">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h4>Choose Address</h4>
-                        <hr />
-                        @foreach (var item in Model.Addresses)
-                        {
-                            <input type="radio" id="@item.AddId" value="@item.AddId" name="address" style="display:inline" />
+
+        @if (Session["CartItemsCount"].ToString() != "0")
+        {
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="row mt-5">
+                        <div class="col-md-12">
 
 
-                            <div class="card" style="display:inline-block">
-                                <table class="border shadow card rounded bg-light text-black p-2">
-                                    <tr class="p-2">
-                                        <td>
-                                            Door/Flat No.
-                                        </td>
-                                        <td>
-                                            : @item.DoorOrFlatNo
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Pincode
-                                        </td>
-                                        <td>
-                                            : @item.PinCode
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Address Type
-                                        </td>
-                                        <td>
-                                            : @item.TypeName
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Landmark
-                                        </td>
-                                        <td>
-                                            : @item.LandMark
-                                        </td>
-                                    </tr>
-                                </table>
+                            <h4>Choose Address</h4>
+                            <hr />
+                            @foreach (var item in Model.Addresses)
+                            {
+                                <input type="radio" id="@item.AddId" value="@item.AddId" name="address" style="display:inline" />
+
+
+                                <div class="card" style="display:inline-block">
+                                    <table class="border shadow card rounded bg-light text-black p-2">
+                                        <tr class="p-2">
+                                            <td>
+                                                Door/Flat No.
+                                            </td>
+                                            <td>
+                                                : @item.DoorOrFlatNo
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Pincode
+                                            </td>
+                                            <td>
+                                                : @item.PinCode
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Address Type
+                                            </td>
+                                            <td>
+                                                : @item.TypeName
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Landmark
+                                            </td>
+                                            <td>
+                                                : @item.LandMark
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br />
+                                <br />
+                            }
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button class="btn btn-link mt-3" id="btnAddAddress" onclick="AddressView()" style="display:inline">Add New Address</button>
                             </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-link mt-3" id="btnAddCancel" style="display:none">Cancel</button>
+                            </div>
+
+
+                        </div>
+                        <div id="addView"></div>
+                        <h4 class="mt-5">Choose Payment Method</h4>
+                        <hr />
+                        <div class="col-md-12 ">
+                            <input type="radio" value="COD" id="cod" name="payment" /> <div class="card shadow" style="display:inline-block"><div class="card-body"><i class="fa fa-money" aria-hidden="true"></i> Cash on delivery</div></div>
                             <br />
                             <br />
-                        }
 
+                            <input type="radio" value="Card" id="cod" name="payment" /> <div class="card shadow" style="display:inline-block"><div class="card-body"><i class="fa fa-credit-card" aria-hidden="true"></i> Card</div></div>
 
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button class="btn btn-link mt-3" id="btnAddAddress" onclick="AddressView()" style="display:inline">Add New Address</button>
                         </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-link mt-3" id="btnAddCancel" style="display:none">Cancel</button>
-                        </div>
-                        
-                       
-                    </div>
-                    <div id="addView"></div>
-                    <h4 class="mt-5">Choose Payment Method</h4>
-                    <hr />
-                    <div class="col-md-12 ">
-                        <input type="radio" value="COD" id="cod" name="payment" /> <div class="card shadow" style="display:inline-block"><div class="card-body"><i class="fa fa-money" aria-hidden="true"></i> Cash on delivery</div></div>
-                        <br />
-                        <br />
-
-                        <input type="radio" value="Card" id="cod" name="payment" /> <div class="card shadow" style="display:inline-block"><div class="card-body"><i class="fa fa-credit-card" aria-hidden="true"></i> Card</div></div>
 
                     </div>
+
+
+
+
 
                 </div>
+                <div class="col-md-6">
 
 
-
-
-
-            </div>
-            <div class="col-md-6">
-
-
-                @if (Session["CartItemsCount"].ToString() != "0")
-                {
 
 
                     <div class="card">
@@ -164,7 +168,7 @@
                                     <tr>
 
                                         <td colspan="2">
-                                            Item Total 
+                                            Item Total
                                         </td>
                                         <td colspan="2">
                                             : @Model.PayAmount.TotalAmount
@@ -173,7 +177,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            Discount 
+                                            Discount
                                         </td>
                                         <td colspan="2">
                                             : <span>-</span>@Model.PayAmount.offerPercentage
@@ -181,7 +185,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            Delivery Fee 
+                                            Delivery Fee
                                         </td>
                                         <td colspan="2">
                                             : <span>+</span>@Model.PayAmount.DelveryCharge
@@ -189,7 +193,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            Govt Taxes & Other Charges 
+                                            Govt Taxes & Other Charges
                                         </td>
                                         <td colspan="2">
                                             : <span>+</span>@Model.PayAmount.Tax
@@ -198,7 +202,7 @@
 
 
                                 </table>
-                                
+
                                 <hr />
                                 <table class="mx-auto">
                                     <tr>
@@ -215,30 +219,32 @@
                             </div>
 
                             <div class="m-5 float-end">
-                                <button class="btn btn-block btn-primary btn-lg mx-auto btnProceed" >Proceed</button>
+                                <button class="btn btn-block btn-primary btn-lg mx-auto btnProceed">Proceed</button>
                             </div>
 
                         </div>
 
                     </div>
-                }
-                else
-                {
-                    <div class="mt-5 text-center">
-                        <h1 class=" my-auto text-danger">oops...Cart is empty!!</h1>
-                        <img src="@Url.Content("~/Content/CartIcons/Sad emoji.png")" style="width:200px;height:200px" class="img-fluid text-center my-auto" />
-                    </div>
+                    }
 
-                }
+
+                </div>
+
 
             </div>
 
+        }
+        else
+        {
+            <div class="mt-5 text-center">
+                <h1 class=" my-auto text-danger">oops...Cart is empty!!</h1>
+                <img src="@Url.Content("~/Content/CartIcons/Sad emoji.png")" style="width:200px;height:200px" class="img-fluid text-center my-auto" />
+            </div>
 
-        </div>
+        }
+
     </div>
-
-
-</section>
+    </section>
 <br />
 <br />
 <br />
@@ -398,13 +404,16 @@
                     alert("Order request has been sent. You will be get notified when the order is confirmed. Continue shopping");
                     location.href = "/Customer/FoodItems";
                 }
+                else if (msg == "Card") {
+                    location.href = "/Payment/SelectBankToPay";
+                }
                 else {
                     alert(msg);
                 }
                 
             },
             error: function (err) {
-                location.href = "/Payment/SelectBankToPay?payAmount=" + totalAmount;
+                alert(err);
             }
         })
     })

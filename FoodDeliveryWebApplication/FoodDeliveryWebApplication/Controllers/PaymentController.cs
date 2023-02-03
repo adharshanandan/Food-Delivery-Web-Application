@@ -15,11 +15,11 @@ namespace FoodDeliveryWebApplication.Controllers
         PaymentManager payMngr = new PaymentManager();
         CustomerManager cusMngr = new CustomerManager();
         RestaurantManager restMngr = new RestaurantManager();
-        public ActionResult SelectBankToPay(int id)
+        public ActionResult SelectBankToPay()
         {
             BindBankAccounts(Session["Customer"].ToString());
             BankAccounts obj = new BankAccounts();
-            obj.roleId = id;
+           
             return View(obj);
         }
         public void BindBankAccounts(string EmailId)
@@ -34,6 +34,16 @@ namespace FoodDeliveryWebApplication.Controllers
                     AccId = item.id,
                     AccNumber = item.AccNumber
                 });
+            }
+            foreach (var acc in disList)
+            {
+                char[] tempArray = acc.AccNumber.ToCharArray();
+                for (int i = tempArray.Length - 5; i >= 0; i--)
+                {
+                    tempArray[i] = '*';
+                }
+                acc.AccNumber = new string(tempArray);
+
             }
 
             ddl_UserBanks.Add(new SelectListItem
@@ -75,13 +85,23 @@ namespace FoodDeliveryWebApplication.Controllers
 
                     });
                 }
+                foreach(var acc in disList)
+                {
+                    char[] tempArray = acc.AccNumber.ToCharArray();
+                    for(int i = tempArray.Length - 5; i >= 0; i--)
+                    {
+                        tempArray[i] = '*';
+                    }
+                    acc.AccNumber = new string(tempArray);
+                   
+                }
 
                 return View(disList);
 
             }
             else if (Session["Restaurant"] != null)
             {
-                List<tbl_UserBankAcc> retList = payMngr.GetAllBankAccountsofUser(Session["Restaurant"].ToString());
+                List<tbl_ResBankAcc> retList = payMngr.GetAllBankAccountsofRest(Session["Restaurant"].ToString());
                 List<BankAccounts> disList = new List<BankAccounts>();
                 foreach (var item in retList)
                 {
@@ -93,6 +113,16 @@ namespace FoodDeliveryWebApplication.Controllers
                         IfscCode = item.IfscCode,
                         AccId = item.id
                     });
+                }
+                foreach (var acc in disList)
+                {
+                    char[] tempArray = acc.AccNumber.ToCharArray();
+                    for (int i = tempArray.Length - 5; i >= 0; i--)
+                    {
+                        tempArray[i] = '*';
+                    }
+                    acc.AccNumber = new string(tempArray);
+
                 }
 
                 return View(disList);
@@ -134,10 +164,25 @@ namespace FoodDeliveryWebApplication.Controllers
             else if (Session["Restaurant"] != null)
             {
                 BankAccounts disObj = new BankAccounts();
-                int restId = restMngr.GetRestaurantId(Session["Restaurant"].ToString());
-                disObj.rder_fk_CusId = Convert.ToInt32(restId);
-                BindBankNames();
-                return View(disObj);
+                if (id > 0)
+                {
+                    tbl_ResBankAcc retBankObj = payMngr.GetRestBankAccountById(id);
+                    disObj.AccNumber = retBankObj.AccNumber;
+                    disObj.IfscCode = retBankObj.IfscCode;
+                    disObj.rder_fk_CusId = retBankObj.bank_fk_RestId;
+                    disObj.Branch = retBankObj.Branch;
+                    disObj.AccId = retBankObj.id;
+                    BindBankNames(retBankObj.tbl_BankNames.BankId);
+                    return View(disObj);
+
+
+                }
+                else
+                {
+
+                    BindBankNames();
+                    return View(disObj);
+                }
             }
             else
             {
@@ -151,61 +196,150 @@ namespace FoodDeliveryWebApplication.Controllers
         {
             if (obj.AccId > 0)
             {
-                tbl_UserBankAcc editObj = new tbl_UserBankAcc();
-                if (ModelState.IsValid)
+                if (Session["Customer"] != null)
                 {
-                    tbl_Customer cusObj = cusMngr.GetCustomerDetailsByEmailId(Session["Customer"].ToString());
-                    editObj.rder_fk_CusId = cusObj.CusId;
-                    
-                    editObj.AccNumber = obj.AccNumber;
-                    editObj.Branch = obj.Branch;
-                    editObj.IfscCode = obj.IfscCode;
-                    editObj.User_fk_BankName = obj.fk_BankName;
-                    editObj.id = obj.AccId;
+                    tbl_UserBankAcc editObj = new tbl_UserBankAcc();
+                    if (ModelState.IsValid)
+                    {
+                        tbl_Customer cusObj = cusMngr.GetCustomerDetailsByEmailId(Session["Customer"].ToString());
+                        editObj.rder_fk_CusId = cusObj.CusId;
 
-                    int status = payMngr.AddOrEditAccounts(editObj);
-                    if (status > 0)
-                    {
-                        ViewBag.bankAccAddMsg = "Updated Successfully";
-                        return RedirectToAction("UserBankAccounts", "Payment");
+                        editObj.AccNumber = obj.AccNumber;
+                        editObj.Branch = obj.Branch;
+                        editObj.IfscCode = obj.IfscCode;
+                        editObj.User_fk_BankName = obj.fk_BankName;
+                        editObj.id = obj.AccId;
+
+                        int status = payMngr.AddOrEditUserBankAccounts(editObj);
+                        if (status > 0)
+                        {
+                            ViewBag.bankAccEditMsg = "Updated Successfully";
+                            return RedirectToAction("UserBankAccounts", "Payment");
+                        }
+                        else
+                        {
+                            ViewBag.bankAccEditMsg = "Failed to add";
+                            BindBankNames();
+                            return View();
+                        }
                     }
-                    else
-                    {
-                        ViewBag.bankAccAddMsg = "Failed to add";
-                        BindBankNames();
-                        return View();
-                    }
+                    BindBankNames();
+                    return View();
+
                 }
-                BindBankNames();
-                return View();
+                else if (Session["Restaurant"] != null)
+                {
+                    tbl_ResBankAcc restEditObj = new tbl_ResBankAcc();
+                    if (ModelState.IsValid)
+                    {
+                        tbl_Restaurant restObj = restMngr.IsExistEmail(Session["Restaurant"].ToString());
+                        restEditObj.bank_fk_RestId = restObj.RestId;
+                        restEditObj.AccNumber = obj.AccNumber;
+                        restEditObj.Branch = obj.Branch;
+                        restEditObj.IfscCode = obj.IfscCode;
+                        restEditObj.Rest_fk_BankName = obj.fk_BankName;
+                        restEditObj.id = obj.AccId;
+
+                        int status = payMngr.AddOrEditRestBankAccounts(restEditObj);
+                        if (status > 0)
+                        {
+                            ViewBag.bankAccRestEditMsg = "Updated Successfully";
+                            return RedirectToAction("UserBankAccounts", "Payment");
+                        }
+                        else
+                        {
+                            ViewBag.bankAccRestEditMsg = "Failed to add";
+                            BindBankNames();
+                            return View();
+                        }
+                    }
+                    BindBankNames();
+                    return View();
+                }
+                else
+                {
+                    BindBankNames();
+                    return View();
+                }
+                
             }
             else
             {
-                tbl_UserBankAcc insObj = new tbl_UserBankAcc();
-                if (ModelState.IsValid)
+                if (Session["Customer"] != null)
                 {
-                    tbl_Customer cusObj = cusMngr.GetCustomerDetailsByEmailId(Session["Customer"].ToString());
-                    insObj.AccNumber = obj.AccNumber;
-                    insObj.Branch = obj.Branch;
-                    insObj.IfscCode = obj.IfscCode;
-                    insObj.User_fk_BankName = obj.fk_BankName;
-                    insObj.rder_fk_CusId = cusObj.CusId;
-                    
-                    int status = payMngr.AddOrEditAccounts(insObj);
-                    if (status > 0)
+                    tbl_UserBankAcc insObj = new tbl_UserBankAcc();
+                    if (ModelState.IsValid)
                     {
-                        ViewBag.bankAccEditMsg = "Added Successfully";
-                        return RedirectToAction("UserBankAccounts", "Payment");
+                        tbl_Customer cusObj = cusMngr.GetCustomerDetailsByEmailId(Session["Customer"].ToString());
+                        insObj.AccNumber = obj.AccNumber;
+                        insObj.Branch = obj.Branch;
+                        insObj.IfscCode = obj.IfscCode;
+                        insObj.User_fk_BankName = obj.fk_BankName;
+                        insObj.rder_fk_CusId = cusObj.CusId;
+
+                        int status = payMngr.AddOrEditUserBankAccounts(insObj);
+                        if (status > 0)
+                        {
+                            ViewBag.bankAccAddMsg = "Added Successfully";
+                            return RedirectToAction("UserBankAccounts", "Payment");
+                        }
+                        else
+                        {
+                            ViewBag.bankAccAddMsg = "Failed to add account";
+                            BindBankNames();
+                            return View();
+                        }
                     }
-                    else
+                    ViewBag.bankAccAddMsg = "Failed to add account";
+                    BindBankNames();
+                    return View();
+                }
+                else if(Session["Restaurant"]!=null)
+                {
+                    tbl_Restaurant restObj = restMngr.IsExistEmail(Session["Restaurant"].ToString());
+                    tbl_ResBankAcc isAccExistObj = payMngr.IsExistBankAccount(restObj.RestId);
+                    if (isAccExistObj == null)
                     {
-                        ViewBag.bankAccEditMsg = "Failed to update";
+                        tbl_ResBankAcc insObj = new tbl_ResBankAcc();
+                        if (ModelState.IsValid)
+                        {
+
+                            insObj.AccNumber = obj.AccNumber;
+                            insObj.Branch = obj.Branch;
+                            insObj.IfscCode = obj.IfscCode;
+                            insObj.Rest_fk_BankName = obj.fk_BankName;
+                            insObj.bank_fk_RestId = restObj.RestId;
+
+                            int status = payMngr.AddOrEditRestBankAccounts(insObj);
+                            if (status > 0)
+                            {
+                                ViewBag.bankAccRestAddMsg = "Added Successfully";
+                                return RedirectToAction("UserBankAccounts", "Payment");
+                            }
+                            else
+                            {
+                                ViewBag.bankAccRestAddMsg = "Failed to add";
+                                BindBankNames();
+                                return View();
+                            }
+                        }
+                        ViewBag.bankAccRestAddMsg = "Failed to add";
                         BindBankNames();
                         return View();
                     }
+                    else
+                    {
+                        ViewBag.bankAccRestAddMsg = "Bank account already exists. You can only add one bank account";
+                        BindBankNames();
+                        return View();
+                    }
+                    
                 }
-                BindBankNames();
-                return View();
+                else
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+                
 
             }
 
@@ -279,17 +413,41 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult DeleteBankAcc(int? id)
         {
-            if (id == null)
+            if (Session["Customer"] != null)
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
-            tbl_UserBankAcc retBankObj = payMngr.GetBankAccountById(Convert.ToInt32(id));
-            BankAccounts disBankObj = new BankAccounts();
-            disBankObj.AccNumber = retBankObj.AccNumber;
-            disBankObj.IfscCode = retBankObj.IfscCode;
-            disBankObj.Branch = retBankObj.Branch;
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+                tbl_UserBankAcc retBankObj = payMngr.GetBankAccountById(Convert.ToInt32(id));
+                BankAccounts disBankObj = new BankAccounts();
+                disBankObj.AccNumber = retBankObj.AccNumber;
+                disBankObj.IfscCode = retBankObj.IfscCode;
+                disBankObj.Branch = retBankObj.Branch;
 
-            return View(disBankObj);
+                return View(disBankObj);
+
+            }
+            else if (Session["Restaurant"] != null)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+                tbl_ResBankAcc retRestBankObj = payMngr.GetRestBankAccountById(Convert.ToInt32(id));
+                BankAccounts disBankObj = new BankAccounts();
+                disBankObj.AccNumber = retRestBankObj.AccNumber;
+                disBankObj.IfscCode = retRestBankObj.IfscCode;
+                disBankObj.Branch = retRestBankObj.Branch;
+
+                return View(disBankObj);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
         }
 
 
@@ -297,20 +455,47 @@ namespace FoodDeliveryWebApplication.Controllers
         [ActionName("DeleteBankAcc")]
         public ActionResult DeleteBankAccout(int? id)
         {
-            if (id == null)
+            if (Session["Customer"] != null)
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+                int result = payMngr.RemovebankAccout(Convert.ToInt32(id));
+                if (result > 0)
+                {
+                    return RedirectToAction("UserBankAccounts", "Payment");
+                }
+                else
+                {
+                    ViewBag.delMsg = "Failed to delete";
+                    return View();
+                }
             }
-            int result = payMngr.RemovebankAccout(Convert.ToInt32(id));
-            if (result > 0)
+            else if (Session["Restaurant"] != null)
             {
-                return RedirectToAction("UserBankAccounts", "Payment");
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+                int result = payMngr.RemoveRestbankAccout(Convert.ToInt32(id));
+                if (result > 0)
+                {
+                    return RedirectToAction("UserBankAccounts", "Payment");
+                }
+                else
+                {
+                    ViewBag.delMsg = "Failed to delete";
+                    return View();
+                }
+
             }
             else
             {
                 ViewBag.delMsg = "Failed to delete";
                 return View();
             }
+           
 
         } 
 
@@ -323,13 +508,13 @@ namespace FoodDeliveryWebApplication.Controllers
                 {
                     tbl_UserBankAcc bankObj = new tbl_UserBankAcc();
                     
-                    bankObj.AccNumber = obj.AccNumber;
+                    bankObj.id = obj.AccId;
                     string pinNum = obj.PinNumber;
                     tbl_OrderDetails payObj = (tbl_OrderDetails)Session["OrderItem"];
                     string result = payMngr.PaymentTransaction(bankObj, payObj, pinNum);
                     if (result == "Success")
                     {
-                        return Json("Paid successfully", JsonRequestBehavior.AllowGet);
+                        return Json(result, JsonRequestBehavior.AllowGet);
                     }
                     else if (result == "Mismatch")
                     {

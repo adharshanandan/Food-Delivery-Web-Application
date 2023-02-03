@@ -191,6 +191,8 @@
     <EntitySetMapping Name="tbl_OrderDetails">
       <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_OrderDetails">
         <MappingFragment StoreEntitySet="tbl_OrderDetails">
+          <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+          <ScalarProperty Name="IsPicked" ColumnName="IsPicked" />
           <ScalarProperty Name="OrderOtp" ColumnName="OrderOtp" />
           <ScalarProperty Name="IsOrderConfirmed" ColumnName="IsOrderConfirmed" />
           <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />

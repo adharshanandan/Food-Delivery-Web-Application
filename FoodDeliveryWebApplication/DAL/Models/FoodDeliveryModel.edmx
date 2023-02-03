@@ -177,6 +177,8 @@
           <Property Name="IsDelivered" Type="char" MaxLength="1" />
           <Property Name="IsOrderConfirmed" Type="char" MaxLength="1" />
           <Property Name="OrderOtp" Type="varchar" MaxLength="20" />
+          <Property Name="IsPicked" Type="char" MaxLength="1" />
+          <Property Name="IsCancelled" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="tbl_OrderedFoodDetails">
           <Key>
@@ -1376,6 +1378,8 @@
           <NavigationProperty Name="tbl_DeliveryStaffs" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2FCF1A8A" FromRole="tbl_OrderDetails" ToRole="tbl_DeliveryStaffs" />
           <NavigationProperty Name="tbl_OrderedFoodDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Or__32AB8735" FromRole="tbl_OrderDetails" ToRole="tbl_OrderedFoodDetails" />
           <NavigationProperty Name="tbl_Restaurant" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2EDAF651" FromRole="tbl_OrderDetails" ToRole="tbl_Restaurant" />
+          <Property Name="IsPicked" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsCancelled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_OrderedFoodDetails">
           <Key>
@@ -1821,6 +1825,8 @@
           <EntitySetMapping Name="tbl_OrderDetails">
             <EntityTypeMapping TypeName="db_FoodOrderingApplicationModel.tbl_OrderDetails">
               <MappingFragment StoreEntitySet="tbl_OrderDetails">
+                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+                <ScalarProperty Name="IsPicked" ColumnName="IsPicked" />
                 <ScalarProperty Name="OrderOtp" ColumnName="OrderOtp" />
                 <ScalarProperty Name="IsOrderConfirmed" ColumnName="IsOrderConfirmed" />
                 <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />

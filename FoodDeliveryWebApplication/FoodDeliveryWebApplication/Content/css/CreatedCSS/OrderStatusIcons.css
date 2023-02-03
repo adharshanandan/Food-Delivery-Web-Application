@@ -1,0 +1,26 @@
+﻿.iconConfirm {
+    background-image: url('../../Icons/orderstatusicon-green.png');
+    background-size: 40px 40px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-block;
+
+}
+
+.iconNotConfirm {
+    background-image: url('../../Icons/orderstatusicon-grey.png');
+    background-size: 40px 40px;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-block;
+   
+}
+.vl {
+    height: 50px;
+    border-style: none;
+    border-left: 10px dotted;
+    
+    border-color: gray;
+    border-width: 6px;
+   
+}

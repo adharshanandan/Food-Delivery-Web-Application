@@ -5,84 +5,164 @@
     ViewBag.Title = "OrdersHistory";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
-
+<link href="~/Content/css/CreatedCSS/OrderStatusIcons.css" rel="stylesheet" />
 <section style="padding-top:10em">
-    <div class="container">
+    <div class="container mt-5">
+
+        @{
+            int i = 1;
+        }
 
         @foreach (var item in Model.Orders)
         {
-            <div class="card bg-light w-75 p-0 mx-auto">
-                <div class="card-body">
-                    <div class="row text-center">
-                       <h3>Arriving Soon....</h3>
+        <div class="card bg-light p-0 mx-auto mt-5">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-10">
 
-                    </div>
-                    <hr />
-                    @foreach (var dish in Model.Dishes)
-                    {
-                        <div class="row">
-                            <div class="col-md-4 text-center">
 
-                                <img src="@Url.Content(dish.DishImage)" style="width:60px;height:60px" class="rounded-circle img-fluid " />
 
-                            </div>
-                            <div class="col-md-4">
-                                <h5>@dish.DishName</h5>
-                                <p>@dish.DishDesc</p>
+                        <div class="row text-center">
+                            <h3 style="display: inline; ">On the way...</h3> <span style="position:absolute;left:150px;top:-15px"><img src="~/Content/GifImages/ezgif-2-a9f60b374a.gif" style="width:150px;height:auto" /></span>
 
-                            </div>
-                            <div class="col-md-4">
-                                Rs. @dish.DishPrice
-                            </div>
 
                         </div>
                         <hr />
+                        @foreach (var dish in item.FoodDetails)
+                        {
+                            <div class="row">
+                                <div class="col-md-4 text-center">
 
-                    }
-                <div class="row ">
-                    <div class="col-md-4">
-                        <h3>OTP : @item.OrderOtp</h3>
+                                    <img src="@Url.Content(dish.DishImage)" style="width:60px;height:60px" class="rounded-circle img-fluid " />
+
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>@dish.DishName</h5>
+                                    <p>@dish.DishDesc</p>
+
+                                </div>
+                                <div class="col-md-4">
+                                    Rs. @dish.DishPrice
+                                </div>
+
+                            </div>
+                            <hr />
+
+                        }
+                        <div class="row ">
+                            <div class="col-md-4">
+                                <h3>OTP : @item.OrderOtp</h3>
+                            </div>
+                            @if (item.PaymentMode == "COD")
+                            {
+                                <div class="col-md-4">
+
+                                    <h5>Bill Amount : Rs. @item.TotalAmount /-</h5>
+
+                                </div>
+                                <div class="col-md-4">
+
+                                    <p>Payment Mode : Cash on Delivery</p>
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-6">
+
+                                    <h5>Paid : Rs. @item.TotalAmount /-</h5>
+
+                                </div>
+                                <div class="col-md-4">
+
+                                    <p>Payment Mode : Online Payment</p>
+
+                                </div>
+                            }
+
+
+                        </div>
+                        <hr />
+                        <div class="row text-center text-danger">
+                            <p><i>Note : Please share the above otp to the concerned delivery person to complete the process. Thank you :)</i></p>
+                        </div>
+
+                        <input type="hidden" id="@item.id" value="@item.IsOrderConfirmed" name="@item.IsPicked" />
+
                     </div>
-                    @if (item.PaymentMode == "COD")
-                    {
-                        <div class="col-md-4">
-
-                            <h5>Bill Amount : Rs. @item.TotalAmount /-</h5>
-
-                        </div>
-                        <div class="col-md-4">
-
-                            <p>Payment Mode : Cash on Delivery</p>
+                    <div class="col-md-2">
+                        <div>
+                            <p id="p1_@i" class="iconNotConfirm"></p><span id="span1_@i"></span>
+                            <div id="v1_@i" class="vl mx-3 mb-2"></div>
+                            <p id="p2_@i" class=" iconNotConfirm"></p><span id="span2_@i"></span>
+                            <div id="v2_@i" class="vl mx-3 mb-2"></div>
+                            <p id="p3_@i" class=" iconNotConfirm"></p><span id="span3_@i"></span>
 
                         </div>
-                    }
-                    else
-                    {
-                        <div class="col-md-6">
 
-                            <h5>Paid : Rs. @item.TotalAmount /-</h5>
-
-                        </div>
-                        <div class="col-md-4">
-
-                            <p>Payment Mode : Online Payment</p>
-
-                        </div>
-                    }
-
-
-                </div>
-                    <hr />
-                    <div class="row text-center text-danger">
-                        <p><i>Note : Please share the above otp to the concerned delivery person to complete the process. Thank you :)</i></p>
                     </div>
-
-
                 </div>
             </div>
-            <hr />
+        </div>
 
-        }
 
-    </div>
+                    i++;
+
+
+                    }
+                   
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+     
 </section>
+<br />
+<br />
+<br />
+<br />
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var i = 1;
+        $("input[type='hidden']").each(function () {
+
+            if ($(this).attr('id') != 0) {
+                $("#p1_" + i).attr('class', 'iconConfirm');
+                $("#span1_" + i).html("<b>Order Placed</b>");
+            }
+
+
+            if ($(this).val() == "Confirmed") {
+
+                $("#p2_" + i).attr('class', 'iconConfirm');
+                $("#span2_" + i).html("<b>Order Confirmed</b>");
+
+
+
+            }
+            if ($(this).val() == "Confirmed" && $(this).attr('id') != 0) {
+                $("#v1_" + i).css({ 'border-color': 'green' });
+            }
+            if ($(this).attr("name") == "Picked") {
+
+                $("#p3_" + i).attr('class', 'iconConfirm');
+                $("#span3_" + i).html("<b>Order Picked</b>");
+            }
+            if ($(this).val() == "Confirmed" && $(this).attr('id') != 0 && $(this).attr("name") == "Picked") {
+                $("#v2_" + i).css({ 'border-color': 'green' });
+            }
+            i++;
+        });
+    })
+</script>

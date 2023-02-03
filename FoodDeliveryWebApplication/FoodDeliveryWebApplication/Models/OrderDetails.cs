@@ -26,6 +26,8 @@ namespace FoodDeliveryWebApplication.Models
         [Required]
         public string PaymentMode { get; set; }
         public string Image { get; set; }
+        public string IsPicked { get; set; }
+        public string IsCancelled { get; set; }
         public string IsPaid { get; set; }
         public string IsDelivered { get; set; }
         [DisplayName("Order Confirmation")]
@@ -33,5 +35,7 @@ namespace FoodDeliveryWebApplication.Models
         public string OrderOtp { get; set; }
         [DisplayName("Ordered Food Items")]
         public virtual ICollection<OrderedFoodItems> tbl_OrderedFoodDetails { get; set; }
+        public ICollection<Dishes> FoodDetails { get; set; }
+
     }
 }

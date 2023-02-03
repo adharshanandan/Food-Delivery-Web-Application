@@ -176,13 +176,22 @@ namespace DAL.Manager
             return id.OrderId;
         }
 
-        public string InsertOrderDetails(tbl_OrderDetails insObj)
+        public string InsertOrderDetails(tbl_OrderDetails insObj,string cusEmail)
         {
             db.tbl_OrderDetails.Add(insObj);
             int status = db.SaveChanges();
             if (status > 0)
             {
-                return "Success";
+                string clrResult = ClearCartItems(cusEmail);
+                if (clrResult == "Success")
+                {
+                    return "Success";
+                }
+                else
+                {
+                    return "Failed";
+                }
+                
             }
             else
             {

@@ -17,6 +17,10 @@ namespace DAL.Manager
         {
             return db.tbl_UserBankAcc.Where(e =>e.tbl_Customer.CusEmail == userEmail).ToList();
         }
+        public List<tbl_ResBankAcc> GetAllBankAccountsofRest(string restEmail)
+        {
+            return db.tbl_ResBankAcc.Where(e => e.tbl_Restaurant.RestEmail == restEmail).ToList();
+        }
         public List<tbl_BankNames> GetAllBankNames()
         {
             return db.tbl_BankNames.ToList();
@@ -25,7 +29,12 @@ namespace DAL.Manager
         {
             return db.tbl_UserBankAcc.Where(e => e.id == bankId).SingleOrDefault();
         }
-        public int AddOrEditAccounts(tbl_UserBankAcc obj)
+     
+        public tbl_ResBankAcc GetRestBankAccountById(int bankId)
+        {
+            return db.tbl_ResBankAcc.Where(e => e.id == bankId).SingleOrDefault();
+        }
+        public int AddOrEditUserBankAccounts(tbl_UserBankAcc obj)
         {
             if (obj.id > 0)
             {
@@ -38,6 +47,19 @@ namespace DAL.Manager
                 return db.SaveChanges();
             }
         }
+        public int AddOrEditRestBankAccounts(tbl_ResBankAcc obj)
+        {
+            if (obj.id > 0)
+            {
+                db.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+                return db.SaveChanges();
+            }
+            else
+            {
+                db.tbl_ResBankAcc.Add(obj);
+                return db.SaveChanges();
+            }
+        }
 
         public int RemovebankAccout(int? id)
         {
@@ -46,9 +68,16 @@ namespace DAL.Manager
             return db.SaveChanges();
         }
 
+        public int RemoveRestbankAccout(int? id)
+        {
+            tbl_ResBankAcc remObj = db.tbl_ResBankAcc.Find(id);
+            db.tbl_ResBankAcc.Remove(remObj);
+            return db.SaveChanges();
+        }
+
         public string PaymentTransaction(tbl_UserBankAcc obj, tbl_OrderDetails payObj,string pinNumber)
         {
-            tbl_UserBankAcc checkObj = db.tbl_UserBankAcc.Where(e => e.AccNumber == obj.AccNumber).SingleOrDefault();
+            tbl_UserBankAcc checkObj = db.tbl_UserBankAcc.Where(e => e.id == obj.id).SingleOrDefault();
             if (checkObj != null)
             {
 
@@ -57,7 +86,7 @@ namespace DAL.Manager
                 {
                     if (comBankObj.PinNumber == pinNumber)
                     {
-                        tbl_UserBankAcc restBankObj = db.tbl_UserBankAcc.Where(e => e.rder_fk_CusId == payObj.Order_fk_RestId).SingleOrDefault();
+                        tbl_ResBankAcc restBankObj = db.tbl_ResBankAcc.Where(e => e.bank_fk_RestId == payObj.Order_fk_RestId).SingleOrDefault();
                         if (restBankObj != null)
                         {
                             if (con.State == ConnectionState.Closed)
@@ -66,9 +95,9 @@ namespace DAL.Manager
                             }
                             SqlCommand cmd = new SqlCommand("sp_Payment", con);
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.Add(new SqlParameter("@CusAccNum", obj.AccNumber));
+                            cmd.Parameters.Add(new SqlParameter("@CusAccNum", checkObj.AccNumber));
                             cmd.Parameters.Add(new SqlParameter("@RestAccNum", restBankObj.AccNumber));
-                            cmd.Parameters.Add(new SqlParameter("@amount", payObj.TotalAmount));
+                            cmd.Parameters.Add(new SqlParameter("@amount", payObj.TotalAmount));                           
                             string result = cmd.ExecuteScalar().ToString();
                             con.Close();
                             if (result == "success")
@@ -107,6 +136,11 @@ namespace DAL.Manager
             }
 
             
+        }
+
+        public tbl_ResBankAcc IsExistBankAccount(int? restId)
+        {
+            return db.tbl_ResBankAcc.Where(e => e.bank_fk_RestId == restId).SingleOrDefault();
         }
 
 
