@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace FoodDeliveryWebApplication.Models
 {
-    public class OrderedFoodItems
+    public class OrderedFoodItems:CustomerAddresses
     {
         [Key]
         public int id { get; set; }

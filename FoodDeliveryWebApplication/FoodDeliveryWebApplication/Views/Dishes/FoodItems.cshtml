@@ -16,6 +16,7 @@
     }
 }
 <link href="~/Content/css/CreatedCSS/starRatingDisplay.css" rel="stylesheet" />
+<link href="~/Content/css/CreatedCSS/DishImageStyles.css" rel="stylesheet" />
 <section style="padding-top: 10em; background-color: #3B3D59 " class="text-white">
    <div class="container">
        <div class="row">
@@ -120,12 +121,14 @@
 
                     </div>
                     <hr />
-                    <div class="row mt-3 mb-3">
+                    <div class="row mt-3 mb-3 p-2">
                         @foreach (var item in Model.Dishes)
                         {
                             <div class="col-md-4">
-                                <div class="card shadow" style="width: 18rem;border-radius:5%">
-                                    <img src="@Url.Content(item.DishImage)" />
+                                <div class="card shadow contain" style="width: 18rem;border-radius:5%">
+                                   
+                                        <img src="@Url.Content(item.DishImage)"  />
+                                  
                                     <div class="card-body text-center">
                                         <h5 class="card-title">@item.DishName</h5>
                                         <p class="card-text">@item.DishDesc</p>
@@ -268,7 +271,6 @@
     //        }
     //    });
     //})
-
 
 
     

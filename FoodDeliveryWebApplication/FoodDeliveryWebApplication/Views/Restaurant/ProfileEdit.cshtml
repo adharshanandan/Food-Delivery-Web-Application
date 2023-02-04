@@ -1,0 +1,94 @@
+﻿@model FoodDeliveryWebApplication.Models.RestaurantEdit
+
+@{
+    ViewBag.Title = "ProfileEdit";
+    Layout = "~/Views/Shared/_RestaurantLayout.cshtml";
+}
+
+<section style="padding-top: 10em">
+
+    <div class="container">
+        <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5">
+            <div class="card-body ">
+                <h2 class="text-center">Edit Profile</h2>
+
+
+                @using (Html.BeginForm("ProfileEdit", "Restaurant"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                    
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+     
+
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.Pincode, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", @id = "txtPincode" } })
+                                @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3" id="txtLocation">
+                            @Html.LabelFor(model => model.RestArea, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(model => model.RestArea, TempData["PincodeEdit"] as List<SelectListItem>, new { @class = "form-control", @id = "ddlArea" })
+                                @Html.ValidationMessageFor(model => model.RestArea, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.RestTradeLicense, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.RestTradeLicense, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.RestTradeLicense, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.RestPhone, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.RestPhone, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.RestPhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                  
+
+                        
+                            <div class="row form-group text-center mb-3">
+                                <div class="mx-auto">
+                                    <input type="submit" value="Update" class="btn btn-primary" />
+                                    <input type="button" value="Cancel" id="Clear" class="btn btn-danger" />
+                                </div>
+
+                            </div>
+                      
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/CreatedScripts/FetchPincodeRegion.js"></script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

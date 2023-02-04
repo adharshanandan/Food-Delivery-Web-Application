@@ -144,6 +144,54 @@ namespace DAL.Manager
         }
 
 
+
+        public string CancelOrder(int? accId,string ordId="")
+        {
+            int orderId = Convert.ToInt32(ordId);
+            tbl_OrderDetails remObj = db.tbl_OrderDetails.Where(e => e.OrderId == orderId).SingleOrDefault();
+            remObj.IsCancelled = "Y";
+            db.Entry(remObj).State = System.Data.Entity.EntityState.Modified;           
+            int status = db.SaveChanges();
+            if (status > 0)
+            {
+                if (remObj.PaymentMode == "Card")
+                {
+                    tbl_ResBankAcc restBankObj = db.tbl_ResBankAcc.Where(e => e.bank_fk_RestId == remObj.Order_fk_RestId).SingleOrDefault();
+                    tbl_UserBankAcc cusBankObj = db.tbl_UserBankAcc.Where(e => e.rder_fk_CusId == remObj.Order_fk_CusId).SingleOrDefault();
+                    if (con.State == ConnectionState.Closed)
+                    {
+                        con.Open();
+                    }
+                    SqlCommand cmd = new SqlCommand("sp_Refund", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CusAccNum", cusBankObj.AccNumber));
+                    cmd.Parameters.Add(new SqlParameter("@RestAccNum", restBankObj.AccNumber));
+                    cmd.Parameters.Add(new SqlParameter("@amount", remObj.TotalAmount));
+                    string result = cmd.ExecuteScalar().ToString();
+                    con.Close();
+                    if (result == "success")
+                    {
+                        return "Refunded";
+                    }
+                    else
+                    {
+                      return "Refund failed";
+                    }
+
+                }
+                return "Order cancelled";
+            
+
+            }
+            return "failed";
+
+
+
+
+
+        }
+
+
     }
    
 }

@@ -114,17 +114,16 @@ namespace DAL.Manager
 
         public List<tbl_OrderDetails> GetAllActiveOrdersByUserEmail(string emailId)
         {
-            return db.tbl_OrderDetails.Where(e => e.tbl_Customer.CusEmail == emailId && e.IsDelivered == "N").ToList();
+            return db.tbl_OrderDetails.Where(e => e.tbl_Customer.CusEmail == emailId && e.IsDelivered == "N" && e.IsCancelled=="N").ToList();
         }
 
-        public int InsOrderDetailsPaidCus(tbl_OrderDetails insObj)
+
+
+        
+
+        public List<tbl_OrderDetails> GetOrderDetailsById(int orderId)
         {
-            if (insObj != null)
-            {
-                db.tbl_OrderDetails.Add(insObj);
-                return db.SaveChanges();
-            }
-            return 0;
+            return db.tbl_OrderDetails.Where(e => e.OrderId == orderId).ToList();
         }
 
 

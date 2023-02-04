@@ -36,6 +36,7 @@ namespace FoodDeliveryWebApplication.Models
         [DisplayName("Ordered Food Items")]
         public virtual ICollection<OrderedFoodItems> tbl_OrderedFoodDetails { get; set; }
         public ICollection<Dishes> FoodDetails { get; set; }
+        
 
     }
 }

@@ -581,14 +581,14 @@
     <Property Name="PaymentMode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="IsPaid" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="IsDelivered" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-    <Property Name="IsOrderConfirmed" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="IsOrderConfirmed" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="OrderOtp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tbl_Addresses" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2DE6D218" FromRole="tbl_OrderDetails" ToRole="tbl_Addresses" />
     <NavigationProperty Name="tbl_Customer" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2CF2ADDF" FromRole="tbl_OrderDetails" ToRole="tbl_Customer" />
     <NavigationProperty Name="tbl_DeliveryStaffs" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2FCF1A8A" FromRole="tbl_OrderDetails" ToRole="tbl_DeliveryStaffs" />
     <NavigationProperty Name="tbl_OrderedFoodDetails" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__fk_Or__32AB8735" FromRole="tbl_OrderDetails" ToRole="tbl_OrderedFoodDetails" />
     <NavigationProperty Name="tbl_Restaurant" Relationship="db_FoodOrderingApplicationModel.FK__tbl_Order__Order__2EDAF651" FromRole="tbl_OrderDetails" ToRole="tbl_Restaurant" />
-    <Property Name="IsPicked" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="IsPicked" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="IsCancelled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="tbl_OrderedFoodDetails">

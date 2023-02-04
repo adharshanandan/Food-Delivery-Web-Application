@@ -83,6 +83,12 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.7.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -249,6 +255,7 @@
     <Compile Include="Models\PhoneNumbers.cs" />
     <Compile Include="Models\PinCodeApi.cs" />
     <Compile Include="Models\Restaurant.cs" />
+    <Compile Include="Models\RestaurantEdit.cs" />
     <Compile Include="Models\ReviewRating.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserEdit.cs" />
@@ -282,6 +289,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.rtl.css" />
     <Content Include="Content\css\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\CreatedCSS\DishImageStyles.css" />
     <Content Include="Content\css\CreatedCSS\glyphiconColor.css" />
     <Content Include="Content\css\CreatedCSS\hrStyle.css" />
     <Content Include="Content\css\CreatedCSS\hyperlink.css" />
@@ -338,6 +346,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\css\bootstrap-grid.css.map" />
@@ -363,9 +375,12 @@
     <Content Include="Content\js\bootstrap.js.map" />
     <Content Include="Content\js\bootstrap.min.js.map" />
     <Content Include="EmailTemplate\Text.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CreatedScripts\ButtonClear.js" />
+    <Content Include="Scripts\CreatedScripts\FetchPincodeRegion.js" />
     <Content Include="Scripts\CreatedScripts\NavIconHide.js" />
+    <Content Include="Scripts\CreatedScripts\OrderStatus.js" />
     <Content Include="Scripts\CreatedScripts\PageLoader.js" />
     <Content Include="Scripts\fontawesome\all.js" />
     <Content Include="Scripts\fontawesome\all.min.js" />
@@ -449,6 +464,11 @@
     <Content Include="Views\Payment\AddBankDetails.cshtml" />
     <Content Include="Views\Payment\UserBankAccounts.cshtml" />
     <Content Include="Views\Payment\DeleteBankAcc.cshtml" />
+    <Content Include="Views\Customer\InvoiceView.cshtml" />
+    <Content Include="Views\Customer\InvoiceView1.cshtml" />
+    <Content Include="Views\Payment\SelectBankToRefund.cshtml" />
+    <Content Include="Views\Restaurant\ProfileEdit.cshtml" />
+    <Content Include="Views\Restaurant\RestProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

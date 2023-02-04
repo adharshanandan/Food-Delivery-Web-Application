@@ -31,6 +31,7 @@ namespace FoodDeliveryWebApplication.Controllers
             if (roleId == 1)
             {
                 Session["Admin"] = obj.UserEmailId;
+                Session["WishAdmin"] = "Hi, Admin";
 
                 return RedirectToAction("CategoryList", "Admin");
 
@@ -49,6 +50,7 @@ namespace FoodDeliveryWebApplication.Controllers
                     ViewBag.statusCheckCus = "Account not found";
                     return View();
                 }
+                Session["CustomerDetailsOnLayout"] = new string[] { cusObj.CusImage,cusObj.CusName};
                 return RedirectToAction("FoodItems", "Customer");
 
 
@@ -67,7 +69,9 @@ namespace FoodDeliveryWebApplication.Controllers
                     ViewBag.statusCheckRest = "Account not found";
                     return View();
                 }
+                Session["RestDetailsOnLayout"] = new string[] { restObj.RestImage, restObj.RestName };
                 return RedirectToAction("DishList", "Dishes");
+                
             }
             else if (roleId == 4)
             {
@@ -83,6 +87,7 @@ namespace FoodDeliveryWebApplication.Controllers
                     ViewBag.statusCheckRest = "Account not found";
                     return View();
                 }
+                Session["StaffDetailsOnLayout"] = new string[] { staffObj.staffImage, staffObj.StaffName };
                 return RedirectToAction("PendingOrderRequests", "DeliveryBoy");
             }
             else

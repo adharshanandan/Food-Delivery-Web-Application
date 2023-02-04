@@ -1,0 +1,13 @@
+﻿.contain{
+    height:auto;
+    width:20%;
+    overflow:hidden;
+}
+.contain img{
+    width :100%;
+    display:block;
+    transition: transform 2s;
+}
+.contain:hover img{
+    transform:scale(1.1);
+}

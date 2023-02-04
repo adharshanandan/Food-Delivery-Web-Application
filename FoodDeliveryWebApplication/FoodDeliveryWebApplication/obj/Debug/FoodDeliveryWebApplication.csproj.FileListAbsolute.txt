@@ -120,3 +120,5 @@ F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeli
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.csproj.CopyComplete
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.dll
 F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\obj\Debug\FoodDeliveryWebApplication.pdb
+F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\bin\Rotativa.Core.dll
+F:\MVC Project\Food-Delivery-Web-Application\FoodDeliveryWebApplication\FoodDeliveryWebApplication\bin\Rotativa.dll

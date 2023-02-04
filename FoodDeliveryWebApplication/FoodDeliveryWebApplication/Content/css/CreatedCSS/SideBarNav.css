@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     width: 200px;
-    background-color: #D5D8DC;
+    background-color: white;
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -17,7 +17,8 @@
     .sidebar a {
         display: block;
         color: black;
-        padding: 16px;
+        padding: 2px;
+        margin-left:30px;
         text-decoration: none;
     }
 
@@ -27,7 +28,7 @@
         }
 
         .sidebar a:hover:not(.active) {
-            background-color: #555;
+            background-color: dimgrey;
             color: white;
         }
 

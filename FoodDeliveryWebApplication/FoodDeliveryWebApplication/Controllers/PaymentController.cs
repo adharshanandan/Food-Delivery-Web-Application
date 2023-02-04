@@ -22,6 +22,14 @@ namespace FoodDeliveryWebApplication.Controllers
            
             return View(obj);
         }
+
+        public ActionResult SelectBankToRefund(string orderId)
+        {
+            BindBankAccounts(Session["Customer"].ToString());
+            BankAccounts obj = new BankAccounts();
+            TempData["cusAccNum"] = orderId;
+            return View(obj);
+        }
         public void BindBankAccounts(string EmailId)
         {
             List<SelectListItem> ddl_UserBanks = new List<SelectListItem>();

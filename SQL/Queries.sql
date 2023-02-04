@@ -514,3 +514,30 @@ end
 select @result
 commit transaction
 end
+
+
+-----------------Refund stored procedure------------
+
+create proc sp_Refund(
+@CusAccNum as varchar(20),
+@RestAccNum as varchar(20),
+@amount as money
+)
+as 
+begin
+begin transaction
+declare @result as varchar(20)
+update tbl_BankAccounts set AccBalance=AccBalance+@amount where AccNumber=@CusAccNum
+update tbl_BankAccounts set AccBalance=AccBalance-@amount where AccNumber=@RestAccNum
+if(@@ERROR>0)
+begin
+set @result='failed'
+rollback transaction
+end
+else
+begin
+set @result='success'
+end
+select @result
+commit transaction
+end

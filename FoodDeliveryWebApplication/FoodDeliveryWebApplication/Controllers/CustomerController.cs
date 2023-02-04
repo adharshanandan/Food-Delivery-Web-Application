@@ -24,6 +24,7 @@ namespace FoodDeliveryWebApplication.Controllers
         CartManager cartMngr = new CartManager();
         AddressManager addMngr = new AddressManager();
         DishesManager dishMngr = new DishesManager();
+        PaymentManager payMngr = new PaymentManager();
       
         public ViewResult Create()
         {
@@ -350,8 +351,137 @@ namespace FoodDeliveryWebApplication.Controllers
             return View(combinedModel);
         }
 
+        public ActionResult CancelOrders(int? orderId=0,int? accId=0)
+        {
+            if (accId == null)
+            {
+                return Json("Failed to cancel due to technical error", JsonRequestBehavior.AllowGet);
+            }
+            string result;
+            if (TempData["cusAccNum"] != null)
+            {
+                result = payMngr.CancelOrder(accId, TempData["cusAccNum"].ToString());
+                if (result == "Refunded")
+                {
+                    return Json(result, JsonRequestBehavior.AllowGet);
 
-        
+                }
+                else if (result == "Refund failed")
+                {
+                    return Json("Order has been cancelled. Experiencing trouble  while refund. Please wait 3 or 4 working days", JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            result = payMngr.CancelOrder(orderId);
+
+            if(result== "Order cancelled")
+            {
+                return Json("Order has been cancelled successfully", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Failed to cancel the order", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult InvoiceView(int orderId)
+        {
+            List<tbl_OrderDetails> retList = cusMngr.GetOrderDetailsById(orderId);
+            List<OrderDetails> disList = new List<OrderDetails>();
+            
+            foreach(var item in retList)
+            {
+                List<Dishes> dishList = new List<Dishes>();
+               
+                foreach (var dish in item.tbl_OrderedFoodDetails)                {
+                    dishList.Add(new Dishes
+                    {
+                        DishImage = dish.tbl_Dishes.DishImage,
+                        DishQuantity = dish.DishQuantity,
+                        DishPrice = dish.tbl_Dishes.DishPrice,
+                        DishName=dish.tbl_Dishes.DishName
+                        
+                    });
+                }
+                
+                disList.Add(new OrderDetails
+                {
+                    id = item.OrderId,
+                    TotalAmount = item.TotalAmount,
+                    PaymentMode = item.PaymentMode,
+                    Orderdate = item.Orderdate,
+                    FoodDetails = dishList,
+                    DoorOrFlatNo=item.tbl_Addresses.DoorOrFlatNo,
+                    PinCode=item.tbl_Addresses.PinCode,
+                    AddressTypeName=item.tbl_Addresses.tbl_AddressType.TypeName,
+                    LandMark=item.tbl_Addresses.LandMark,
+                    CusName=item.tbl_Customer.CusName
+                    
+                }) ;
+
+            }
+          
+            if (retList != null)
+            {
+                return PartialView(disList);
+            }
+            return RedirectToAction("ActiveOrders", "Customer");
+        }
+
+        public ActionResult DownloadInvoice(int? orderId)
+        {
+            var report = new Rotativa.ActionAsPdf("InvoiceView", new {orderId });
+            return report;
+        }
+
+        //public ActionResult InvoiceView1(int orderId)
+        //{
+        //    List<tbl_OrderDetails> retList = cusMngr.GetOrderDetailsById(orderId);
+        //    List<OrderDetails> disList = new List<OrderDetails>();
+
+        //    foreach (var item in retList)
+        //    {
+        //        List<Dishes> dishList = new List<Dishes>();
+
+        //        foreach (var dish in item.tbl_OrderedFoodDetails)
+        //        {
+        //            dishList.Add(new Dishes
+        //            {
+        //                DishImage = dish.tbl_Dishes.DishImage,
+        //                DishQuantity = dish.DishQuantity,
+        //                DishPrice = dish.tbl_Dishes.DishPrice,
+        //                DishName = dish.tbl_Dishes.DishName
+
+        //            });
+        //        }
+
+        //        disList.Add(new OrderDetails
+        //        {
+        //            id = item.OrderId,
+        //            TotalAmount = item.TotalAmount,
+        //            PaymentMode = item.PaymentMode,
+        //            Orderdate = item.Orderdate,
+        //            FoodDetails = dishList,
+        //            DoorOrFlatNo = item.tbl_Addresses.DoorOrFlatNo,
+        //            PinCode = item.tbl_Addresses.PinCode,
+        //            AddressTypeName = item.tbl_Addresses.tbl_AddressType.TypeName,
+        //            LandMark = item.tbl_Addresses.LandMark,
+        //            CusName = item.tbl_Customer.CusName
+
+        //        });
+
+        //    }
+
+        //    if (retList != null)
+        //    {
+        //        return View(disList);
+        //    }
+        //    return RedirectToAction("ActiveOrders", "Customer");
+        //}
+
+
+
+
 
 
 

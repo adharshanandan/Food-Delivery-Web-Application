@@ -1,0 +1,59 @@
+﻿@model FoodDeliveryWebApplication.Models.RestaurantEdit
+
+@{
+    ViewBag.Title = "RestProfile";
+    Layout = "~/Views/Shared/_RestaurantLayout.cshtml";
+}
+
+
+<section  style="padding-top:10em">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-9 col-xl-7">
+                <div class="card">
+                    <div class="rounded-top text-white d-flex flex-row" style="background-color: #3A3A38; height: 200px; ">
+                        
+                        <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                            <img src="@Url.Content(@Model.Image)" alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                            style="width: 150px; z-index: 1" />
+                            
+                            <button type="button" class="btn btn-outline-secondary mt-5 mb-5" data-mdb-ripple-color="dark"
+                                    style="z-index: 0;" onclick="location.href='@Url.Action("ProfileEdit", "Restaurant",new {id= Model.Id })'">
+                                Edit profile
+                            </button>
+                        </div>
+                        <div class="ms-3" style="margin-top: 100px;">
+                            <h3>@Model.Name</h3>
+                            <p><i class="fa fa-map-marker" aria-hidden="true"></i><span> @Model.RestArea, @Model.RestDistrict, @Model.RestState, @Model.RestCountry</span></p>
+                        </div>
+                    </div>
+                
+                    <div class="card-body p-4 mb-5 mt-5 text-black">
+                        <div class="mb-5">
+                            <p class="lead fw-normal mb-1">About</p>
+                            <hr />
+                            <div class="row pt-1">
+                                <div class="col-4 mb-3">
+                                    <h6>Trade License No.</h6>
+                                    <p class="text-muted">@Model.RestTradeLicense</p>
+                                </div>
+                                <div class="col-4 mb-3">
+                                    <h6>Phone</h6>
+                                    <p class="text-muted">@Model.RestPhone</p>
+                                </div>
+                                <div class="col-4 mb-3">
+                                    <h6>Pincode</h6>
+                                    <p class="text-muted">@Model.Pincode</p>
+                                </div>
+                            </div>
+                        </div>
+                    
+              
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+              

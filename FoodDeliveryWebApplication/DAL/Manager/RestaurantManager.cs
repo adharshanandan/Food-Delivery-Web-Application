@@ -107,6 +107,12 @@ namespace DAL.Manager
             return db.SaveChanges();
         }
 
+        public int UpdateRestProfile(tbl_Restaurant updObj)
+        {
+            db.Entry(updObj).State = EntityState.Modified;
+            return db.SaveChanges();
+        }
+
 
 
 

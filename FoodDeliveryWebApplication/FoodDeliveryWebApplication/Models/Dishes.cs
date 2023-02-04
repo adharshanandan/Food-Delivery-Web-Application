@@ -40,7 +40,7 @@ namespace FoodDeliveryWebApplication.Models
         [Required(ErrorMessage = "Required!!")]
         [DisplayName("Offer")]
 
-        
+        public Nullable<int> DishQuantity { get; set; }
         public int DishRestaurantId { get; set; }
     
         public string DishCategory { get; set; }

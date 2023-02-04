@@ -50,8 +50,9 @@
                             <p class="text-secondary"><i>Purchased on : @item.Orderdate.ToShortDateString()</i></p>
                         </div>
                         <div class="col-md-4">
-                            
+
                             <h5>Paid : Rs. @item.TotalAmount /-</h5>
+                            <button class="btn btn-outline-secondary" type="submit" onclick="location.href='@Url.Action("DownloadInvoice", "Customer",new { orderId = @item.id })'">Download Invoice</button>
 
                         </div>
                         <div class="col-md-4">

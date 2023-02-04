@@ -266,15 +266,14 @@ namespace FoodDeliveryWebApplication.Controllers
                     }
                 }
 
-                insObj.Order_fk_RestId = retObj.Cart_fk_RestId;
-                
+                insObj.Order_fk_RestId = retObj.Cart_fk_RestId;                
                 insObj.Order_fk_CusId = retObj.Cart_fk_CusId;
                 insObj.Order_fk_AddId = obj.Order_fk_AddId;
                 insObj.Orderdate = DateTime.Now;
                 insObj.IsDelivered = "N";
-                insObj.IsOrderConfirmed = "N";
+                insObj.IsOrderConfirmed = "Not Confirmed";
                 insObj.IsPaid = "N";
-                insObj.IsPicked = "N";
+                insObj.IsPicked = "Not Picked";
                 insObj.IsCancelled = "N";
                 insObj.TotalAmount = obj.TotalAmount;
                 Random RandNo = new Random();
@@ -294,6 +293,18 @@ namespace FoodDeliveryWebApplication.Controllers
                 {
                     Session["OrderItem"] = insObj;
                     return Json("Card", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    string result=cartMngr.InsertOrderDetails(insObj, Session["Customer"].ToString());
+                    if (result == "Success")
+                    {
+                        Session["CartItemsCount"] = cartMngr.GetCartItemsCount(Session["Customer"].ToString());
+                        return Json("Success", JsonRequestBehavior.AllowGet);
+
+                    }
+
+                    return Json("Failed to place order. If your money has debited from your bank account, within 3 working days it will be returned to your account", JsonRequestBehavior.AllowGet);
                 }
                
                 

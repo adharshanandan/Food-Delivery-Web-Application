@@ -331,9 +331,141 @@ namespace FoodDeliveryWebApplication.Controllers
            
 
         //}
+        public ActionResult RestProfile()
+        {
+            tbl_Restaurant retObj = restMngr.IsExistEmail(Session["Restaurant"].ToString());
+            RestaurantEdit disObj = new RestaurantEdit();
+            disObj.Id = retObj.RestId;
+            disObj.Name = retObj.RestName;
+            disObj.Image = retObj.RestImage;
+            disObj.Pincode = retObj.RestPincode;
+            disObj.RestArea = retObj.RestArea;
+            disObj.RestPhone = retObj.RestPhone;
+            disObj.RestState = retObj.RestState;
+            disObj.RestCountry = retObj.RestCountry;            
+            disObj.RestDistrict = retObj.RestDistrict;
+            disObj.RestTradeLicense = retObj.RestTradeLicense;
+            disObj.Id = retObj.RestId;
+            return View(disObj);
+        }
+
+        public ActionResult ProfileEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            tbl_Restaurant retObj = restMngr.RestaurantDetailsById(Convert.ToInt32(id));
+            if (retObj != null)
+            {
+                RestaurantEdit disObj = new RestaurantEdit();
+                disObj.Name = retObj.RestName;                
+                disObj.Pincode = retObj.RestPincode;
+                disObj.RestArea = retObj.RestArea;
+                disObj.RestTradeLicense = retObj.RestTradeLicense;
+                disObj.RestPhone = retObj.RestPhone;
+                disObj.Image = retObj.RestImage;
+                GetLocation(disObj.Pincode);
+                List<SelectListItem> locList = new List<SelectListItem>();
+                if (Session["location"] != null)
+                {
+                    List<PostOffice> postList = (List<PostOffice>)Session["location"];
+                    foreach(var item in postList)
+                    {
+                        if (item.Name == retObj.RestArea)
+                        {
+                            locList.Add(new SelectListItem
+                            {
+                                Selected=true,
+                                Value=item.Name,
+                                Text=item.Name
+
+                            });
+                      
+                        }
+                        else
+                        {
+                            locList.Add(new SelectListItem
+                            {
+                                Selected = false,
+                                Value = item.Name,
+                                Text = item.Name
+
+                            });
+                        }
+                       
+
+                    }
+                }
+
+                TempData["PincodeEdit"] = locList;
 
 
-        
+                return View(disObj);
+            }
+            return HttpNotFound();
+           
+        }
+
+        [HttpPost]
+        public ActionResult ProfileEdit(RestaurantEdit obj)
+        {
+            if (obj == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            if (ModelState.IsValid)
+            {
+                tbl_Restaurant updObj = restMngr.RestaurantDetailsById(Convert.ToInt32(obj.Id));
+                updObj.RestName = obj.Name == null ? updObj.RestName : obj.Name;
+                updObj.RestPincode = obj.Pincode == null ? updObj.RestPincode : obj.Pincode;
+                updObj.RestTradeLicense = obj.RestTradeLicense == null ? updObj.RestTradeLicense : obj.RestTradeLicense;
+                updObj.RestPhone = obj.RestPhone == null ? updObj.RestPhone : obj.RestPhone;
+
+                if (obj.RestArea == null || obj.RestArea == updObj.RestArea)
+                {
+                    updObj.RestArea = updObj.RestArea;
+                }
+                else
+                {
+                    updObj.RestArea = obj.RestArea;
+                    if (Session["location"] != null)
+                    {
+                        List<PostOffice> postList = (List<PostOffice>)Session["location"];
+
+                        foreach (var item in postList)
+                        {
+                            if (item.Name == obj.RestArea)
+                            {
+                                updObj.RestCountry = item.Country;
+                                updObj.RestDistrict = item.District;
+                                updObj.RestState = item.State;
+                            }
+                        }
+
+                    }
+                }
+
+                int result = restMngr.UpdateRestProfile(updObj);
+                if (result > 0)
+                {
+                    ViewBag.RestProEditMsg = "Updated successfully";
+                    return RedirectToAction("Restprofile", "Restaurant");
+                }
+                ViewBag.RestProEditMsg = "Failed to update";
+                return View();
+
+            }
+            else
+            {
+                return View();
+            } 
+
+            
+        }
+
+
+
 
 
     }
