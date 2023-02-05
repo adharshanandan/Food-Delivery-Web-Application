@@ -201,10 +201,6 @@ namespace FoodDeliveryWebApplication.Controllers
             return RedirectToAction("AddPhoneNo", "Address");
         }
 
-        //public ActionResult DeleteNumber(int? id)
-        //{
-        //    return RedirectToAction("DeletePhoneNo", "Address",new {phId=id });
-        //}
 
 
 
@@ -240,6 +236,8 @@ namespace FoodDeliveryWebApplication.Controllers
                 updObj.CusImage = "~/Content/CustomerProfilePictures/" + obj.ImgUrl.FileName;
                 updObj.CusPincode = obj.Pincode;
                 updObj.CusEmail = Session["Customer"].ToString();
+                Session["CustomerDetailsOnLayout"] = null;
+                Session["CustomerDetailsOnLayout"] = new string[] { updObj.CusImage, updObj.CusName };
                 string result = cusMngr.UpdateProfile(updObj);
                 if (result == "Success")
                 {

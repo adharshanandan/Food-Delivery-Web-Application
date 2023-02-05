@@ -10,7 +10,7 @@
         <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5">
             <div class="card-body ">
 
-                <h2>AddCategory</h2>
+                <h3>Add Category</h3>
 
 
                 @using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -18,7 +18,7 @@
                     @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>Category</h4>
+             
                 <hr />
 
                 @Html.Hidden("CatId")
@@ -63,9 +63,7 @@
             </div>
                 }
 
-                <div>
-                    @Html.ActionLink("Back to List", "Index")
-                </div>
+          
             </div>
         </div>
     </div>

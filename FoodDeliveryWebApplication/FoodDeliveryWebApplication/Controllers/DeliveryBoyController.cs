@@ -67,11 +67,11 @@ namespace FoodDeliveryWebApplication.Controllers
             if (ModelState.IsValid)
             {
                 insObj.StaffName = obj.Name;
-                insObj.StaffDob = Convert.ToDateTime(obj.Dob);
-                insObj.staffImage = obj.ImgUrl.FileName;
+                insObj.StaffDob = Convert.ToDateTime(obj.Dob);       
                 string savePath = Server.MapPath("~/Content/DelGuyProfilePictures");
                 string saveThumbImagePath = savePath + @"/" + obj.ImgUrl.FileName;
                 obj.ImgUrl.SaveAs(saveThumbImagePath);
+                insObj.staffImage = "~/Content/CustomerProfilePictures/" + obj.ImgUrl.FileName;
                 insObj.JoinDate = DateTime.Now;
                 insObj.Gender = obj.Gender;
                 insObj.VehicleNo = obj.VehicleNo;
@@ -191,24 +191,27 @@ namespace FoodDeliveryWebApplication.Controllers
         {
             List<tbl_OrderDetails> retList = delMngr.GetPendingOrderRequestsBylocation(Session["DeliveryBoy"].ToString());
             List<OrderDetails> disList = new List<OrderDetails>();
-            TempData["NewRequest"] = delMngr.GetRequestsCount(Session["DeliveryBoy"].ToString());
+            if (TempData["NewRequest"] != null)
+            {
+                TempData["NewRequest"] = null;
+            }
+            if (disList.Count > 0)
+            {
+                TempData["NewRequest"] = retList.Count;
+            }
+            else
+            {
+                TempData["NewRequest"] = 0;
+            }
+            
             dynamic combinedModel = new ExpandoObject();
-            List<Cart> dishesList = new List<Cart>();
+            
             foreach (var item in retList)
             {
-                disList.Add(new OrderDetails
-                {
-                    fk_OrderId = item.OrderId,
-                    TotalAmount = item.TotalAmount,
-                    CusName = item.tbl_Customer.CusName,
-                    IsOrderConfirmed = item.IsOrderConfirmed,
-                    Orderdate = item.Orderdate,
-                    IsDelivered = item.IsDelivered
-
-
-                });
+                List<Cart> dishesList = new List<Cart>();
                 foreach (var dish in item.tbl_OrderedFoodDetails)
                 {
+                    
                     dishesList.Add(new Cart
                     {
                         DishName = dish.tbl_Dishes.DishName,
@@ -217,9 +220,24 @@ namespace FoodDeliveryWebApplication.Controllers
 
                     });
                 }
+                disList.Add(new OrderDetails
+                {
+                    fk_OrderId = item.OrderId,
+                    TotalAmount = item.TotalAmount,
+                    CusName = item.tbl_Customer.CusName,
+                    IsOrderConfirmed = item.IsOrderConfirmed,
+                    Orderdate = item.Orderdate,
+                    IsDelivered = item.IsDelivered,
+                    IsPicked = item.IsPicked,
+                    CartDetails = dishesList
+
+
+
+                }) ;
+             
             }
             combinedModel.Order = disList;
-            combinedModel.Cart = dishesList;
+            
             return View(combinedModel);
 
         }
@@ -234,6 +252,10 @@ namespace FoodDeliveryWebApplication.Controllers
             if (result == "success")
             {
                 return Json("Request Accepted", JsonRequestBehavior.AllowGet);
+            }
+            else if(result== "Not free")
+            {
+                return Json("Sorry you can not accept is order as you have pending order to deliver", JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -261,7 +283,8 @@ namespace FoodDeliveryWebApplication.Controllers
                     CusName = item.tbl_Customer.CusName,
                     IsOrderConfirmed = item.IsOrderConfirmed,
                     Orderdate = item.Orderdate,
-                    IsDelivered = item.IsDelivered
+                    IsDelivered = item.IsDelivered,
+                    IsPicked=item.IsPicked
 
 
                 });
@@ -374,7 +397,29 @@ namespace FoodDeliveryWebApplication.Controllers
 
             return Json("Incorrect otp", JsonRequestBehavior.AllowGet);
         }
-         
+
+
+        [HttpPost]
+
+        public ActionResult OrderPicked(int id)
+        {
+            string result = delMngr.OrderPickStatusChange(id);
+            if(result=="Not found")
+            {
+                return Json("Order not found", JsonRequestBehavior.AllowGet);
+            }
+            else if (result == "Success")
+            {
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Failed to pick order", JsonRequestBehavior.AllowGet);
+            }
+        
+        }
+
+
 
 
     }

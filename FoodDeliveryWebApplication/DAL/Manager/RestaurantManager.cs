@@ -65,13 +65,13 @@ namespace DAL.Manager
         }
         public List<tbl_OrderDetails> GetAllPendingOrders(string restEmail)
         {
-            return db.tbl_OrderDetails.Where(e => e.tbl_Restaurant.RestEmail == restEmail && e.IsOrderConfirmed=="N").ToList();
+            return db.tbl_OrderDetails.Where(e => e.tbl_Restaurant.RestEmail == restEmail && e.IsOrderConfirmed== "Not Confirmed" && e.IsCancelled=="N").ToList();
         }
 
         public string ConfirmOrderbyRest(int? id)
         {
             tbl_OrderDetails updObj = db.tbl_OrderDetails.Find(id);
-            updObj.IsOrderConfirmed = "Y";
+            updObj.IsOrderConfirmed = "Confirmed";
             db.Entry(updObj).State = EntityState.Modified;
             int status = db.SaveChanges();
             if (status > 0)

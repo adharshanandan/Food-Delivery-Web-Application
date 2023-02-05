@@ -7,9 +7,14 @@ using System.ComponentModel;
 
 namespace FoodDeliveryWebApplication.Models
 {
-    public class OrderDetails: OrderedFoodItems
+    public class OrderDetails
     {
-        
+        [Key]
+        public int id { get; set; }
+        public Nullable<int> fk_OrderId { get; set; }
+        [DisplayName("Food Detais")]
+        public Nullable<int> fk_DishId { get; set; }
+        public Nullable<int> DishQuantity { get; set; }
         [DisplayName("Customer Name")]
         public string CusName { get; set; }
         public string RestName { get; set; }
@@ -36,7 +41,17 @@ namespace FoodDeliveryWebApplication.Models
         [DisplayName("Ordered Food Items")]
         public virtual ICollection<OrderedFoodItems> tbl_OrderedFoodDetails { get; set; }
         public ICollection<Dishes> FoodDetails { get; set; }
-        
+        public string DoorOrFlatNo { get; set; }
 
+        public string LandMark { get; set; }
+
+        public int? AddressType { get; set; }
+
+        public string PinCode { get; set; }
+        public int? Add_fk_CusId { get; set; }
+
+        public string AddressTypeName { get; set; }
+
+        public IList<Cart> CartDetails { get; set; }
     }
 }

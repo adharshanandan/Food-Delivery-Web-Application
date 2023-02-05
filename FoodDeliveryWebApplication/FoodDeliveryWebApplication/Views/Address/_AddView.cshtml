@@ -9,7 +9,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        @Html.Hidden("AddId")
+     
 
         <div class="form-group">
             @Html.LabelFor(model => model.DoorOrFlatNo, htmlAttributes: new { @class = "control-label col-md-12" })
@@ -47,7 +47,7 @@
 
         <div class="row form-group text-center mb-3 mt-3">
             <div class="mx-auto">
-                <input type="submit" id="btnSubmit" value="Add" onclick="SaveDetails()" class="btn btn-primary" />
+                <input type="button" id="btnSubmit" value="Add" onclick="SaveDetails()" class="btn btn-primary" />
                 
             </div>
 
@@ -60,8 +60,7 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script>
 
-
-    function SaveDetails() {
+    $("#btnSubmit").click(function () {
         var DoorOrFlatNo = $("#DoorOrFlatNo").val();
         var LandMark = $("#LandMark").val();
         var AddressType = $("#AddressType").val();
@@ -70,15 +69,19 @@
         var obj = { "DoorOrFlatNo": DoorOrFlatNo, "LandMark": LandMark, "AddressType": AddressType, "PinCode": PinCode };
         $.ajax({
             method: "POST",
-            url: "/Address/_AddView",
+            url: "/Address/_AddAddressFromAddView",
             data: { "obj": obj },
-            success: function (data) {
-                alert("Inserted successfully");
+            success: function (result) {
+                alert(result);
+                location.reload();
             },
             error: function (data) {
                 alert(data);
             }
         });
+    })
+  
+       
        
     
 </script>

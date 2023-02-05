@@ -34,14 +34,14 @@
         <div class="col-md-6 col-4 my-auto ms-auto">
             <nav class="navbar navbar-expand-lg bg-light ">
                 <div class="container-fluid">
-                    
+
                     <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav  mb-2 mb-lg-0 ms-auto">
-                         
-                         
+
+
 
 
                             <li class="nav-item fs-4 my-auto ">
@@ -64,16 +64,16 @@
                 <img src="@Url.Content(arr[0].ToString())" style="width:100px;height:100px" class="rounded-circle border border-dark border-3 " />
                 <h4 class="mt-3">@arr[1].ToString()</h4>
             </li>
-            <li class="nav-item fs-5 me-4 my-auto">
-                <div class="rounded-circle bg-danger p-2" style="position: absolute; right: 10px; color: #fff; top: 2px; font-size: 12px; ">@TempData["NewRequest"].ToString()</div>
+            <li class="nav-item fs-5 me-4 my-auto sideBarLi">
+                <span class="rounded-circle bg-danger p-2 newReq" id="@TempData["NewRequest"].ToString()"   style="position: absolute; right: 10px; color: #fff; top: 180px; font-size: 12px; ">@TempData["NewRequest"].ToString()</span>
                 <a class="nav-link  " aria-current="page" href="/DeliveryBoy/PendingOrderRequests">New Requests</a>
             </li>
-            <li class="nav-item fs-5 me-4">
+            <li class="nav-item fs-5 my-auto me-4 sideBarLi">
                 <a class="nav-link " href="/DeliveryBoy/AcceptedOrders">Accepted Orders</a>
             </li>
 
 
-            <li class="nav-item fs-5 me-4 ">
+            <li class="nav-item fs-5 me-4 sideBarLi ">
                 <a class="nav-link " href="/DeliveryBoy/DeliveredOrders">Delivered orders</a>
             </li>
         </ul>
@@ -100,7 +100,31 @@
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/adb09e0e68.js" crossorigin="anonymous"></script>
+    <script src="~/Scripts/CreatedScripts/OrderStatus.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sideBarLi").append("<hr />");
+            blinkeffect(".newReq");
+        });
 
+        function blinkeffect(selector) {
+            var count = $(selector).attr('id');
+            if (count != 0) {
+                $(selector).fadeOut('slow', function () {
+                    $(this).fadeIn('slow', function () {
+                        blinkeffect(this);
+                    })
+                })
+            }
+            else {
+                $(selector).hide();
+            }
+      
+                    
+        }
+
+              
+    </script>
 
 </body>
 </html>

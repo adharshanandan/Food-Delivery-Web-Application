@@ -12,7 +12,7 @@ namespace DAL.Manager
 {
     public class DeliveryBoyManager
     {
-     
+
         db_FoodOrderingApplicationEntities db = new db_FoodOrderingApplicationEntities();
         SqlConnection con = new SqlConnection("Data Source=LAPTOP-SRG4EAKH;Initial Catalog=db_FoodOrderingApplication;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework");
         public string InsertDelGuy(tbl_DeliveryStaffs insObj)
@@ -40,44 +40,76 @@ namespace DAL.Manager
         {
             return db.tbl_DeliveryStaffs.Where(e => e.StaffPhone == checkObj.StaffPhone).SingleOrDefault();
         }
-        
+
         public List<tbl_OrderDetails> GetPendingOrderRequestsBylocation(string emailId)
         {
             tbl_DeliveryStaffs retObj = db.tbl_DeliveryStaffs.Where(e => e.StaffEmail == emailId).SingleOrDefault();
-         
-            return db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed=="Y" && e.tbl_Restaurant.RestArea==retObj.StaffArea && e.Order_fk_StaffId==null).ToList();
+
+            return db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Confirmed" && e.tbl_Restaurant.RestArea == retObj.StaffArea && e.Order_fk_StaffId == null && e.tbl_DeliveryStaffs.Isfree=="Yes").ToList();
         }
 
-        public string AcceptOrderRequest(int? id,string emailId)
+        public string AcceptOrderRequest(int? id, string emailId)
         {
-            
+
             if (con.State == ConnectionState.Closed)
             {
                 con.Open();
             }
-            SqlCommand cmd = new SqlCommand("sp_AcceptOrder", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter("@orderId", id));
-            cmd.Parameters.Add(new SqlParameter("@staffemail", emailId));
-            
-            string result = cmd.ExecuteScalar().ToString();
-            con.Close();
-            return result;
-           
+            tbl_DeliveryStaffs checkObj = db.tbl_DeliveryStaffs.Where(e => e.StaffEmail == emailId && e.Isfree == "Yes").SingleOrDefault();
+            if (checkObj == null)
+            {
+                return "Not free";
             }
-   
+            else
+            {
+                SqlCommand cmd = new SqlCommand("sp_AcceptOrder", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@orderId", id));
+                cmd.Parameters.Add(new SqlParameter("@staffemail", emailId));
+
+                string result = cmd.ExecuteScalar().ToString();
+                con.Close();
+                return result;
+
+            }
+        
+
+        }
+
+        public string OrderPickStatusChange(int id)
+        {
+            tbl_OrderDetails updObj = db.tbl_OrderDetails.Where(e => e.OrderId == id && e.IsPicked == "Not Picked" && e.IsOrderConfirmed == "Confirmed").SingleOrDefault();
+            if (updObj == null)
+            {
+                return "Not found";
+            }
+            updObj.IsPicked = "Picked";
+            db.Entry(updObj).State = EntityState.Modified;
+            int status = db.SaveChanges();
+            if(status>0)
+            {
+                return "Success";
+            }
+            else
+            {
+                return "Failed";
+            }
+        }
+
+
+
 
         public int GetRequestsCount(string emailId)
         {
             tbl_DeliveryStaffs retObj = db.tbl_DeliveryStaffs.Where(e => e.StaffEmail == emailId).SingleOrDefault();
-           
-            return db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Y" && e.tbl_Restaurant.RestArea == retObj.StaffArea && e.Order_fk_StaffId == null).Count();
+
+            return db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Confirmed" && e.tbl_Restaurant.RestArea == retObj.StaffArea && e.Order_fk_StaffId == null && e.tbl_DeliveryStaffs.Isfree == "Yes").Count();
         }
 
         public List<tbl_OrderDetails> GetAcceptedOrders(string emailId)
         {
           
-            return db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Y" && e.tbl_DeliveryStaffs.StaffEmail==emailId && e.IsDelivered=="N").ToList();
+            return db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Confirmed" && e.tbl_DeliveryStaffs.StaffEmail==emailId && e.IsDelivered=="N").ToList();
         }
 
         public List<tbl_OrderDetails> GetDeliveredOrders(string emailId)

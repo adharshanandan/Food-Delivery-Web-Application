@@ -10,7 +10,7 @@
     <div class="container">
         <div class="card mx-auto p-2 col-md-6 col-12 bg-light mt-5">
             <div class="card-body ">
-                <h2 class="text-center">Restaurant Registration</h2>
+                <h2 class="text-center">Add/Update Address</h2>
 
 
                 @using (Html.BeginForm())
@@ -55,44 +55,48 @@
                         @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-
-
                 <div class="row form-group text-center mb-3 mt-3">
                     <div class="mx-auto">
-                        <input type="submit" value="Add" onclick="AddAddress()" class="btn btn-primary" />
+                        <input type="submit" value="Add" id="btnAddAddress" class="btn btn-primary" />
                         <input type="button" value="Cancel" id="Cancel" onclick="location.href='@Url.Action("UserProfile", "Customer")'" class="btn btn-danger" />
                     </div>
 
                 </div>
+
+
+
             </div>
                 }
+           
             </div>
         </div>
     </div>
 </section>
-
+<br />
+<br />
+<br />
+<br />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script>
 
 
-    function AddAddress() {
-        var Address = {}
-        Address["AddId"] = $("#AddId").val();
-        Address["DoorOrFlatNo"] = $("#DoorOrFlatNo").val();
-        Address["LandMark"] = $("#LandMark").val();
-        Address["AddressType"] = $("#AddressType").val();
-        Address["PinCode"] = $("#PinCode").val();
+    $("#btnAddAddress").on("click", function () {
+       
+        var AddId = $("#AddId").val();
+        var DoorOrFlatNo = $("#DoorOrFlatNo").val();
+        var LandMark = $("#LandMark").val();
+        var AddressType = $("#AddressType").val();
+        var PinCode = $("#PinCode").val();
+        var obj = { "AddId": AddId, "DoorOrFlatNo": DoorOrFlatNo, "LandMark": LandMark, "AddressType": AddressType, "PinCode": PinCode };
         $.ajax({
-            type="POST",
-            contentType: "application/json;charset=ut-f-8",
-            url: "/Address/InsertAddress/",
-            data: "{'obj':" + JSON.stringify(Address) + "'}",
-            dataType: "json",
-            success: function (data) {
-                alert(data);
-                
+            method:"POST",
+            url: "/Address/AddAddress/",
+            data: { "obj": obj },
+            success: function (rslt) {
+                alert(rslt);
+
             },
             error: function (err) {
                 alert(err);
@@ -100,5 +104,8 @@
         })
 
 
-    }
+    })
+   
+        
+        
 </script>

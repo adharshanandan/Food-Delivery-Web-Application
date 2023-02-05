@@ -41,11 +41,11 @@ namespace FoodDeliveryWebApplication.Controllers
 
         }
         [HttpPost]
-        public ActionResult InsertAddress(CustomerAddresses obj)
+        public ActionResult AddAddress(CustomerAddresses obj)
         {
             if (obj == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Json("invalid request", JsonRequestBehavior.AllowGet);
             }
             if (obj.AddId > 0)
             {
@@ -70,8 +70,8 @@ namespace FoodDeliveryWebApplication.Controllers
 
                 }
                 BindAddressType();
-                return View();
-                
+                return Json("Form validation failed", JsonRequestBehavior.AllowGet);
+
 
             }
             else
@@ -228,63 +228,63 @@ namespace FoodDeliveryWebApplication.Controllers
 
         }
         [HttpPost]
-        public ActionResult _AddView(CustomerAddresses obj)
+        public ActionResult _AddAddressFromAddView(CustomerAddresses obj)
         {
             if (obj == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Json("Invalid content", JsonRequestBehavior.AllowGet);
             }
-            if (obj.AddId > 0)
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                tbl_Addresses insObj = new tbl_Addresses();
+                insObj.AddId = 0;
+                insObj.DoorOrFlatNo = obj.DoorOrFlatNo;
+                insObj.AddressType = obj.AddressType;
+                insObj.PinCode = obj.PinCode;
+                insObj.LandMark = obj.LandMark;
+                string result = addMngr.InsertAddress(insObj, Session["Customer"].ToString());
+                if (result == "Success")
                 {
-                    tbl_Addresses editObj = new tbl_Addresses();
-                    editObj.DoorOrFlatNo = obj.DoorOrFlatNo;
-                    editObj.AddId = obj.AddId; ;
-                    editObj.AddressType = obj.AddressType;
-                    editObj.PinCode = obj.PinCode;
-                    editObj.LandMark = obj.LandMark;
-                    string result = addMngr.InsertAddress(editObj);
-                    if (result == "Success")
-                    {
-
-                        return Json("Successfully updated", JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        return Json("Failed to update", JsonRequestBehavior.AllowGet);
-                    }
-
+                    return Json("Inserted successfully", JsonRequestBehavior.AllowGet);
                 }
-                BindAddressType();
-                return View();
-
+                else
+                {
+                    return Json("Failed", JsonRequestBehavior.AllowGet);
+                }
 
             }
-            else
-            {
-                if (ModelState.IsValid)
-                {
-                    tbl_Addresses insObj = new tbl_Addresses();
-                    insObj.AddId = 0;
-                    insObj.DoorOrFlatNo = obj.DoorOrFlatNo;
-                    insObj.AddressType = obj.AddressType;
-                    insObj.PinCode = obj.PinCode;
-                    insObj.LandMark = obj.LandMark;
-                    string result = addMngr.InsertAddress(insObj, Session["Customer"].ToString());
-                    if (result == "Success")
-                    {
-                        return Json(result, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        return Json("Failed", JsonRequestBehavior.AllowGet);
-                    }
+            return Json("Please enter all details", JsonRequestBehavior.AllowGet);
+            //if (obj.AddId > 0)
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        tbl_Addresses editObj = new tbl_Addresses();
+            //        editObj.DoorOrFlatNo = obj.DoorOrFlatNo;
+            //        editObj.AddId = obj.AddId; ;
+            //        editObj.AddressType = obj.AddressType;
+            //        editObj.PinCode = obj.PinCode;
+            //        editObj.LandMark = obj.LandMark;
+            //        string result = addMngr.InsertAddress(editObj);
+            //        if (result == "Success")
+            //        {
 
-                }
-                return Json("Please enter all details", JsonRequestBehavior.AllowGet);
+            //            return Json("Successfully updated", JsonRequestBehavior.AllowGet);
+            //        }
+            //        else
+            //        {
+            //            return Json("Failed to update", JsonRequestBehavior.AllowGet);
+            //        }
 
-            }
+            //    }
+            //    BindAddressType();
+            //    return View();
+
+
+            //}
+
+
+
+
 
         }
 

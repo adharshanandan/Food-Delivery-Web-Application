@@ -107,7 +107,7 @@
 
                                 @model FoodDeliveryWebApplication.Models.ContactUs
 
-                                @using (Html.BeginForm())
+                                @using (Html.BeginForm(null,null,FormMethod.Post,new { id="contactForm" }))
                                 {
                                     @Html.AntiForgeryToken()
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -141,11 +141,11 @@
 
 
                                             <div class="col-md-offset-2 col-md-2 col-2">
-                                                @*<input type="button" value="Submit" class="btn btn-primary onclick="BtnSubmitClick()" />*@
-                                                <button class="btn btn-primary" id="save" onclick="BtnSubmitClick()">submit</button>
+                                                
+                                                <button class="btn btn-primary" id="btnSave" type="button">submit</button>
                                             </div>
                                             <div class="col-md-offset-2 col-md-2 col-2">
-                                                <input type="button" value="Clear" id="Clear" class="btn btn-danger ms-auto" />
+                                                <input type="button" value="Clear" id="btnClear" class="btn btn-danger ms-auto" />
                                             </div>
 
                                         </div>
@@ -193,6 +193,41 @@
             $(".btnExplore").fadeIn(3000);
         })
     })
+
+
+    $(document).ready(function () {
+        $("#btnSave").click(function () {
+            var Name = $("#txtName").val();
+            var EmailId = $("#txtEmail").val();
+            var Message = $("#txtMsg").val();
+            var obj = { "Name": Name, "EmailId": EmailId, "Message": Message };
+            $.ajax({
+                method: "POST",
+                url: "/Home/UploadData/",
+                data: { "obj": obj },
+                success: function (msg) {
+                    alert(msg);
+                    if (msg == "Submitted") {
+                        $("#txtName").val('');
+                        $("#txtEmail").val('');
+                        $("#txtMsg").val('');
+                    }
+                   
+
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            })
+        })
+
+        $("#btnClear").click(function () {
+            $("#txtName").val('');
+            $("#txtEmail").val('');
+            $("#txtMsg").val('');
+        })
+        
+    });
 </script>
 
 

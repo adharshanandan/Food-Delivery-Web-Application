@@ -51,11 +51,15 @@
                     Order Confirmation
                 </th>
                 <th>
-                    is Delivered
+                    Order Delivered ?
+                </th>
+                <th>
+                    Order Picked ?
                 </th>
 
 
-                <th></th>
+
+
                 <th></th>
             </tr>
 
@@ -103,10 +107,10 @@
             <td>
                 <table>
                     <tr>
-                        <td >
+                        <td>
                             Door/Flat No.
                         </td>
-                        <td >
+                        <td>
                             : @Model.Address.DoorOrFlatNo
                         </td>
                     </tr>
@@ -142,7 +146,7 @@
 
             </td>
             <td>
-                @foreach(var ph in Model.Phone)
+                @foreach (var ph in Model.Phone)
                 {
                     <p>@ph.PhoneNumber</p>
                 }
@@ -159,9 +163,22 @@
             <td>
                 @item.IsDelivered
             </td>
+            <td>
+                @if (item.IsPicked == "Picked")
+                {
+                    <button class="btn btn-primary disabled btnPicked" id="@item.fk_OrderId">Picked</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary btnPick ">Yes</button>
+
+                }
+
+
+            </td>
 
             <td>
-                <button class="btn btn-primary btnFinish ">Finish Delivery</button>
+                <button style="display:none" class="btn btn-primary btnFinish " id="@item.fk_OrderId">Finish Delivery</button>
                 <input type="hidden" value="@item.fk_OrderId" id="hdnOrderId" />
 
             </td>
@@ -209,6 +226,42 @@
         $("#otpForm").html('');
         $(".btnCancel").fadeOut("3000");
     });
+
+    $(".btnPick").click(function () {
+        var orderId = $("#hdnOrderId").val();
+        var url = "/DeliveryBoy/OrderPicked/";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { "id": orderId },
+            success: function (result) {
+                if (result == "Success") {
+                    confirm("Option for completing this delivery is available now. Once you delivered the item, Please click on Finish Delivery buttton and enter the otp given by the customer. That's all! Happy ride!");
+                    $(".btnFinish").show();
+                }
+                else {
+                    alert(result);
+                }
+                
+
+            },
+            error: function (err) {
+                alert(err)
+            }
+
+        })
+    })
+
+    $(document).ready(function () {
+        $(".btnPicked").each(function () {
+            //var pickedId = $(this).attr('id');
+            //var confrmId = $(".btnFinish").attr('id');
+            //if (pickedId == confrmId) {
+                $(".btnFinish").show();
+            
+        })
+
+    })
 
  
 </script>

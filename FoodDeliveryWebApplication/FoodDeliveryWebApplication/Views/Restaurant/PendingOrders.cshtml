@@ -125,10 +125,11 @@
             url: "/Restaurant/ConfirmOrder/",
             data: { "id": id },
             success: function (data) {
-                alert(data)
+                alert(data);
+                location.reload();
             },
             error: function (err) {
-                alert(err)
+                alert(err);
             }
         });
 
