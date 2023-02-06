@@ -261,7 +261,7 @@ namespace FoodDeliveryWebApplication.Controllers
                     pincode = addMngr.PicodeCheckForDelivery(obj.Order_fk_AddId);
                     if (pincode != retObj.tbl_Restaurant.RestPincode)
                     {
-                        return Json("Delivery is not possible to this loation. Please choose a location matching the pincode of the restaurant", JsonRequestBehavior.AllowGet);
+                        return Json("Delivery is not possible to this location. Please choose a location matching the pincode of the restaurant", JsonRequestBehavior.AllowGet);
 
                     }
                 }

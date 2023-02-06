@@ -83,26 +83,26 @@
 
 
         <ul class="no-bullets">
-            <li class="nav-item fs-4 me-4 mt-2 mx-auto text-center my-auto sideBarLi">
+            <li class="nav-item fs-4 me-4 mt-2 mx-auto text-center my-auto sideBarLiCus">
                 <img src="@Url.Content(arr[0].ToString())" style="width:100px;height:100px" class="rounded-circle border border-dark border-3 " />
                 <h4 class="mt-3">@arr[1].ToString()</h4>
             </li>
-            <li class="nav-item fs-5 me-4 my-auto sideBarLi">
+            <li class="nav-item fs-5 me-4 my-auto sideBarLiCus">
                 <a class="nav-link " href="/Customer/FoodItems">Home</a>
             </li>
-            <li class="nav-item fs-5 me-4 my-auto sideBarLi ">
+            <li class="nav-item fs-5 me-4 my-auto sideBarLiCus ">
                 <a class="nav-link " href="/Customer/UserProfile">Profile</a>
             </li>
-            <li class="nav-item fs-5 me-4 my-auto sideBarLi">
+            <li class="nav-item fs-5 me-4 my-auto sideBarLiCus">
                 <a class="nav-link " href="/Payment/UserBankAccounts">Bank Accounts</a>
             </li>
-            <li class="nav-item fs-5 me-4 my-auto sideBarLi">
+            <li class="nav-item fs-5 me-4 my-auto sideBarLiCus">
                 <a class="nav-link " href="/Customer/FavRestaurants">Favourites</a>
             </li>
-            <li class="nav-item fs-5 me-4 my-auto sideBarLi">
+            <li class="nav-item fs-5 me-4 my-auto sideBarLiCus">
                 <a class="nav-link " href="/Customer/ActiveOrders">Active Orders</a>
             </li>
-            <li class="nav-item fs-5 me-4 my-auto sideBarLi">
+            <li class="nav-item fs-5 me-4 my-auto sideBarLiCus">
                 <a class="nav-link " href="/Customer/OrdersHistory">Order History</a>
             </li>
 
@@ -136,7 +136,7 @@
     <script src="~/Scripts/CreatedScripts/OrderStatus.js"></script>
     <script>
         $(document).ready(function () {
-            $(".sideBarLi").append("<hr />");
+            $(".sideBarLiCus").append("<hr />");
         });
     </script>
 

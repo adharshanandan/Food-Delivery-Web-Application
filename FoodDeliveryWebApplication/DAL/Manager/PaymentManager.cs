@@ -157,7 +157,7 @@ namespace DAL.Manager
                 if (remObj.PaymentMode == "Card")
                 {
                     tbl_ResBankAcc restBankObj = db.tbl_ResBankAcc.Where(e => e.bank_fk_RestId == remObj.Order_fk_RestId).SingleOrDefault();
-                    tbl_UserBankAcc cusBankObj = db.tbl_UserBankAcc.Where(e => e.rder_fk_CusId == remObj.Order_fk_CusId).SingleOrDefault();
+                    tbl_UserBankAcc cusBankObj = db.tbl_UserBankAcc.Where(e => e.rder_fk_CusId == remObj.Order_fk_CusId && e.id==accId).SingleOrDefault();
                     if (con.State == ConnectionState.Closed)
                     {
                         con.Open();

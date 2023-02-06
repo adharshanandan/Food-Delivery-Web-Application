@@ -19,58 +19,76 @@ namespace FoodDeliveryWebApplication.Controllers
         {
             BindBankAccounts(Session["Customer"].ToString());
             BankAccounts obj = new BankAccounts();
+            if (TempData["ddlUserBankList"] != null)
+            {
+                return View(obj);
+            }
+            else
+            {
+                return RedirectToAction("AddBankDetails");
+            }
            
-            return View(obj);
+            
         }
 
         public ActionResult SelectBankToRefund(string orderId)
         {
             BindBankAccounts(Session["Customer"].ToString());
             BankAccounts obj = new BankAccounts();
-            TempData["cusAccNum"] = orderId;
+            
+            TempData["CancelOrderId"] = orderId;
             return View(obj);
         }
         public void BindBankAccounts(string EmailId)
         {
             List<SelectListItem> ddl_UserBanks = new List<SelectListItem>();
             List<tbl_UserBankAcc> _list = payMngr.GetAllBankAccountsofUser(EmailId);
-            List<BankAccounts> disList = new List<BankAccounts>();
-            foreach (var item in _list)
+            if (_list.Count > 0)
             {
-                disList.Add(new BankAccounts
+                List<BankAccounts> disList = new List<BankAccounts>();
+                foreach (var item in _list)
                 {
-                    AccId = item.id,
-                    AccNumber = item.AccNumber
-                });
-            }
-            foreach (var acc in disList)
-            {
-                char[] tempArray = acc.AccNumber.ToCharArray();
-                for (int i = tempArray.Length - 5; i >= 0; i--)
-                {
-                    tempArray[i] = '*';
+                    disList.Add(new BankAccounts
+                    {
+                        AccId = item.id,
+                        AccNumber = item.AccNumber
+                    });
                 }
-                acc.AccNumber = new string(tempArray);
+                foreach (var acc in disList)
+                {
+                    char[] tempArray = acc.AccNumber.ToCharArray();
+                    for (int i = tempArray.Length - 5; i >= 0; i--)
+                    {
+                        tempArray[i] = '*';
+                    }
+                    acc.AccNumber = new string(tempArray);
 
-            }
+                }
 
-            ddl_UserBanks.Add(new SelectListItem
-            {
-                Selected = true,
-                Text = "-- Select Bank Account --",
-                Value = ""
-            });
-            foreach (var item in disList)
-            {
                 ddl_UserBanks.Add(new SelectListItem
                 {
-                    Selected = false,
-                    Text = item.AccNumber,
-                    Value = item.AccId.ToString()
+                    Selected = true,
+                    Text = "-- Select Bank Account --",
+                    Value = ""
                 });
+                foreach (var item in disList)
+                {
+                    ddl_UserBanks.Add(new SelectListItem
+                    {
+                        Selected = false,
+                        Text = item.AccNumber,
+                        Value = item.AccId.ToString()
+                    });
+                }
+                TempData["ddlUserBankList"] = ddl_UserBanks;
             }
+            
 
-            TempData["ddlUserBankList"] = ddl_UserBanks;
+           
+            else
+            {
+                TempData["ddlUserBankList"] = null;
+            }
 
         }
 

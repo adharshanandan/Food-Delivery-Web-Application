@@ -74,7 +74,7 @@
                             <div class="row form-group text-center mb-3">
                                 <div class="mx-auto">
                                     <input type="submit" value="Update" class="btn btn-primary" />
-                                    <input type="button" value="Cancel" id="Clear" class="btn btn-danger" />
+                                    <input type="button" value="Cancel" id="Cancel" class="btn btn-danger" onclick="location.href= '@Url.Action("RestProfile", "Restaurant")'" />
                                 </div>
 
                             </div>
@@ -91,4 +91,5 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
 

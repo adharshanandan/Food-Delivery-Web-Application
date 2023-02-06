@@ -349,16 +349,17 @@ namespace FoodDeliveryWebApplication.Controllers
             return View(combinedModel);
         }
 
-        public ActionResult CancelOrders(int? orderId=0,int? accId=0)
+        public ActionResult CancelOrders(int orderId=0,int? accId=0)
         {
             if (accId == null)
             {
                 return Json("Failed to cancel due to technical error", JsonRequestBehavior.AllowGet);
             }
             string result;
-            if (TempData["cusAccNum"] != null)
+            // Tempdata created in action method SelectBankToRefund of Payment controller
+            if (TempData["CancelOrderId"] != null)
             {
-                result = payMngr.CancelOrder(accId, TempData["cusAccNum"].ToString());
+                result = payMngr.CancelOrder(accId, TempData["CancelOrderId"].ToString());
                 if (result == "Refunded")
                 {
                     return Json(result, JsonRequestBehavior.AllowGet);
@@ -370,7 +371,7 @@ namespace FoodDeliveryWebApplication.Controllers
                 }
             }
 
-            result = payMngr.CancelOrder(orderId);
+            result = payMngr.CancelOrder(0,orderId.ToString());
 
             if(result== "Order cancelled")
             {
