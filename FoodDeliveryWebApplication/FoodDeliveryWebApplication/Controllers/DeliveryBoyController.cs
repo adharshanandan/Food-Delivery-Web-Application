@@ -189,13 +189,17 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult PendingOrderRequests()
         {
+            if (Session["DeliveryBoy"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             List<tbl_OrderDetails> retList = delMngr.GetPendingOrderRequestsBylocation(Session["DeliveryBoy"].ToString());
             List<OrderDetails> disList = new List<OrderDetails>();
             if (TempData["NewRequest"] != null)
             {
                 TempData["NewRequest"] = null;
             }
-            if (disList.Count > 0)
+            if (retList.Count > 0)
             {
                 TempData["NewRequest"] = retList.Count;
             }
@@ -265,8 +269,13 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult AcceptedOrders()
         {
+            if (Session["DeliveryBoy"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             List<tbl_OrderDetails> retList = delMngr.GetAcceptedOrders(Session["DeliveryBoy"].ToString());
             List<OrderDetails> disList = new List<OrderDetails>();
+            
             TempData["NewRequest"] = delMngr.GetRequestsCount(Session["DeliveryBoy"].ToString());
             dynamic combinedModel = new ExpandoObject();
             List<Cart> dishesList = new List<Cart>();
@@ -331,25 +340,18 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult DeliveredOrders()
         {
+            if (Session["DeliveryBoy"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             List<tbl_OrderDetails> retList = delMngr.GetDeliveredOrders(Session["DeliveryBoy"].ToString());
             List<OrderDetails> disList = new List<OrderDetails>();
             TempData["NewRequest"] = delMngr.GetRequestsCount(Session["DeliveryBoy"].ToString());
             dynamic combinedModel = new ExpandoObject();
-            List<Cart> dishesList = new List<Cart>();
+            
             foreach (var item in retList)
             {
-                disList.Add(new OrderDetails
-                {
-                    fk_OrderId = item.OrderId,
-                    TotalAmount = item.TotalAmount,
-                    CusName = item.tbl_Customer.CusName,
-                    IsOrderConfirmed = item.IsOrderConfirmed,
-                    Orderdate = item.Orderdate,
-                    IsDelivered = item.IsDelivered,
-                    RestName=item.tbl_Restaurant.RestName
-
-
-                });
+                List<Cart> dishesList = new List<Cart>();
                 foreach (var dish in item.tbl_OrderedFoodDetails)
                 {
                     dishesList.Add(new Cart
@@ -360,9 +362,23 @@ namespace FoodDeliveryWebApplication.Controllers
 
                     });
                 }
+                disList.Add(new OrderDetails
+                {
+                    fk_OrderId = item.OrderId,
+                    TotalAmount = item.TotalAmount,
+                    CusName = item.tbl_Customer.CusName,
+                    IsOrderConfirmed = item.IsOrderConfirmed,
+                    Orderdate = item.Orderdate,
+                    IsDelivered = item.IsDelivered,
+                    RestName = item.tbl_Restaurant.RestName,
+                    CartDetails = dishesList
+
+
+                }) ;
+               
             }
             combinedModel.Order = disList;
-            combinedModel.Cart = dishesList;
+           
             return View(combinedModel);
         }
 

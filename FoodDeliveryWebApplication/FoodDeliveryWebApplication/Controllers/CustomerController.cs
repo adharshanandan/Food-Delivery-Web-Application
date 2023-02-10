@@ -116,12 +116,20 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult FoodItems()
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             Session["CartItemsCount"] = cartMngr.GetCartItemsCount(Session["Customer"].ToString());
             return RedirectToAction("Restaurants", "Restaurant");
         }
 
         public ActionResult UserProfile()
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             dynamic combinedModel = new ExpandoObject();
             tbl_Customer retObj = cusMngr.GetCustomerDetails(Session["Customer"].ToString());
             User disObj = new User();
@@ -168,6 +176,10 @@ namespace FoodDeliveryWebApplication.Controllers
         }
         public ActionResult FavRestaurants()
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             List<tbl_Restaurant> _list = favRestMngr.GetFavListByCusId(Session["Customer"].ToString());
             List<Restaurant> displayList = new List<Restaurant>();
             int restCount = 0;
@@ -192,12 +204,20 @@ namespace FoodDeliveryWebApplication.Controllers
         }
         public ActionResult ManageAddress(int id)
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             return RedirectToAction("InsertAddress", "Address", new { id = id });
         }
 
         
         public ActionResult InsertNumber()
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             return RedirectToAction("AddPhoneNo", "Address");
         }
 
@@ -206,6 +226,10 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult EditProfile(int? id)
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             tbl_Customer retObj = cusMngr.GetCustomerById(Convert.ToInt32(id));
             if (retObj == null)
             {
@@ -255,11 +279,19 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult CartItems()
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             return RedirectToAction("CartItemsDisplay", "Cart");
         }
 
         public ActionResult OrdersHistory()
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             dynamic combinedModel = new ExpandoObject();
             List<tbl_OrderDetails> retList = cusMngr.GetAllOrdersHistoryByUserEmail(Session["Customer"].ToString());
             List<OrderDetails> orderList = new List<OrderDetails>();
@@ -300,6 +332,10 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult ActiveOrders()
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             dynamic combinedModel = new ExpandoObject();
             List<tbl_OrderDetails> retList = cusMngr.GetAllActiveOrdersByUserEmail(Session["Customer"].ToString());
             List<OrderDetails> orderList = new List<OrderDetails>();
@@ -351,6 +387,10 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult CancelOrders(int orderId=0,int? accId=0)
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             if (accId == null)
             {
                 return Json("Failed to cancel due to technical error", JsonRequestBehavior.AllowGet);
@@ -385,6 +425,10 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult InvoiceView(int orderId)
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             List<tbl_OrderDetails> retList = cusMngr.GetOrderDetailsById(orderId);
             List<OrderDetails> disList = new List<OrderDetails>();
             
@@ -429,65 +473,13 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult DownloadInvoice(int? orderId)
         {
+            if (Session["Customer"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             var report = new Rotativa.ActionAsPdf("InvoiceView", new {orderId });
             return report;
         }
-
-        //public ActionResult InvoiceView1(int orderId)
-        //{
-        //    List<tbl_OrderDetails> retList = cusMngr.GetOrderDetailsById(orderId);
-        //    List<OrderDetails> disList = new List<OrderDetails>();
-
-        //    foreach (var item in retList)
-        //    {
-        //        List<Dishes> dishList = new List<Dishes>();
-
-        //        foreach (var dish in item.tbl_OrderedFoodDetails)
-        //        {
-        //            dishList.Add(new Dishes
-        //            {
-        //                DishImage = dish.tbl_Dishes.DishImage,
-        //                DishQuantity = dish.DishQuantity,
-        //                DishPrice = dish.tbl_Dishes.DishPrice,
-        //                DishName = dish.tbl_Dishes.DishName
-
-        //            });
-        //        }
-
-        //        disList.Add(new OrderDetails
-        //        {
-        //            id = item.OrderId,
-        //            TotalAmount = item.TotalAmount,
-        //            PaymentMode = item.PaymentMode,
-        //            Orderdate = item.Orderdate,
-        //            FoodDetails = dishList,
-        //            DoorOrFlatNo = item.tbl_Addresses.DoorOrFlatNo,
-        //            PinCode = item.tbl_Addresses.PinCode,
-        //            AddressTypeName = item.tbl_Addresses.tbl_AddressType.TypeName,
-        //            LandMark = item.tbl_Addresses.LandMark,
-        //            CusName = item.tbl_Customer.CusName
-
-        //        });
-
-        //    }
-
-        //    if (retList != null)
-        //    {
-        //        return View(disList);
-        //    }
-        //    return RedirectToAction("ActiveOrders", "Customer");
-        //}
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

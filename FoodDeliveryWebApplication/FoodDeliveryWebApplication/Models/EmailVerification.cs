@@ -11,21 +11,22 @@ namespace FoodDeliveryWebApplication.Models
     public class EmailVerification
     {
         
-
         public string SendEmail(string subjectText,string bodyText,string sentTo)
         {
           
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
-            smtp.Credentials = new NetworkCredential("admfcptest@gmail.com", "nyjmvsenvexksqiu");
+            smtp.Credentials = new NetworkCredential("fowfooddeliveryapp@gmail.com", "vftdzgwlrxdsatea");
+            //smtp.UseDefaultCredentials = false;
             smtp.EnableSsl = true;
             MailMessage msg = new MailMessage();
             msg.Subject = subjectText;
             msg.Body = bodyText;
             msg.To.Add(sentTo);
-            msg.From = new MailAddress("admfcptest@gmail.com");
+            msg.From = new MailAddress("fowfooddeliveryapp@gmail.com");
             msg.IsBodyHtml = true;
+            
             try
             {
                 smtp.Send(msg);

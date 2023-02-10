@@ -15,6 +15,7 @@ namespace FoodDeliveryWebApplication.Controllers
         RestaurantManager restMngr = new RestaurantManager();
         DeliveryBoyManager delMngr = new DeliveryBoyManager();
         LoginManager loginMngr = new LoginManager();
+        EmailVerification sendEmail = new EmailVerification();
 
         public ActionResult Login()
         {
@@ -96,6 +97,84 @@ namespace FoodDeliveryWebApplication.Controllers
                 return View();
             }
 
+        }
+
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(BaseEntity obj)
+        {
+            if (obj == null)
+            {
+                return Json("Bad request", JsonRequestBehavior.AllowGet);
+            }
+            if (ModelState.IsValid)
+            {
+                tbl_Login insObj = new tbl_Login();
+                insObj.UserPassword = obj.Password;
+                insObj.UserId = obj.EmailId;
+                string result = loginMngr.InsertNewPassword(insObj);
+                if (result == "Success")
+                {
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("Failed to update", JsonRequestBehavior.AllowGet);
+
+                }
+            }
+
+            return Json("Invalid input", JsonRequestBehavior.AllowGet);
+
+
+
+
+
+
+        }
+
+        public JsonResult IsExistEmail(string emailId)
+        {
+            if (emailId == "")
+            {
+                return Json("Please fill the field",JsonRequestBehavior.AllowGet);
+            }
+            string result = loginMngr.IsEmailExist(emailId);
+            if(result=="Not found")
+            {
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (result == "Found")
+            {
+                Random RandNo = new Random();
+                string otp = RandNo.Next(100001, 999999).ToString();
+                Session["PswdResetOtp"] = otp;
+                string status = sendEmail.SendEmail("Reset Password", "Your one time password is : " + otp, emailId);               
+                return Json("Found", JsonRequestBehavior.AllowGet);
+            }
+            return Json("Error occured", JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult OtpMatchCheck(string otp)
+        {
+            if (otp =="")
+            {
+                return Json("Please fill the field", JsonRequestBehavior.AllowGet);
+            }
+            if (otp == Session["PswdResetOtp"].ToString())
+            {
+                return Json("Matched", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(" Not Matched", JsonRequestBehavior.AllowGet);
+            }
+        
         }
     }
 }

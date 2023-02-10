@@ -45,7 +45,22 @@ namespace DAL.Manager
         {
             tbl_DeliveryStaffs retObj = db.tbl_DeliveryStaffs.Where(e => e.StaffEmail == emailId).SingleOrDefault();
 
-            return db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Confirmed" && e.tbl_Restaurant.RestArea == retObj.StaffArea && e.Order_fk_StaffId == null && e.tbl_DeliveryStaffs.Isfree=="Yes").ToList();
+            List<tbl_OrderDetails> _list= db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Confirmed" && e.tbl_Restaurant.RestArea == retObj.StaffArea  && e.IsDelivered=="N" && e.IsPicked=="Not Picked" && e.IsCancelled=="N").ToList();
+            List<tbl_OrderDetails> retList = new List<tbl_OrderDetails>();
+            if (retObj.Isfree == "Yes")
+            {
+                foreach (var item in _list)
+                {
+                    if (item.Order_fk_StaffId == null)
+                    {
+                        retList.Add(item);
+                    }
+                }
+                
+
+            }
+            return retList;
+
         }
 
         public string AcceptOrderRequest(int? id, string emailId)
@@ -103,7 +118,26 @@ namespace DAL.Manager
         {
             tbl_DeliveryStaffs retObj = db.tbl_DeliveryStaffs.Where(e => e.StaffEmail == emailId).SingleOrDefault();
 
-            return db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Confirmed" && e.tbl_Restaurant.RestArea == retObj.StaffArea && e.Order_fk_StaffId == null && e.tbl_DeliveryStaffs.Isfree == "Yes").Count();
+            List<tbl_OrderDetails> _list = db.tbl_OrderDetails.Where(e => e.IsOrderConfirmed == "Confirmed" && e.tbl_Restaurant.RestArea == retObj.StaffArea && e.IsDelivered == "N" && e.IsPicked == "Not Picked" && e.IsCancelled == "N").ToList();
+            List<tbl_OrderDetails> retList = new List<tbl_OrderDetails>();
+            if (retObj.Isfree == "Yes")
+            {
+                foreach (var item in _list)
+                {
+                    if (item.Order_fk_StaffId == null)
+                    {
+                        retList.Add(item);
+                    }
+                }
+
+
+            }
+            return retList.Count();
+
+
+            
+
+            
         }
 
         public List<tbl_OrderDetails> GetAcceptedOrders(string emailId)
@@ -124,12 +158,14 @@ namespace DAL.Manager
         public int ConfirmOrder(int? id)
         {
             tbl_OrderDetails updObj = db.tbl_OrderDetails.Find(id);
+            tbl_DeliveryStaffs updDelObj = db.tbl_DeliveryStaffs.Find(updObj.Order_fk_StaffId);
+            updDelObj.Isfree = "Yes";
             updObj.IsDelivered = "Y";
             if (updObj.PaymentMode == "COD")
             {
                 updObj.IsPaid = "Y";
             }
-            
+            db.Entry(updDelObj).State = EntityState.Modified;
             db.Entry(updObj).State = EntityState.Modified;
             return db.SaveChanges();
         }

@@ -193,27 +193,23 @@ namespace FoodDeliveryWebApplication.Controllers
             {
                 return View();
             }
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("Login", "Login");
 
         }
         public ActionResult OrderHistory()
         {
+            if (Session["Restaurant"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            
             List<tbl_OrderDetails> retList = restMngr.GetOrderHistory(Session["Restaurant"].ToString());
             List<OrderDetails> disList = new List<OrderDetails>();
             dynamic combinedModel = new ExpandoObject();
-            List<Cart> dishesList = new List<Cart>();
+            
             foreach (var item in retList)
             {
-                disList.Add(new OrderDetails
-                {
-                    fk_OrderId = item.OrderId,
-                    TotalAmount = item.TotalAmount,
-                    CusName = item.tbl_Customer.CusName,
-                    IsOrderConfirmed = item.IsOrderConfirmed,
-                    Orderdate = item.Orderdate
-
-
-                });
+                List<Cart> dishesList = new List<Cart>();
                 foreach (var dish in item.tbl_OrderedFoodDetails)
                 {
                     dishesList.Add(new Cart
@@ -224,43 +220,62 @@ namespace FoodDeliveryWebApplication.Controllers
 
                     });
                 }
-            }
-            combinedModel.Order = disList;
-            combinedModel.Cart = dishesList;
-            return View(combinedModel);
-
-        }
-        public ActionResult PendingOrders()
-        {
-            List<tbl_OrderDetails> retList = restMngr.GetAllPendingOrders(Session["Restaurant"].ToString());
-            List<OrderDetails> disList = new List<OrderDetails>();
-            dynamic combinedModel = new ExpandoObject();
-            List<Cart> dishesList = new List<Cart>();
-            foreach(var item in retList)
-            {
                 disList.Add(new OrderDetails
                 {
                     fk_OrderId = item.OrderId,
                     TotalAmount = item.TotalAmount,
                     CusName = item.tbl_Customer.CusName,
                     IsOrderConfirmed = item.IsOrderConfirmed,
-                    Orderdate = item.Orderdate
+                    Orderdate = item.Orderdate,
+                    CartDetails=dishesList
 
 
-                }) ;
-                foreach(var dish in item.tbl_OrderedFoodDetails)
+                });
+               
+            }
+            combinedModel.Order = disList;
+          
+            return View(combinedModel);
+
+        }
+        public ActionResult PendingOrders()
+        {
+            if (Session["Restaurant"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            List<tbl_OrderDetails> retList = restMngr.GetAllPendingOrders(Session["Restaurant"].ToString());
+            List<OrderDetails> disList = new List<OrderDetails>();
+            dynamic combinedModel = new ExpandoObject();
+            
+            foreach(var item in retList)
+            {
+                List<Cart> dishesList = new List<Cart>();
+                foreach (var dish in item.tbl_OrderedFoodDetails)
                 {
                     dishesList.Add(new Cart
                     {
                         DishName = dish.tbl_Dishes.DishName,
                         Quantity = dish.DishQuantity,
-                        DishId=Convert.ToInt32(dish.fk_DishId)
-                        
+                        DishId = Convert.ToInt32(dish.fk_DishId)
+
                     });
                 }
+                disList.Add(new OrderDetails
+                {
+                    fk_OrderId = item.OrderId,
+                    TotalAmount = item.TotalAmount,
+                    CusName = item.tbl_Customer.CusName,
+                    IsOrderConfirmed = item.IsOrderConfirmed,
+                    Orderdate = item.Orderdate,
+                    CartDetails = dishesList
+
+
+                }) ;
+               
             }
             combinedModel.Order = disList;
-            combinedModel.Cart = dishesList;
+          
             return View(combinedModel);
             
         }
@@ -324,15 +339,13 @@ namespace FoodDeliveryWebApplication.Controllers
 
             return View(displayList);
         }
-        //[HttpPost]
-
-        //public ActionResult Restaurants(int id)
-        //{
-           
-
-        //}
+    
         public ActionResult RestProfile()
         {
+            if (Session["Restaurant"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             tbl_Restaurant retObj = restMngr.IsExistEmail(Session["Restaurant"].ToString());
             RestaurantEdit disObj = new RestaurantEdit();
             disObj.Id = retObj.RestId;
@@ -351,6 +364,10 @@ namespace FoodDeliveryWebApplication.Controllers
 
         public ActionResult ProfileEdit(int? id)
         {
+            if (Session["Restaurant"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);

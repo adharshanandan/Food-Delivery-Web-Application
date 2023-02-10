@@ -14,23 +14,25 @@
     margin: 0; /* Remove margins */
 }
 
-    .sidebar a {
-        display: block;
-        color: black;
-        padding: 2px;
-        margin-left:30px;
-        text-decoration: none;
+
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 2px;
+    margin-left: 30px;
+    text-decoration: none;
+}
+    .active {
+         background-color: #04AA6D;
+        color: red;
     }
 
-        .sidebar a.active {
-            background-color: #04AA6D;
-            color: white;
-        }
+.sidebar li > a:hover:not(.active) {
+    /*background-color: dimgrey;*/
+    color: red;
+}
 
-        .sidebar a:hover:not(.active) {
-            background-color: dimgrey;
-            color: white;
-        }
+       
 
 div.content {
     margin-left: 200px;

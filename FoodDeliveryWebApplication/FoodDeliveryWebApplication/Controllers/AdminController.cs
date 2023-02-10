@@ -76,6 +76,10 @@ namespace FoodDeliveryWebApplication.Controllers
         [HttpPost]
         public ActionResult AddCategory(Category obj)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             if (obj == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -136,6 +140,10 @@ namespace FoodDeliveryWebApplication.Controllers
         }
         public ActionResult Delete(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -150,6 +158,10 @@ namespace FoodDeliveryWebApplication.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             string result = catMngr.DeleteCatById(id);
             if (result == "Success")
             {
@@ -166,6 +178,7 @@ namespace FoodDeliveryWebApplication.Controllers
         }
         public List<Restaurant> GetRestAppList()
         {
+
             List<tbl_Restaurant> retList = restMngr.GetNotApprovedRest();
             List<Restaurant> disList = new List<Restaurant>();
 
@@ -188,8 +201,11 @@ namespace FoodDeliveryWebApplication.Controllers
         }
         public ActionResult ApprovalPendingRest(int? id)
         {
-          
-            
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
             if (id == null)
             {
                 return View(GetRestAppList());
@@ -239,6 +255,10 @@ namespace FoodDeliveryWebApplication.Controllers
  
         public ActionResult ApprovalPendingDelBoys(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             if (id == null)
             {
                 return View(GetDelBoyAppList());

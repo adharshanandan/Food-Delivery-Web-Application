@@ -381,6 +381,7 @@
     <Content Include="Scripts\CreatedScripts\NavIconHide.js" />
     <Content Include="Scripts\CreatedScripts\OrderStatus.js" />
     <Content Include="Scripts\CreatedScripts\PageLoader.js" />
+    <Content Include="Scripts\CreatedScripts\SideBar.js" />
     <Content Include="Scripts\fontawesome\all.js" />
     <Content Include="Scripts\fontawesome\all.min.js" />
     <Content Include="Scripts\fontawesome\brands.js" />
@@ -468,6 +469,7 @@
     <Content Include="Views\Payment\SelectBankToRefund.cshtml" />
     <Content Include="Views\Restaurant\ProfileEdit.cshtml" />
     <Content Include="Views\Restaurant\RestProfile.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -478,6 +480,7 @@
     <Folder Include="Views\Category\" />
     <Folder Include="Views\FavouriteRestaurant\" />
     <Folder Include="Views\Logout\" />
+    <Folder Include="Views\Photographer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

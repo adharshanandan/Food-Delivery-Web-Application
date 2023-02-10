@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<FoodDeliveryWebApplication.Models.OrderDetails>
 
-<section style="padding-top: 10em">
 
-    <div class="container">
+
+
         
            
                     
 
                 
-                        <div class="text-center">
+                        <div class="text-center mx-auto">
                           
-                                <h3>Invoice</h3>
+                                <h1>Invoice</h1>
                          
 
                         </div>
@@ -19,7 +19,7 @@
                         {
                             <div class="row">
                                 <div class="col-xl-12">
-                                    <ul class="list-unstyled">
+                                    <ul class="list-unstyled" style="list-style-type: none; font-weight: bold; ">
                                         <li class="text-muted">To: <span style="color:#5d9fc5 ;">@item.CusName</span></li>
                                         <li class="text-muted">Door/Flat No.: @item.DoorOrFlatNo</li>
                                         <li class="text-muted">Pincode: @item.PinCode</li>
@@ -28,25 +28,25 @@
 
                                     </ul>
                                 </div>
-                                <div class="col-xl-12">
-                                    <p class="text-muted">Invoice</p>
+                                <div class="col-xl-12 mx-auto">
+                                    
                                     <ul class="list-unstyled">
                                         <li class="text-muted">
-                                            <i class="fas fa-circle" style="color:#84B0CA ;"></i> <span class="fw-bold">ID:@item.id</span>#123-456
+                                            <i class="fas fa-circle" style="color:#84B0CA ;"></i> <span class="fw-bold">ID : @item.id</span>
                                         </li>
                                         <li class="text-muted">
-                                            <i class="fas fa-circle" style="color:#84B0CA ;"></i> <span class="fw-bold">Ordered Date:@item.Orderdate </span>Jun 23,2021
+                                            <i class="fas fa-circle" style="color:#84B0CA ;"></i> <span class="fw-bold">Ordered Date : @item.Orderdate.ToShortDateString()  </span>Jun 23,2021
                                         </li>
                                     
                                     </ul>
                                 </div>
                             </div>
 
-                        <div class="row my-2 mx-1 justify-content-center">
+                        <div class="row my-2 mx-auto mt-5 justify-content-center text-center">
                             @{ 
                                 int i = 1;
                             }
-                            <table class="table table-striped table-borderless">
+                            <table class="table table-striped table-borderless col-md-12">
                                 <thead style="background-color:#84B0CA ;" class="text-white">
                                     <tr>
                                         <th scope="col">Sl No</th>
@@ -74,15 +74,13 @@
 
                             </table>
                         </div>
+                        <hr />
                         <div class="row">
-                            <div class="col-xl-8">
-                                <p class="ms-3">Add additional notes and payment information</p>
-
-                            </div>
-                            <div class="col-xl-3">
+                          
+                            <div class="col-xl-12 ">
                    
                                 <p class="text-black float-start">
-                                    <span class="text-black me-3"> Total Amount</span><span style="font-size: 25px;">Rs. @item.TotalAmount /-</span>
+                                    <span class="text-black me-3 mx-5"> Total Amount</span><span style="font-size: 20px;"> Rs. @item.TotalAmount /-</span>
                                 </p>
                             </div>
                         </div>
@@ -92,15 +90,14 @@
                         <hr>
                         <div class="row">
                             <div class="col-xl-12">
-                                <p class="text-center">Thank you for your purchase :)</p>
+                                <p class="text-center">Thank you :)</p>
                             </div>
                          
                         </div>
 
                    
      
-    </div>
-    </section>
+    
 
 
 

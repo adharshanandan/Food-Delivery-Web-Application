@@ -62,23 +62,23 @@
     <div class="sidebar">
         <ul class="no-bullets">
             <li class="nav-item fs-4 me-4 mt-2 mx-auto text-center my-auto sideBarLi">
-               <h3 class="mt-3"> Hi, Admin</h3>
+                <h3 class="mt-3"> Hi, Admin</h3>
             </li>
             <li class="sideBarLi">
                 <a class="nav-link " href="/Admin/CategoryList">Food Category List</a>
             </li>
 
             @*<li class=" dropdown sideBarLi">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    User Database
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item " href="#">Customers</a></li>
-                    <li><a class="dropdown-item " href="#">Restaurants</a></li>
-                    <li><a class="dropdown-item " href="#">Delivery boys</a></li>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        User Database
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item " href="#">Customers</a></li>
+                        <li><a class="dropdown-item " href="#">Restaurants</a></li>
+                        <li><a class="dropdown-item " href="#">Delivery boys</a></li>
 
-                </ul>
-            </li>*@
+                    </ul>
+                </li>*@
             <li class="dropdown sideBarLi">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Pending Approvals
@@ -95,29 +95,40 @@
         </ul>
 
     </div>
-
     <div class="content">
-        @RenderBody()
+        @if (Session["Restaurant"] != null)
+        {
+
+            @RenderBody()
+
+        }
+        else
+        {
+            Response.Redirect("~/Login/Login");
+
+        }
     </div>
-    <footer class="shadow text-center p-2" style="background-color: #F3F2F1 ;bottom:0;position: fixed; width:100%;">
-        <p>&copy; @DateTime.Now.Year - copyright@adharshanandan</p>
-    </footer>
-    <script src="~/Content/js/bootstrap.min.js"></script>
-    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/adb09e0e68.js" crossorigin="anonymous"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/CreatedScripts/PageLoader.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-
-    <script src="~/Scripts/CreatedScripts/OrderStatus.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".sideBarLi").append("<hr />");
-        });
-    </script>
 
 
+        <footer class="shadow text-center p-2" style="background-color: #F3F2F1 ;bottom:0;position: fixed; width:100%;">
+            <p>&copy; @DateTime.Now.Year - copyright@adharshanandan</p>
+        </footer>
+        <script src="~/Content/js/bootstrap.min.js"></script>
+        <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/adb09e0e68.js" crossorigin="anonymous"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/CreatedScripts/PageLoader.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+
+        <script src="~/Scripts/CreatedScripts/OrderStatus.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".sideBarLi").append("<hr />");
+            });
+        </script>
 
 
-</body>
+
+
+    </body>
 </html>
